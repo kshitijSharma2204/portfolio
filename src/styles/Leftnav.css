@@ -1,0 +1,95 @@
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Avatar */
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  z-index: 2;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* Profile Data */
+.profile-data {
+  padding: 1rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.profile-name {
+  margin: 10px 0 15px;
+  font-size: 24px;
+  color: #fff;
+}
+
+.profile-role,
+.profile-edu {
+  display: block;
+  font-size: 17px;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.divider {
+  width: 40%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 1rem auto;
+  border: none;
+  
+}
+
+/* Navigation Links Container */
+.nav-links {
+  margin-top: 1rem;
+  z-index: 2;
+}
+
+.resume-button {
+  padding: 0.4rem 0.8rem;
+  border-color: #fff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  border: 2px solid;
+}
+
+.resume-button:hover {
+  background-color: #A9A9A9;
+  border-color: #A9A9A9;
+  color: #fff
+}
+
+/* Footer Links (Icons) */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  gap: 1rem;
+  z-index: 2;
+  border-top: 1px solid #eee;
+}
+
+.footer-icon {
+  color: #fff;
+  transition: color 0.2s;
+}
+
+.footer-icon:hover {
+  color: #1a73e8; /* change on hover, for example */
+}

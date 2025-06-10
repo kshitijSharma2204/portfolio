@@ -1,0 +1,64 @@
+{
+    "experienceData" : [
+    {
+        "date": "March 2025 - MY 2025",
+        "role": "C++ Software Engineer (Contract)",
+        "company": "Path Robotics",
+        "description": [
+        "Collaborated on architecture refactoring of legacy C++ code to orchestrate multi-arm welding, scaling from a single robot to a four-arm cell",
+        "Designed a modular resource management system using modern C++ (templates, smart pointers, std::optional, lambdas) to allocate and synchronize the resources across multiple robots.",
+        "Built test infrastructure using GMock with inheritance-based mocking and prototyped dependency injection for robust controller testing.",
+        "Collaborate cross-functionally with robotics and software teams to align system architecture with evolving manufacturing requirements.",
+        "Utilized Git for version control, ensuring code integrity and facilitating seamless collaboration within the development team."
+        ]
+    },
+    {
+        "date": "July 2024 - March 2025",
+        "role": "Robotics Software Quality Engineer",
+        "company": "Berkshire Grey (Contract)",
+        "description": [
+        "Developed Python-based automation tools for the Cubiscan 325 machine, reducing warehouse management time by 30% and enhancing product dimensioning accuracy for warehouse induction and packing systems.",
+        "Collaborated with development teams on system evaluation to optimize robotic motion planning, perception algorithms, and application software, ensuring systems met design specifications."
+        ]
+    },
+    {
+        "date": "Sept 2023 - June 2024",
+        "role": "Robotics Software Engineer",
+        "company": "Void Robotics",
+        "description": [
+        "Developed C++ software modules and automated Google Test suites within a Linux environment, enhancing an autonomous mobile robot's functionality through Nav2 implementation within a ROS2 environment, and facilitating team collaboration via Git in a CI/CD pipeline",
+        "Engineered a sophisticated mapping package, to precisely localize an AMR in outdoor environments, by integration and fusion of high precision data streams from Real-Time Kinematic (RTK) GPS, Zed2 Camera-based visual odometry, and Inertial Measurement Unit (IMU).",
+        "Integrated ROS2 for autonomous navigation, optimized Rviz C++ nodes for enhanced reliability through Google tests in localization and mapping, and seamlessly merged custom localization strategies with Nav2 and Rviz visualization",
+        "Developed Arduino sketch to integrate Blynk with micro-ROS, facilitating advanced robotic functionalities; transitioned from Docker to Isaac ROS Buildfarm for ROS2 Humble installation, enhancing stability in agent-client connections on Jetson Orin and streamlining the communication process."
+        ]
+    },
+    {
+        "date": "Aug 2022 - Dec 2022",
+        "role": "Research Engineer",
+        "company": "Manipulation and Environmental Robotics Lab, WPI",
+        "description": [
+        "Implemented vision-based grasp detection algorithms (GGCNN, ResNet) using deep learning within the ROS framework and integrated these algorithms with a robotic manipulator arm equipped with a real-sense RGBD camera on the end-effector for robust grasp planning and execution",
+        "Developed a benchmarking pipeline to evaluate grasp algorithms on the 7-DoF Franka Panda Robot in real-world tests and ROS Gazebo",
+        "Introduced a novel evaluation metric and used the benchmarking protocol (link) for comparing the grasp of various algorithms"
+        ]
+    },
+    {
+        "date": "Jan 2017 - June 2021",
+        "role": "Team Lead, Design Engineer",
+        "company": "Nagarro Software",
+        "description": [
+        "Developed a Minimum Viable Product (MVP) utilizing a 6-DOF robot arm with a camera-end effector for inspecting car chassis on a rotating platform, leveraging C++ and Python to achieve precise automation and high-accuracy defect detection in automotive manufacturing processes.",
+        "Designed and implemented IoT systems for smart homes, integrating PIR, ultrasonic, infrared, photodiode, and thermostat sensors"
+        ]
+    },
+    {
+        "date": "Aug 2014 - Jan 2017",
+        "role": "Research Design Engineer",
+        "company": "Automation Systems and Solution",
+        "description": [
+        "Developed an automated defect detection system for conveyor belts using Cognex Vision Systems, OpenCV, C++, and Python, enhancing quality control and reducing errors by 40%.",
+        "Designed an automated product sorting system for 1D and 2D barcodes integrated with electric actuators using C++ and Python, boosting sorting efficiency by 60%."
+        ]
+    }
+    ]
+}

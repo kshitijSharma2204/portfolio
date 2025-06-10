@@ -1,0 +1,154 @@
+/* Container for the entire experience section */
+.experience-section {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 1) Parent for the vertical line + items */
+.timeline {
+  position: relative;
+  margin: 0;
+  padding-left: 30px;       /* space for line and dots */
+}
+
+/* Draw the vertical line down the left side of .timeline */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;               /* center of the dot area */
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #ccc;
+}
+
+/* Each item in the timeline */
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(-20px);
+}
+
+/* Circle dot */
+.timeline-dot {
+  position: absolute;
+  left: -17px;              /* aligns dot center with the vertical line */
+  top: 0.25rem;
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+  border: 3px solid #ccc;   /* default color matches the line */
+  border-radius: 50%;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* The content: date + role + company + bullets */
+.timeline-content {
+  margin-left: 20px;        /* offset so text isn’t on the line */
+  padding-bottom: 0.5rem;
+}
+
+.timeline-date {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-role {
+  font-size: 1.25rem;
+  margin: 0.25rem 0;
+  color: #222;
+}
+
+.timeline-company {
+  font-size: 1rem;
+  margin: 0;
+  color: #555;
+  font-style: italic;
+}
+
+.timeline-desc {
+  margin: 0.75rem 0 0 0;
+  padding-left: 1rem;
+  list-style-type: disc;
+  color: #444;
+}
+
+.timeline-desc li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+/* 2) Active (highlighted) state */
+.timeline-item.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-item.active .timeline-dot {
+  border-color: #3498db;
+  background-color: #3498db;
+}
+
+.timeline-item.active .timeline-role {
+  color: #3498db;
+}
+
+/* Ensure last item has enough bottom margin so it can be fully visible */
+.timeline-item:last-child {
+  margin-bottom: 4rem;
+}
+
+/* ---------------------
+   Responsive Adjustments
+   --------------------- */
+
+@media (max-width: 600px) {
+  .experience-section {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .timeline {
+    padding-left: 25px;
+  }
+  
+  .timeline::before {
+    left: 8px;
+    width: 2px;
+  }
+  
+  .timeline-dot {
+    left: -14px;
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+  }
+  
+  .timeline-content {
+    margin-left: 18px;
+  }
+  
+  .timeline-item {
+    margin-bottom: 2rem;
+  }
+  
+  .timeline-role {
+    font-size: 1.1rem;
+  }
+  
+  .timeline-company {
+    font-size: 0.95rem;
+  }
+  
+  .timeline-date {
+    font-size: 0.85rem;
+  }
+  
+  .timeline-desc {
+    padding-left: 0.75rem;
+  }
+}

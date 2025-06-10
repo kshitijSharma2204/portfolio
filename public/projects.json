@@ -1,0 +1,34 @@
+{
+    "projects": [
+    {
+        "id": "project-1",
+        "title": "Portfolio Site",
+        "description": "A React + Tailwind portfolio showcasing my work.",
+        "image": "/images/portfolio-thumbnail.png"
+    },
+    {
+        "id": "project-2",
+        "title": "Task Manager",
+        "description": "Node.js & React CRUD app with JWT authentication.",
+        "image": "/images/taskmanager-thumbnail.png"
+    },
+    {
+        "id": "project-3",
+        "title": "Chat App",
+        "description": "Real-time chat using Socket.io and React.",
+        "image": "/images/chatapp-thumbnail.png"
+    },
+    {
+        "id": "project-4",
+        "title": "Blog Platform",
+        "description": "A headless CMS blog built with Next.js and Markdown.",
+        "image": "/images/blog-thumbnail.png"
+    },
+    {
+        "id": "project-5",
+        "title": "E-Commerce Store",
+        "description": "Full-stack shop with React, Express, and Stripe integration.",
+        "image": "/images/ecommerce-thumbnail.png"
+    }
+  ]
+}

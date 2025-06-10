@@ -1,38 +1,158 @@
-.App {
-  text-align: center;
+/* ======================================
+   Base Layout (Desktop‐First, Two‐Column)
+   ====================================== */
+
+/* 1) Reset & box‐sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 2) Parent wrapper: two columns side by side */
+.home-container {
+  display: flex;        /* two‐column layout */
+  height: 100vh;        /* full viewport height */
+  overflow: hidden;     /* hide body scrollbar so only right pane scrolls */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* 3) Left navigation pane */
+.left-nav {
+  position: relative;         /* For the overlay */
+  width: 35%;                 /* adjust as needed (or use px) */
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  /* background-color: #f5f5f5;  optional background */
+  overflow: auto;             /* in case nav items overflow */
+  padding-top: 50px;
+  background: url("../public/left_nav_bg.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;               /* Match the .left-nav width */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;      /* So clicks go through to LeftNavigation */
+}
+
+
+
+/* 4) Right content pane */
+.right-content {
+  flex: 1;     
+  margin-top: 20px;
+  overflow-y: auto;           /* vertical scroll only in this pane */
+  height: 100vh;              /* so that this pane alone scrolls */
+  background-color: #ffffff;
+}
+
+/* 5) Section styling */
+.right-content section {
+  margin-bottom: 4rem;        /* spacing between sections */
+  padding: 2rem;
+}
+
+.right-content section h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.right-content section p,
+.right-content section ul {
+  line-height: 1.6;
+  color: #555;
+}
+
+.right-content section:nth-child(even) {
+  background-color: #f0f0f0; /* or any color you want */
+}
+
+.profile-data {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 1.5rem;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   gap: 8px;
+   font-size: 18px;
+}
+
+.divider {
+  width: 40%;
+  height: 1px;                /* 1px tall line */
+  background-color: #ccc;     /* or any color you prefer */
+  margin: 1rem auto;          /* vertical spacing + auto-center */
+}
+
+/* ======================================
+   Responsive Overrides (≤768px = Mobile)
+   ====================================== */
+@media (max-width: 768px) {
+  /* 1) Stack everything vertically */
+  .home-container {
+    display: block;        /* no flex, just one column */
+    height: auto;          /* let document grow naturally */
+    overflow: visible;     /* whole page scrolls */
+  }
+
+  /* 2) Left nav becomes a full‐width bar on top */
+  .left-nav {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+    background-color: #fafafa;
+    padding-top: 50px;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;               /* Match the .left-nav width */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    pointer-events: none;      /* So clicks go through to LeftNavigation */
+  }
+
+  /* 3) Right content flows normally below nav */
+  .right-content {
+    padding: 1rem;
+    height: auto;          /* remove fixed height */
+    overflow: visible;     /* allow page‐level scrolling */
+  }
+
+  /* 4) Reduce spacing between sections */
+  .right-content section {
+    margin-bottom: 2rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.avatar-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: center; /* center the image horizontally */
+  margin-bottom: 1.5rem;   /* space between avatar and links */
 }
 
-.App-link {
-  color: #61dafb;
+/* 2) Avatar image itself */
+.avatar {
+  width: 100px;            /* adjust as desired */
+  height: 100px;           /* same as width to keep it square */
+  border-radius: 50%;     /* makes it a circle */
+  object-fit: cover;      /* ensure it fills the box without distortion */
+  border: 2px solid #ddd; /* optional border around the circle */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.section-title {
+  font-size: 28px;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
 }

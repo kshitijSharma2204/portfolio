@@ -1,0 +1,138 @@
+/* -------------------------------
+   Container & Layout
+   ------------------------------- */
+
+.projects-wrapper {
+  position: relative;        /* Needed so arrows can be absolutely positioned */
+  margin: 2rem auto;
+  max-width: 1200px;         /* or whatever max width you want */
+  padding: 0 1rem;
+}
+
+
+/* The scrollable row of cards */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;      /* give room in case you hide scrollbar */
+  /* Hide default scrollbar in WebKit browsers */
+  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari/WebKit */
+}
+
+/* -------------------------------
+   Each Card
+   ------------------------------- */
+
+.carousel-card {
+  flex: 0 0 200px;           /* fixed width; doesn’t shrink */
+  margin-right: 1rem;        /* space between cards */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.carousel-card:hover {
+  transform: translateY(-6px);
+}
+
+.carousel-thumbnail {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.carousel-title {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.carousel-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.carousel-cta {
+  font-size: 0.85rem;
+  color: #1a73e8;
+  font-weight: 500;
+}
+
+/* Remove margin on the last card so container doesn’t create extra blank space */
+.carousel-card:last-child {
+  margin-right: 0;
+}
+
+/* -------------------------------
+   Navigation Arrows
+   ------------------------------- */
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.left-arrow {
+  left: -0.25rem;    /* a little inside the container’s left edge */
+}
+
+.right-arrow {
+  right: 0.25rem;   /* a little inside the container’s right edge */
+}
+
+/* Hide arrows on very small screens (optional) */
+@media (max-width: 480px) {
+  .carousel-arrow {
+    display: none;
+  }
+}
+
+/* -------------------------------
+   Responsive Breakpoints
+   ------------------------------- */
+
+/* On tablet/medium screens, make cards slightly narrower so more fit */
+@media (max-width: 768px) {
+  .carousel-card {
+    flex: 0 0 160px;
+  }
+}
+
+/* On small phones, cards become 100% width so the user scrolls vertically instead */
+@media (max-width: 480px) {
+  .carousel-container {
+    flex-direction: column;
+    overflow-x: hidden;  /* no horizontal scroll */
+  }
+  .carousel-card {
+    flex: 1 0 auto;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
