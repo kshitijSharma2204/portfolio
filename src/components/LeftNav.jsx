@@ -32,7 +32,7 @@ const LeftNavigation = ({
     <div className="nav-items">
       {/* Avatar + Profile Data */}
       <div className="avatar-container">
-        <img className="avatar" src="/avatar.jpg" alt="Kshitij Sharma" />
+        <img className="avatar" src='avatar.jpg' alt="Kshitij Sharma" />
       </div>
 
       <div className="profile-data">

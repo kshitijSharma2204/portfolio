@@ -7,7 +7,7 @@ const Experience = () => {
     const timelineRef = useRef(null);
 
       useEffect(() => {
-    fetch('/experience.json')
+    fetch('experience.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

@@ -10,7 +10,7 @@ const Projects = () => {
 
   // 1) Load JSON from public/Projects.json on mount
   useEffect(() => {
-    fetch('/projects.json')
+    fetch('projects.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
