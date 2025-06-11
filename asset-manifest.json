@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/portfolio/static/css/main.35634078.css",
+    "main.js": "/portfolio/static/js/main.f327d4f3.js",
+    "static/js/453.1407b060.chunk.js": "/portfolio/static/js/453.1407b060.chunk.js",
+    "static/media/left_nav_bg.jpg": "/portfolio/static/media/left_nav_bg.bd3834e03d91c91e2388.jpg",
+    "static/media/c++.png": "/portfolio/static/media/c++.c37344b3f54290980c0c.png",
+    "static/media/docker.png": "/portfolio/static/media/docker.141aff0df97f5149127a.png",
+    "static/media/ROS 2.png": "/portfolio/static/media/ROS 2.316406796d5965aeecf4.png",
+    "static/media/nav 2.png": "/portfolio/static/media/nav 2.5a99aac8b8fbc63e4714.png",
+    "static/media/cuda.png": "/portfolio/static/media/cuda.525b22a07a51e31a9743.png",
+    "static/media/python.png": "/portfolio/static/media/python.212de8d7278260fca353.png",
+    "static/media/deep learning.jpg": "/portfolio/static/media/deep learning.8f2aa53bd8ff6a0ead90.jpg",
+    "static/media/computer vision.jpg": "/portfolio/static/media/computer vision.5adf4baae23606ff196e.jpg",
+    "static/media/pytorch.png": "/portfolio/static/media/pytorch.6e30bb5dcc75c28596ed.png",
+    "index.html": "/portfolio/index.html",
+    "main.35634078.css.map": "/portfolio/static/css/main.35634078.css.map",
+    "main.f327d4f3.js.map": "/portfolio/static/js/main.f327d4f3.js.map",
+    "453.1407b060.chunk.js.map": "/portfolio/static/js/453.1407b060.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.35634078.css",
+    "static/js/main.f327d4f3.js"
+  ]
+}
