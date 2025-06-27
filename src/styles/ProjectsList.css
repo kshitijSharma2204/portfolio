@@ -1,0 +1,107 @@
+.projects-list {
+    padding: 20px;
+
+    > button {
+        padding: 0.4rem 0.8rem;
+        border-color: #000;
+        color: #000;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+        border: 2px solid;  
+        background: transparent;
+        margin-bottom: 15px;
+    }
+}
+
+/* ProjectsList.css */
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .list-card {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .list-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .list-image-col {
+    flex: 0 0 200px; /* fixed image column width */
+    overflow: hidden;
+  }
+  
+  .list-image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .list-content-col {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .list-content-col h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  .list-content-col p {
+    flex: 1;
+    margin: 0 0 1rem;
+    color: #555;
+    line-height: 1.4;
+  }
+  
+  .list-content-col button {
+    align-self: flex-start;
+    padding: 0.4rem 0.8rem;
+    border-color: #000;
+    color: #000;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border: 2px solid;
+    background: transparent;
+  }
+  
+  .list-content-col button:hover {
+    border-color: #fff;
+    color: #fff;
+    background: #555;
+  }
+  
+  /* Back button styling, if you want it consistent */
+  .projects-list > button {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .projects-list > button:hover {
+    text-decoration: underline;
+  }
+  

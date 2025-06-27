@@ -2,33 +2,96 @@
     "projects": [
     {
         "id": "project-1",
-        "title": "Portfolio Site",
-        "description": "A React + Tailwind portfolio showcasing my work.",
-        "image": "/images/portfolio-thumbnail.png"
+        "title": "3D Scene Reconstruction",
+        "mainDescr": "Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
+        "description": "Building an end-to-end SfM pipeline (SIFT, RANSAC, fundamental/essential matrices, pose estimation, triangulation, PnP, bundle adjustment) to reconstruct 3D scenes from 2D images. Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
+        "image": "/assets/projects/reconstruction.gif",
+        "images": [
+            "/assets/projects/reconstruction_01.png",
+            "/assets/projects/reconstruction_02.png", 
+            "/assets/projects/reconstruction_03.png",
+            "/assets/projects/reconstruction_04.png"
+        ],
+        "link": "https://github.com/kshitijSharma2204/NERF-Project",
+        "favourite": true
     },
     {
         "id": "project-2",
-        "title": "Task Manager",
-        "description": "Node.js & React CRUD app with JWT authentication.",
-        "image": "/images/taskmanager-thumbnail.png"
+        "title": "One-Shot Object Detection",
+        "mainDescr": "ITraining YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset",
+        "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
+        "image": "/assets/projects/obj_detection.gif",
+        "images": [
+            "/assets/projects/obj_detection_01.jpg",
+            "/assets/projects/obj_detection_02.jpg", 
+            "/assets/projects/obj_detection.gif"
+        ],
+        "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
+        "favourite": true
     },
     {
         "id": "project-3",
-        "title": "Chat App",
-        "description": "Real-time chat using Socket.io and React.",
-        "image": "/images/chatapp-thumbnail.png"
+        "title": "Face Recognition/Verification Using Siamese Network",
+        "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+        "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+        "image": "/assets/projects/face_recognition_01.png",
+        "images": [
+            "/assets/projects/face_recognition_01.png",
+            "/assets/projects/face_recognition_02.png", 
+            "/assets/projects/face_recognition_03.png",
+            "/assets/projects/face_recognition_04.png",
+            "/assets/projects/face_recognition_05.png"
+        ],
+        "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+        "favourite": true
     },
     {
         "id": "project-4",
-        "title": "Blog Platform",
-        "description": "A headless CMS blog built with Next.js and Markdown.",
-        "image": "/images/blog-thumbnail.png"
+        "title": "Face Recognition/Verification Using Siamese Network",
+        "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+        "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+        "image": "/assets/projects/face_recognition_01.png",
+        "images": [
+            "/assets/projects/face_recognition_01.png",
+            "/assets/projects/face_recognition_02.png", 
+            "/assets/projects/face_recognition_03.png",
+            "/assets/projects/face_recognition_04.png",
+            "/assets/projects/face_recognition_05.png"
+        ],
+        "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+        "favourite": false
     },
     {
         "id": "project-5",
-        "title": "E-Commerce Store",
-        "description": "Full-stack shop with React, Express, and Stripe integration.",
-        "image": "/images/ecommerce-thumbnail.png"
+        "title": "Face Recognition/Verification Using Siamese Network",
+        "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+        "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+        "image": "/assets/projects/face_recognition_01.png",
+        "images": [
+            "/assets/projects/face_recognition_01.png",
+            "/assets/projects/face_recognition_02.png", 
+            "/assets/projects/face_recognition_03.png",
+            "/assets/projects/face_recognition_04.png",
+            "/assets/projects/face_recognition_05.png"
+        ],
+        "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+        "favourite": false 
+    },
+    {
+        "id": "project-6",
+        "title": "Face Recognition/Verification Using Siamese Network",
+        "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+        "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+        "image": "/assets/projects/face_recognition_01.png",
+        "images": [
+            "/assets/projects/face_recognition_01.png",
+            "/assets/projects/face_recognition_02.png", 
+            "/assets/projects/face_recognition_03.png",
+            "/assets/projects/face_recognition_04.png",
+            "/assets/projects/face_recognition_05.png"
+        ],
+        "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+        "favourite": false 
     }
   ]
 }

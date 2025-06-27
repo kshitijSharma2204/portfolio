@@ -1,0 +1,30 @@
+.project-detail {
+    padding: 20px;
+
+    > button {
+        padding: 0.4rem 0.8rem;
+        border-color: #000;
+        color: #000;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+        border: 2px solid;  
+        background: transparent;
+        margin-bottom: 15px;
+    }
+}
+
+.project-detail .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .project-detail .gallery-image {
+    width: calc(33.33% - 1rem);
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  

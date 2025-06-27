@@ -9,6 +9,30 @@
   padding: 0 1rem;
 }
 
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .see-all-btn {
+    padding: 0.4rem 0.8rem;
+    border-color: #000;
+    color: #000;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border: 2px solid;
+  }
+
+  .see-all-btn:hover {
+    border-color: #555;
+    color: #fff;
+    background: #555;
+  }
+  
+}
+
 
 /* The scrollable row of cards */
 .carousel-container {

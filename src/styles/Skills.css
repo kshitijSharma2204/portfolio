@@ -1,5 +1,5 @@
 .skills-section {
-  padding: 5px 0;
+  padding: 1rem 0;
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
@@ -21,18 +21,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100px;         /* adjust as needed */
+  /* each card takes up to 100px, but will shrink if container is narrower */
+  flex: 0 1 100px;
 }
 
 .skill-image {
-  width: 80px;          /* or whatever dimension you like */
+  /* lock into a square box */
+  width: 80px;
   height: 80px;
+  /* scale icon to fit inside without cropping/distortion */
   object-fit: contain;
+  /* optional styling to make small logos pop */
+  /* background: #f5f5f5;
+     padding: 0.5rem;
+     border-radius: 6px; */
   margin-bottom: 0.5rem;
-  inline-size: -webkit-fill-available;
 }
 
 .skill-label {
   font-size: 0.9rem;
   color: #555;
+  text-align: center;
+  word-break: break-word;
 }

@@ -2,12 +2,11 @@ import '../styles/Experience.css';
 import React, { useState, useEffect, useRef } from 'react';
 
 const Experience = () => {
-    const [experienceData, setExperienceData] = useState([]);
-    const [activeIndex, setActiveIndex] = useState(null);
-    const timelineRef = useRef(null);
+  const [experienceData, setExperienceData] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(null);
 
-      useEffect(() => {
-    fetch('experience.json')
+  useEffect(() => {
+    fetch(`${process.env.PUBLIC_URL}/experience.json`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -20,36 +19,6 @@ const Experience = () => {
       });
   }, []);
 
-    useEffect(() => {
-    if (experienceData.length === 0) return;
-
-    const options = {
-      root: null,            // viewport
-      rootMargin: '0px',
-      threshold: 0.5,        // 50% visibility triggers
-    };
-
-    const observerCallback = (entries) => {
-      const visibleEntries = entries.filter((e) => e.isIntersecting);
-      if (visibleEntries.length === 0) return;
-
-      visibleEntries.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      const mostVisible = visibleEntries[0];
-      const newIndex = parseInt(mostVisible.target.dataset.index, 10);
-      setActiveIndex(newIndex);
-    };
-
-    const observer = new IntersectionObserver(observerCallback, options);
-
-    const items = timelineRef.current.querySelectorAll('.timeline-item');
-    items.forEach((item) => observer.observe(item));
-
-    return () => {
-      items.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, [experienceData]);
-
   if (experienceData.length === 0) {
     return <p>Loading experience…</p>;
   }
@@ -57,12 +26,13 @@ const Experience = () => {
   return (
     <div className="experience-section">
       <h2 className="section-title">Experience</h2>
-      <div className="timeline" ref={timelineRef}>
+      <div className="timeline">
         {experienceData.map((item, idx) => (
           <div
             key={idx}
             className={`timeline-item ${activeIndex === idx ? 'active' : ''}`}
-            data-index={idx}
+            onMouseEnter={() => setActiveIndex(idx)}
+            onMouseLeave={() => setActiveIndex(null)}
           >
             <div className="timeline-dot" />
             <div className="timeline-content">
@@ -81,7 +51,5 @@ const Experience = () => {
     </div>
   );
 };
-
-
 
 export default Experience;

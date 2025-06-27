@@ -11,7 +11,7 @@ const HomeComponent = () => {
   const projectsRef = useRef(null);
   const experienceRef = useRef(null);
   const skillsRef = useRef(null);
-  const isProjects = false;
+  const isProjects = true;
   const isSkills = true;
   const isExperience = true;
   const isBio = true;
@@ -26,7 +26,7 @@ const HomeComponent = () => {
   return (
     <div className="home-container">
       <div className="left-nav">
-      <div class="overlay"></div>
+      <div className="overlay"></div>
         <LeftNavigation
           onClickBio={() => scrollToSection(bioRef)}
           onClickProjects={() => scrollToSection(projectsRef)}
