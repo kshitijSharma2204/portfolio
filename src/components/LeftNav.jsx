@@ -35,13 +35,16 @@ const LeftNavigation = ({
     e.currentTarget.style.color = linkStyle.color;
   };
 
+  const RAW_BASE = 
+  'https://raw.githubusercontent.com/kshitijSharma2204/portfolio/master/public';
+
   return (
     <div className="nav-items">
       {/* Avatar + Profile Data */}
       <div className="avatar-container">
         <img
           className="avatar"
-          src={`${process.env.PUBLIC_URL}/avatar.jpg`}
+          src='https://raw.githubusercontent.com/kshitijsharma2204/portfolio/master/public/avatar.jpg'
           alt="Kshitij Sharma"
         />
       </div>
@@ -102,7 +105,7 @@ const LeftNavigation = ({
                 e.currentTarget.style.color = linkStyle.color;
               }}
             >
-              <a href="/resume.pdf" download className="resume-button">
+              <a href={`${RAW_BASE}/resume.pdf`} download className="resume-button">
                 Download Resume
               </a>
             </div>

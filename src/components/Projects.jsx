@@ -10,8 +10,11 @@ const Projects = () => {
   const [canScrollRight, setCanScrollRight] = useState(false);
   const navigate = useNavigate();
 
+  const RAW_BASE = 
+  'https://raw.githubusercontent.com/kshitijSharma2204/portfolio/master/public';
+
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/projects.json`)
+    fetch('https://raw.githubusercontent.com/kshitijsharma2204/portfolio/master/public/projects.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -68,7 +71,7 @@ const Projects = () => {
       <div className="carousel-container" ref={containerRef}>
         {projectList.map((proj) => (
           <div key={proj.id} className="carousel-card" onClick={() => window.open(proj.link, '_blank')}>
-            <img  src={`${process.env.PUBLIC_URL}${proj.image}`} alt={proj.title} className="carousel-thumbnail" />
+            <img  src={`${RAW_BASE}${proj.image}`} alt={proj.title} className="carousel-thumbnail" />
             <h3 className="carousel-title">{proj.title}</h3>
             <p className="carousel-description">{proj.mainDescr}</p>
             <p className="carousel-cta">➔ Details</p>

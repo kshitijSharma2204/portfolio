@@ -6,8 +6,11 @@ const ProjectsList = () => {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
 
+  const RAW_BASE = 
+  'https://raw.githubusercontent.com/kshitijSharma2204/portfolio/master/public';
+
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/projects.json`)
+    fetch('https://raw.githubusercontent.com/kshitijsharma2204/portfolio/master/public/projects.json')
       .then((res) => { if (!res.ok) throw new Error(res.statusText); return res.json(); })
       .then((data) => setProjects(data.projects))
       .catch(console.error);
@@ -22,7 +25,7 @@ const ProjectsList = () => {
       {projects.map((proj) => (
         <div key={proj.id} className="list-card">
           <div className="list-image-col">
-            <img   src={`${process.env.PUBLIC_URL}${proj.image}`} 
+            <img   src={`${RAW_BASE}${proj.image}`} 
              alt={proj.title} />
           </div>
           <div className="list-content-col">

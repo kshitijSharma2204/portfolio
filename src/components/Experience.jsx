@@ -6,7 +6,7 @@ const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/experience.json`)
+    fetch('https://raw.githubusercontent.com/kshitijsharma2204/portfolio/master/public/experience.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

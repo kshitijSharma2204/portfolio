@@ -3,9 +3,11 @@ import '../styles/Skills.css';
 
 const Skills = () => {
   const [filenames, setFilenames] = useState([]);
+  const RAW_BASE = 
+  'https://raw.githubusercontent.com/kshitijSharma2204/portfolio/master/public';
 
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/assets/skills/skills-manifest.json`)
+    fetch(`${RAW_BASE}/assets/skills/skills-manifest.json`)
       .then(res => {
         if (!res.ok) throw new Error(res.statusText);
         return res.json();
@@ -20,7 +22,7 @@ const Skills = () => {
       <div className="skills-grid">
         {filenames.map((name, idx) => {
           const skillName = name.replace(/\.(png|jpe?g|svg)$/, '');
-          const src = `${process.env.PUBLIC_URL}/assets/skills/${name}`;
+          const src = `${RAW_BASE}/assets/skills/${name}`;
           return (
             <div key={idx} className="skill-card">
               <img src={src} alt={skillName} className="skill-image" />

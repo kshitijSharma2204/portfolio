@@ -6,9 +6,11 @@ const ProjectDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
+  const RAW_BASE = 
+  'https://raw.githubusercontent.com/kshitijSharma2204/portfolio/master/public';
 
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/projects.json`)
+    fetch('https://raw.githubusercontent.com/kshitijsharma2204/portfolio/master/public/projects.json')
       .then(res => {
         if (!res.ok) throw new Error(res.statusText);
         return res.json();
@@ -33,7 +35,7 @@ const ProjectDetail = () => {
         {project.images?.map((imgUrl, idx) => (
           <img
             key={idx}
-            src={`${process.env.PUBLIC_URL}${imgUrl}`} 
+            src={`${RAW_BASE}${imgUrl}`} 
             alt={`${project.title} screenshot ${idx + 1}`}
             className="gallery-image"
           />
