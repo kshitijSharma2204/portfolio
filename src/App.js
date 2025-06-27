@@ -9,7 +9,7 @@ import HomeSections from './components/HomeSections';
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
     <Routes>
       <Route path="/" element={<MainLayout />}>  
   
