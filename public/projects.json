@@ -1,49 +1,61 @@
 {
-    "projects": [
+  "projects": [
     {
-        "id": "project-1",
-        "title": "3D Scene Reconstruction",
-        "mainDescr": "Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
-        "description": "Building an end-to-end SfM pipeline (SIFT, RANSAC, fundamental/essential matrices, pose estimation, triangulation, PnP, bundle adjustment) to reconstruct 3D scenes from 2D images. Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
-        "image": "/assets/projects/reconstruction.gif",
-        "images": [
-            "/assets/projects/reconstruction_01.png",
-            "/assets/projects/reconstruction_02.png", 
-            "/assets/projects/reconstruction_03.png",
-            "/assets/projects/reconstruction_04.png"
-        ],
-        "link": "https://github.com/kshitijSharma2204/NERF-Project",
-        "favourite": true
+      "id": "project-1",
+      "title": "3D Scene Reconstruction",
+      "mainDescr": "Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
+      "description": "Building an end-to-end SfM pipeline (SIFT, RANSAC, fundamental/essential matrices, pose estimation, triangulation, PnP, bundle adjustment) to reconstruct 3D scenes from 2D images. Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
+      "image": "/assets/projects/reconstruction.gif",
+      "images": [
+        "/assets/projects/reconstruction_01.png",
+        "/assets/projects/reconstruction_02.png",
+        "/assets/projects/reconstruction_03.png",
+        "/assets/projects/reconstruction_04.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/NERF-Project",
+      "favourite": true
     },
     {
-        "id": "project-2",
-        "title": "One-Shot Object Detection",
-        "mainDescr": "ITraining YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset",
-        "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
-        "image": "/assets/projects/obj_detection.gif",
-        "images": [
-            "/assets/projects/obj_detection_01.jpg",
-            "/assets/projects/obj_detection_02.jpg", 
-            "/assets/projects/obj_detection.gif"
-        ],
-        "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
-        "favourite": true
+      "id": "project-2",
+      "title": "One-Shot Object Detection",
+      "mainDescr": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset",
+      "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
+      "image": "/assets/projects/obj_detection.gif",
+      "images": [
+        "/assets/projects/obj_detection_01.jpg",
+        "/assets/projects/obj_detection_02.jpg",
+        "/assets/projects/obj_detection.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
+      "favourite": true
     },
     {
-        "id": "project-3",
-        "title": "Face Recognition/Verification Using Siamese Network",
-        "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
-        "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
-        "image": "/assets/projects/face_recognition_01.png",
-        "images": [
-            "/assets/projects/face_recognition_01.png",
-            "/assets/projects/face_recognition_02.png", 
-            "/assets/projects/face_recognition_03.png",
-            "/assets/projects/face_recognition_04.png",
-            "/assets/projects/face_recognition_05.png"
-        ],
-        "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
-        "favourite": true
+      "id": "project-3",
+      "title": "Face Recognition/Verification Using Siamese Network",
+      "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+      "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+      "image": "/assets/projects/face_recognition_01.png",
+      "images": [
+        "/assets/projects/face_recognition_01.png",
+        "/assets/projects/face_recognition_02.png",
+        "/assets/projects/face_recognition_03.png",
+        "/assets/projects/face_recognition_04.png",
+        "/assets/projects/face_recognition_05.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+      "favourite": true
+    },
+    {
+      "id": "project-4",
+      "title": "Hybrid A*",
+      "mainDescr": "🚗 Steer Clear with Hybrid A*: Smooth Path Planning in ROS 2 🚀\nA lightweight, reusable ROS 2 package that computes smooth,\nnon-holonomic paths through cluttered environments using the\nHybrid A* algorithm—complete with C++ planning, Python-based\nmap & goal publishers, and live matplotlib visualization.",
+      "description": "This project implements a full Hybrid A* path planning pipeline\nin ROS 2 Humble:\n\n1. **Environment Generation**\n   A Python node (`env_publisher.py`) creates configurable occupancy grids (parking lots, parallel-park, obstacle-course), publishing `/map`, `/start`, and `/goal`.\n\n2. **Hybrid A* Planner**\n   A C++ node (`hybrid_astar_node`) subscribes to `/map`, `/start`, and `/goal`, runs a grid-based Dijkstra heuristic, expands motion primitives with sub-step collision checks, then tries a Reeds–Shepp shortcut. It publishes a smooth `nav_msgs/Path`.\n\n3. **Visualization & Animation**\n   A Python node (`path_viz.py`) overlays the computed path and animates a car-shaped rectangle traversing it in matplotlib, and can dump frames for GIF/video creation.",
+      "image": "/assets/projects/hybrid_astar_run.gif",
+      "images": [
+        "/assets/projects/hybrid_astar_run.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/HybridAStar-ROS2",
+      "favourite": true
     }
   ]
 }
