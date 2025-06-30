@@ -50,9 +50,9 @@
       "title": "Hybrid A*",
       "mainDescr": "🚗 Steer Clear with Hybrid A*: Smooth Path Planning in ROS 2 🚀\nA lightweight, reusable ROS 2 package that computes smooth,\nnon-holonomic paths through cluttered environments using the\nHybrid A* algorithm—complete with C++ planning, Python-based\nmap & goal publishers, and live matplotlib visualization.",
       "description": "This project implements a full Hybrid A* path planning pipeline\nin ROS 2 Humble:\n\n1. **Environment Generation**\n   A Python node (`env_publisher.py`) creates configurable occupancy grids (parking lots, parallel-park, obstacle-course), publishing `/map`, `/start`, and `/goal`.\n\n2. **Hybrid A* Planner**\n   A C++ node (`hybrid_astar_node`) subscribes to `/map`, `/start`, and `/goal`, runs a grid-based Dijkstra heuristic, expands motion primitives with sub-step collision checks, then tries a Reeds–Shepp shortcut. It publishes a smooth `nav_msgs/Path`.\n\n3. **Visualization & Animation**\n   A Python node (`path_viz.py`) overlays the computed path and animates a car-shaped rectangle traversing it in matplotlib, and can dump frames for GIF/video creation.",
-      "image": "/assets/projects/hybrid-a-star.gif",
+      "image": "/assets/projects/hybrid-a-star-main.gif",
       "images": [
-        "/assets/projects/hybrid-a-star.gif"
+        "/assets/projects/hybrid-a-star-main.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/hybrid_astar",
       "favourite": true
