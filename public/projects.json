@@ -56,6 +56,18 @@
       ],
       "link": "https://github.com/kshitijSharma2204/hybrid_astar",
       "favourite": true
+    },
+    {
+      "id": "project-5",
+      "title": "Trajectory Generation in Frenet Frame",
+      "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions—with full OpenCV visualization and video output.",
+      "description": "Builds a center‐lane reference path (x, y, yaw, curvature, arc-length)\nGenerates lateral (quintic) & longitudinal (quartic/quintic) polynomial candidates over multiple horizons\nScores each by jerk, time, and deviation, then filters out collisions and kinematic violations\nConverts the best trajectory to world coordinates and renders all candidates + selected path with OpenCV (outputs trajectory.mp4)",
+      "image": "/assets/projects/frenet-trajectory.gif",
+      "images": [
+        "/assets/projects/frenet-trajectory.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/hybrid_astar",
+      "favourite": true
     }
   ]
 }
