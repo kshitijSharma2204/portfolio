@@ -49,7 +49,7 @@
       "id": "project-4",
       "title": "Hybrid A*",
       "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths—C++ core + Python visualization.",
-      "description": "This project implements a full Hybrid A* path planning pipeline\nin ROS 2 Humble:\n\n1. **Environment Generation**\n   A Python node (`env_publisher.py`) creates configurable occupancy grids (parking lots, parallel-park, obstacle-course), publishing `/map`, `/start`, and `/goal`.\n\n2. **Hybrid A* Planner**\n   A C++ node (`hybrid_astar_node`) subscribes to `/map`, `/start`, and `/goal`, runs a grid-based Dijkstra heuristic, expands motion primitives with sub-step collision checks, then tries a Reeds–Shepp shortcut. It publishes a smooth `nav_msgs/Path`.\n\n3. **Visualization & Animation**\n   A Python node (`path_viz.py`) overlays the computed path and animates a car-shaped rectangle traversing it in matplotlib, and can dump frames for GIF/video creation.",
+      "description": "In ROS 2 Humble, this package delivers a complete Hybrid A* planning pipeline: it generates occupancy maps and goal positions, computes smooth, collision-free non-holonomic trajectories using heuristic-guided motion primitives and path smoothing, and provides real-time visualization and animation of the planned path.",
       "image": "/assets/projects/hybrid-a-star-main.gif",
       "images": [
         "/assets/projects/hybrid-a-star-main.gif"
