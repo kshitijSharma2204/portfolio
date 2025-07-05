@@ -30,7 +30,7 @@
       ],
       "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
       "group": "Computer Vision",
-      "skills": ["Python", "PyTorch", "YOLOv5", "Object Detection", "Basketball", "Image Processing", "OpenCV"],
+      "skills": ["Python","PyTorch","YOLOv5","Object Detection","One-Shot Learning","Computer Vision","Model Training","Image Processing","Performance Evaluation","OpenCV","Precision/Recall Metrics","Custom Dataset Creation"],
       "favourite": true
     },
     {
@@ -48,7 +48,7 @@
       ],
       "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
       "group": "Computer Vision",
-      "skills": ["Python", "TensorFlow", "Siamese Network", "Face Recognition", "Face Detection", "Image Processing", "OpenCV"],
+      "skills": ["Python", "TensorFlow", "Siamese Network", "Data Augmentation", "Custom Dataset Creation", "Face Recognition", "Face Verification", "Image Processing", "OpenCV", "Deep Learning", "Computer Vision"],
       "favourite": true
     },
     {
@@ -61,8 +61,8 @@
         "/assets/projects/hybrid-a-star-main.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/hybrid_astar",
-      "group": "Robotics",
-      "skills": ["C++", "ROS 2", "Hybrid A*", "Path Planning", "Occupancy Maps", "Heuristic-Guided Motion Primitives", "Path Smoothing", "OpenCV", "Real-Time Visualization", "Animation"],
+      "group": "Autonomous Driving",
+      "skills": ["C++","ROS 2","Hybrid A*","Path Planning","Occupancy Grids","Heuristic Search","Motion Primitives","Reeds–Shepp Smoothing","Real-Time Visualization","Matplotlib Animation"],
       "favourite": true
     },
     {
@@ -75,8 +75,22 @@
         "/assets/projects/frenet-trajectory.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/Trajectory-Generation-In-Frenet-Frame",
-      "group": "Robotics",
-      "skills": ["C++", "ROS 2", "Frenet Frame", "Trajectory Generation", "Path Planning", "Occupancy Maps", "Heuristic-Guided Motion Primitives", "Path Smoothing", "OpenCV", "Real-Time Visualization", "Animation"],
+      "group": "Autonomous Driving",
+      "skills": ["C++17","Eigen","OpenCV","Polynomial Trajectory Generation","Path Planning Algorithms","Collision Detection","Kinematic Modeling","Numerical Optimization","CMake","Git","Performance Tuning"],
+      "favourite": true
+    },
+    {
+      "id": "project-6",
+      "title": "EKF Localization",
+      "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter—including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
+      "description": "Initializes the EKF with state, covariance and noise matrices\nSimulates a three-phase reference path (sinusoid, straight down, semicircle)\nGenerates noisy odometry and position measurements\nRuns real-time EKF predict & update steps\nDynamically scales and centers all trajectories on the OpenCV canvas\nDraws a red covariance ellipse that shrinks as uncertainty decreases\nRenders color-coded ground truth, odometry, observations and EKF estimate\nOptionally records the animation to (ekf_demo.mp4)",
+      "image": "/assets/projects/ekf-demo.gif",
+      "images": [
+        "/assets/projects/ekf-demo.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/EKF-Localization",
+      "group": "Autonomous Driving",
+      "skills": [  "C++","Eigen","OpenCV","Extended Kalman Filter","Sensor Fusion","State Estimation","Linear Algebra","Probabilistic Modeling","Simulation","Data Visualization","Random Number Generation","Video Processing"],
       "favourite": true
     }
   ]
