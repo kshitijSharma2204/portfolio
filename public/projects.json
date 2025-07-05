@@ -84,9 +84,9 @@
       "title": "EKF Localization",
       "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter—including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
       "description": "Initializes the EKF with state, covariance and noise matrices\nSimulates a three-phase reference path (sinusoid, straight down, semicircle)\nGenerates noisy odometry and position measurements\nRuns real-time EKF predict & update steps\nDynamically scales and centers all trajectories on the OpenCV canvas\nDraws a red covariance ellipse that shrinks as uncertainty decreases\nRenders color-coded ground truth, odometry, observations and EKF estimate\nOptionally records the animation to (ekf_demo.mp4)",
-      "image": "/assets/projects/ekf-demo.gif",
+      "image": "/assets/projects/ekf_demo.gif",
       "images": [
-        "/assets/projects/ekf-demo.gif"
+        "/assets/projects/ekf_demo.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/EKF-Localization",
       "group": "Autonomous Driving",
