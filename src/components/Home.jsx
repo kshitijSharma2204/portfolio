@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import LeftNavigation from './LeftNav';
 import Bio from './Bio';
 import Experience from './Experience';
-import Projects from './Projects';
 import Skills from './Skills';
+import ProjectsList from './ProjectsList';
 
 const HomeComponent = () => {
   // Create refs for each section
@@ -45,7 +45,7 @@ const HomeComponent = () => {
 
         {isProjects && 
          <section id="projects" ref={projectsRef}>
-         <Projects />
+         <ProjectsList />
        </section>
         }
        

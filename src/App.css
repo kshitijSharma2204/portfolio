@@ -19,7 +19,7 @@
 /* 3) Left navigation pane */
 .left-nav {
   position: relative;         /* For the overlay */
-  width: 35%;                 /* adjust as needed (or use px) */
+  width: 30%;                 /* adjust as needed (or use px) */
   border-right: 1px solid #ddd;
   padding: 1rem;
   /* background-color: #f5f5f5;  optional background */
@@ -64,7 +64,7 @@
 
 .right-content section p,
 .right-content section ul {
-  line-height: 1.6;
+
   color: #555;
 }
 
