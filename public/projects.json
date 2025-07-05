@@ -13,6 +13,8 @@
         "/assets/projects/reconstruction_04.png"
       ],
       "link": "https://github.com/kshitijSharma2204/NERF-Project",
+      "group": "Computer Vision",
+      "skills": ["Python", "PyTorch", "NeRF", "3D Reconstruction", "SfM", "PnP", "RANSAC", "Fundamental/Essential Matrices", "Triangulation", "Bundle Adjustment"],
       "favourite": true
     },
     {
@@ -27,6 +29,8 @@
         "/assets/projects/obj_detection.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
+      "group": "Computer Vision",
+      "skills": ["Python", "PyTorch", "YOLOv5", "Object Detection", "Basketball", "Image Processing", "OpenCV"],
       "favourite": true
     },
     {
@@ -43,6 +47,8 @@
         "/assets/projects/face_recognition_05.png"
       ],
       "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+      "group": "Computer Vision",
+      "skills": ["Python", "TensorFlow", "Siamese Network", "Face Recognition", "Face Detection", "Image Processing", "OpenCV"],
       "favourite": true
     },
     {
@@ -55,6 +61,8 @@
         "/assets/projects/hybrid-a-star-main.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/hybrid_astar",
+      "group": "Robotics",
+      "skills": ["C++", "ROS 2", "Hybrid A*", "Path Planning", "Occupancy Maps", "Heuristic-Guided Motion Primitives", "Path Smoothing", "OpenCV", "Real-Time Visualization", "Animation"],
       "favourite": true
     },
     {
@@ -67,6 +75,8 @@
         "/assets/projects/frenet-trajectory.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/Trajectory-Generation-In-Frenet-Frame",
+      "group": "Robotics",
+      "skills": ["C++", "ROS 2", "Frenet Frame", "Trajectory Generation", "Path Planning", "Occupancy Maps", "Heuristic-Guided Motion Primitives", "Path Smoothing", "OpenCV", "Real-Time Visualization", "Animation"],
       "favourite": true
     }
   ]
