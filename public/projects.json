@@ -92,6 +92,20 @@
       "group": "Autonomous Driving",
       "skills": [  "C++","Eigen","OpenCV","Extended Kalman Filter","Sensor Fusion","State Estimation","Linear Algebra","Probabilistic Modeling","Simulation","Data Visualization","Random Number Generation","Video Processing"],
       "favourite": true
+    },
+    {
+      "id": "project-7",
+      "title": "Atari Breakout DQN Agent",
+      "mainDescr": "Trains a Deep Q-Network (DQN) to master Atari Breakout using Stable-Baselines3 with frame stacking and custom preprocessing.",
+      "description": "Implements a custom Breakout-v5 Gym environment with grayscale conversion, frame skipping, and 4-frame stacking\nTrains a Stable-Baselines3 DQN agent for 20 million timesteps on GPU, tuning hyperparameters for optimal performance\nIntegrates an EvalCallback to track and save the best model checkpoints during training\nUses Gym’s RecordVideo wrapper to capture high-resolution gameplay for analysis\nDemonstrates the agent’s learning curve and final policy performance in recorded video outputs",
+      "image": "/assets/projects/rl-video-episode-7.gif",
+      "images": [
+        "/assets/projects/rl-video-episode-7.gif",
+      ],
+      "link": "https://github.com/kshitijSharma2204/BreakOut-Atari-RL",
+      "group": "Reinforcement Learning",
+      "skills": [ "Python", "OpenAI Gym", "Stable-Baselines3", "Deep Q-Network (DQN)", "AtariPreprocessing", "Frame Stacking", "CUDA", "Git & GitHub", "Bash Scripting" ],
+      "favourite": true
     }
   ]
 }
