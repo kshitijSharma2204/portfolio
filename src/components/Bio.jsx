@@ -1,5 +1,6 @@
 import React from 'react';
-import '../styles/Bio.css'; // optional, if you want to style the button
+import { useState, useEffect } from 'react';
+import '../styles/Bio.css'; 
 
 const Bio = () => {
 
@@ -22,9 +23,12 @@ const Bio = () => {
   return (
     <div>
         <h4 className="section-title">About Me</h4>
-      <span>
-         ${BioData}
-      </span>
+        <div
+      className="bio-text">
+          {BioData.split('<br/><br/>').map((para, i) => (
+        <p key={i}>{para}</p>
+      ))}
+      </div>
     </div>
   );
 };
