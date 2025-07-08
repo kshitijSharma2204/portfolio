@@ -1,34 +1,29 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import '../styles/Bio.css'; 
+import React, { useState, useEffect } from 'react';
+import '../styles/Bio.css';
 
 const Bio = () => {
-
-  const [BioData, setBioData] = useState("");
+  const [bioData, setBioData] = useState('');
 
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/kshitijsharma2204/portfolio/master/public/bio.json')
-      .then((res) => {
+      .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
-      .then((data) => {
-        setBioData(data.bio);
-      })
-      .catch((err) => {
-        console.error('Failed to load experience.json:', err);
+      .then(data => setBioData(data.bio))
+      .catch(err => {
+        console.error('Failed to load bio.json:', err);
       });
   }, []);
 
   return (
     <div>
-        <h4 className="section-title">About Me</h4>
-        <div
-      className="bio-text">
-          {BioData.split('<br/><br/>').map((para, i) => (
-        <p key={i}>{para}</p>
-      ))}
-      </div>
+      <h4 className="section-title">About Me</h4>
+      {/* Note: no children inside this div! */}
+      <div
+        className="bio-text"
+        dangerouslySetInnerHTML={{ __html: bioData }}
+      />
     </div>
   );
 };
