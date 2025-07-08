@@ -105,7 +105,7 @@ const LeftNavigation = ({
                 e.currentTarget.style.color = linkStyle.color;
               }}
             >
-              <a href={`${RAW_BASE}/resume.pdf`} download className="resume-button">
+              <a href="https://cdn.jsdelivr.net/gh/kshitijSharma2204/portfolio@master/public/resume.pdf" target="_blank" rel="noopener noreferrer" className="resume-button">
                 Download Resume
               </a>
             </div>

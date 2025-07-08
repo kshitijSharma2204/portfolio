@@ -36,6 +36,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
+
+@media (max-width: 600px) {
+  .projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
   
   .list-card {
     display: flex;
