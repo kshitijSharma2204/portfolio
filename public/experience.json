@@ -23,7 +23,7 @@
     },
     {
         "date": "Sept 2023 - June 2024",
-        "role": "Robotics Software Engineer",
+        "role": "Robotics Engineer Intern",
         "company": "Void Robotics",
         "description": [
         "Developed C++ software modules and automated Google Test suites within a Linux environment, enhancing an autonomous mobile robot's functionality through Nav2 implementation within a ROS2 environment, and facilitating team collaboration via Git in a CI/CD pipeline",
@@ -34,7 +34,7 @@
     },
     {
         "date": "Aug 2022 - Dec 2022",
-        "role": "Research Engineer",
+        "role": "Research Assistant",
         "company": "Manipulation and Environmental Robotics Lab, WPI",
         "description": [
         "Implemented vision-based grasp detection algorithms (GGCNN, ResNet) using deep learning within the ROS framework and integrated these algorithms with a robotic manipulator arm equipped with a real-sense RGBD camera on the end-effector for robust grasp planning and execution",
