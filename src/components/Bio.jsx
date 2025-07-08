@@ -6,13 +6,19 @@ const Bio = () => {
     <div>
         <h4 className="section-title">About Me</h4>
       <span>
-        Robotics software engineer with an M.S. in Robotics Engineering from WPI and over six years’ experience
-        developing autonomous systems using C++ and ROS.
-        <br />
-        At Path Robotics, refactored legacy code for multi-arm welding cells; at Berkshire Grey, built Python
-        automation tools improving warehouse throughput.
-        <br />
-        Skilled in motion planning, perception pipelines, and deploying scalable, reliable robotic solutions.
+        I'm Kshitij Sharma, a Robotics Software Engineer with over four years of hands-on experience in developing high-performance, 
+        modular software solutions in robotics and automation. My expertise spans motion planning, perception algorithms, 
+        multi-robot coordination, and sensor fusion, using primarily C++ and Python within ROS and ROS2 frameworks.
+        </br>
+        I hold a Master's in Robotics Engineering from Worcester Polytechnic Institute, where I honed my skills in 
+        advanced robotics concepts including SLAM, path planning, and sensor integration. 
+        My professional journey includes developing software for autonomous robots at Path Robotics, 
+        enhancing robotic systems efficiency at Berkshire Grey, and contributing to autonomous mobile robotics at Void Robotics.
+        </br>
+        Passionate about pushing the boundaries of robotics, I've also led multiple projects involving 
+        3D scene reconstruction, advanced object detection, and precise robot control. 
+        My commitment to excellence is reflected in my robust engineering practices and continuous drive 
+        to innovate and improve automation technologies.
       </span>
     </div>
   );
