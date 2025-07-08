@@ -2,8 +2,8 @@
     "experienceData" : [
     {
         "date": "March 2025 - May 2025",
-        "role": "C++ Software Engineer (Contract)",
-        "company": "Path Robotics",
+        "role": "C++ Software Engineer",
+        "company": "Path Robotics (Contract)",
         "description": [
         "Collaborated on architecture refactoring of legacy C++ code to orchestrate multi-arm welding, scaling from a single robot to a four-arm cell",
         "Designed a modular resource management system using modern C++ (templates, smart pointers, std::optional, lambdas) to allocate and synchronize the resources across multiple robots.",
