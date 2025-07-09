@@ -188,6 +188,32 @@
         "Bash Scripting"
       ],
       "favourite": true
+    },
+    {
+      "id": "project-7",
+      "title": "Sliding Mode Control for Quadrotor",
+      "mainDescr": "Implements a Sliding Mode Controller on the Crazyflie 2.0 for robust 3D trajectory tracking using polynomial trajectories in a Gazebo simulation.",
+      "description": "Designed a robust Sliding Mode Controller (SMC) for a Crazyflie 2.0 quadrotor UAV to follow 3D polynomial trajectories in a Gazebo simulation environment. The controller handles nonlinear dynamics and external disturbances effectively. The simulation publishes rotor speeds in real-time to Gazebo and logs flight data for visualization. Includes 5th-order polynomial trajectory generation, control allocation matrix, and dynamic SMC tuning parameters. A visualization script generates 3D plots of the actual trajectory.",
+      "image": "/assets/projects/SlidingMode_quad.gif",
+      "images": [
+        "/assets/projects/SlidingMode_quad.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Sliding_Mode_Controller_for_UAV",
+      "group": "Aerial Robotics",
+      "skills": [
+        "Python",
+        "ROS Noetic",
+        "Gazebo",
+        "Crazyflie 2.0",
+        "Sliding Mode Control",
+        "Nonlinear Dynamics",
+        "Control Systems",
+        "Polynomial Trajectories",
+        "Robot Simulation",
+        "3D Visualization",
+        "Matplotlib"
+      ],
+      "favourite": true
     }
   ]
 }
