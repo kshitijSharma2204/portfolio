@@ -237,6 +237,25 @@
         "Animation"
       ],
       "favourite": true
+    },
+    {
+      "id": "project-8",
+      "title": "Joint Space Control of SCARA arm",
+      "mainDescr": "Developed a ROS-based PID control system with inverse kinematics for precise joint-space manipulation of a SCARA robot arm.",
+      "description": "This project implements a joint-space control scheme for a SCARA robotic manipulator using ROS. It features an inverse kinematics solver to calculate joint parameters from target positions, a PID controller to precisely maneuver the robot arm's joints, and real-time visualization and trajectory plotting. The solution is structured into ROS packages including service servers, subscribers, and publishers for seamless robotic control.",
+      "image": "/assets/JointSpace_traj.gif",
+      "images": [
+        "JointSpace_traj.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Joint_Space_Control_of_SCARA_Robot_Manipulator",
+      "group": "Planning and Control",
+      "skills": [
+        "ROS",
+        "Python",
+        "PID Control",
+        "Inverse Kinematics"
+      ],
+      "favourite": true
     }
   ]
 }
