@@ -97,7 +97,7 @@
         "/assets/projects/hybrid-a-star-main.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/hybrid_astar",
-      "group": "Autonomous Driving",
+      "group": "Planning and Control",
       "skills": [
         "C++",
         "ROS 2",
@@ -122,7 +122,7 @@
         "/assets/projects/frenet-trajectory.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/Trajectory-Generation-In-Frenet-Frame",
-      "group": "Autonomous Driving",
+      "group": "Planning and Control",
       "skills": [
         "C++17",
         "Eigen",
@@ -148,7 +148,7 @@
         "/assets/projects/ekf_demo.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/EKF-Localization",
-      "group": "Autonomous Driving",
+      "group": "Planning and Control",
       "skills": [
         "C++",
         "Eigen",
@@ -199,7 +199,7 @@
         "/assets/projects/SlidingMode_quad.gif"
       ],
       "link": "https://github.com/kshitijSharma2204/Sliding_Mode_Controller_for_UAV",
-      "group": "Aerial Robotics",
+      "group": "Planning and Control",
       "skills": [
         "Python",
         "ROS Noetic",
@@ -212,6 +212,29 @@
         "Robot Simulation",
         "3D Visualization",
         "Matplotlib"
+      ],
+      "favourite": true
+    },
+    {
+      "id": "project-7",
+      "title": "Travelling Salesman Problem",
+      "mainDescr": "Developed Python-based Algorithms to solve the Travelling Salesman Problem with interactive visualization and MP4 animation output.",
+      "description": "Implemented a customizable Genetic Algorithm in Python to approximate optimal tours for the TSP. Features include greedy-seeded initial population, elitism and roulette‐wheel selection, ordered crossover, and distance-based mutation. Integrated real-time Matplotlib plots of route improvement and generated an MP4 animation of the GA’s convergence over generations.",
+      "image": "/assets/projects/tsp.gif",
+      "images": [
+        "/assets/projects/tsp.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Travelling_Salesman_Problem_DSA",
+      "group": "Algorithm Development",
+      "skills": [
+        "Python",
+        "Matplotlib",
+        "NumPy",
+        "Pandas",
+        "Object-Oriented Programming",
+        "Data Visualization",
+        "Algorithm Design",
+        "Animation"
       ],
       "favourite": true
     }
