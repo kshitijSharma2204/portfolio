@@ -256,6 +256,29 @@
         "Inverse Kinematics"
       ],
       "favourite": true
+    },   
+    {
+      "id": "project-9",
+      "title": "KITTI Semantic Segmentation",
+      "mainDescr": "Implementing UNet architecture for pixel-wise semantic segmentation on KITTI autonomous driving dataset with comprehensive training and inference pipeline.",
+      "description": "Building an end-to-end semantic segmentation system using UNet architecture on the KITTI dataset for autonomous driving scene understanding. Features custom dataset handling with data augmentation, efficient training pipeline with validation tracking, and comprehensive inference capabilities generating side-by-side visualizations, overlay results, and colored semantic masks. Achieves robust performance on street scene segmentation with multiple output formats for analysis.",
+      "image": "/assets/projects/vis_000079_10_result.png",
+      "images": [],
+      "link": "https://github.com/kshitijSharma2204/semantic-segmentation",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "PyTorch",
+        "UNet",
+        "Semantic Segmentation",
+        "KITTI Dataset",
+        "Data Augmentation",
+        "Albumentations",
+        "Computer Vision",
+        "Autonomous Driving",
+        "Deep Learning"
+      ],
+      "favourite": true
     }
   ]
 }
