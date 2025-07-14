@@ -59,31 +59,24 @@
     },
     {
       "id": "project-3",
-      "title": "Face Recognition/Verification Using Siamese Network",
-      "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
-      "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
-      "image": "/assets/projects/face_recognition_01.png",
-      "images": [
-        "/assets/projects/face_recognition_01.png",
-        "/assets/projects/face_recognition_02.png",
-        "/assets/projects/face_recognition_03.png",
-        "/assets/projects/face_recognition_04.png",
-        "/assets/projects/face_recognition_05.png"
-      ],
-      "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+      "title": "KITTI Semantic Segmentation",
+      "mainDescr": "Implementing UNet architecture for pixel-wise semantic segmentation on KITTI autonomous driving dataset with comprehensive training and inference pipeline.",
+      "description": "Building an end-to-end semantic segmentation system using UNet architecture on the KITTI dataset for autonomous driving scene understanding. Features custom dataset handling with data augmentation, efficient training pipeline with validation tracking, and comprehensive inference capabilities generating side-by-side visualizations, overlay results, and colored semantic masks. Achieves robust performance on street scene segmentation with multiple output formats for analysis.",
+      "image": "/assets/projects/semantic_segmentation_inference.gif",
+      "images": [],
+      "link": "https://github.com/kshitijSharma2204/semantic-segmentation",
       "group": "Computer Vision",
       "skills": [
         "Python",
-        "TensorFlow",
-        "Siamese Network",
+        "PyTorch",
+        "UNet",
+        "Semantic Segmentation",
+        "KITTI Dataset",
         "Data Augmentation",
-        "Custom Dataset Creation",
-        "Face Recognition",
-        "Face Verification",
-        "Image Processing",
-        "OpenCV",
-        "Deep Learning",
-        "Computer Vision"
+        "Albumentations",
+        "Computer Vision",
+        "Autonomous Driving",
+        "Deep Learning"
       ],
       "favourite": true
     },
@@ -256,27 +249,34 @@
         "Inverse Kinematics"
       ],
       "favourite": true
-    },   
+    },
     {
       "id": "project-9",
-      "title": "KITTI Semantic Segmentation",
-      "mainDescr": "Implementing UNet architecture for pixel-wise semantic segmentation on KITTI autonomous driving dataset with comprehensive training and inference pipeline.",
-      "description": "Building an end-to-end semantic segmentation system using UNet architecture on the KITTI dataset for autonomous driving scene understanding. Features custom dataset handling with data augmentation, efficient training pipeline with validation tracking, and comprehensive inference capabilities generating side-by-side visualizations, overlay results, and colored semantic masks. Achieves robust performance on street scene segmentation with multiple output formats for analysis.",
-      "image": "/assets/projects/vis_000079_10_result.png",
-      "images": [],
-      "link": "https://github.com/kshitijSharma2204/semantic-segmentation",
+      "title": "Face Recognition/Verification Using Siamese Network",
+      "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+      "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+      "image": "/assets/projects/face_recognition_01.png",
+      "images": [
+        "/assets/projects/face_recognition_01.png",
+        "/assets/projects/face_recognition_02.png",
+        "/assets/projects/face_recognition_03.png",
+        "/assets/projects/face_recognition_04.png",
+        "/assets/projects/face_recognition_05.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
       "group": "Computer Vision",
       "skills": [
         "Python",
-        "PyTorch",
-        "UNet",
-        "Semantic Segmentation",
-        "KITTI Dataset",
+        "TensorFlow",
+        "Siamese Network",
         "Data Augmentation",
-        "Albumentations",
-        "Computer Vision",
-        "Autonomous Driving",
-        "Deep Learning"
+        "Custom Dataset Creation",
+        "Face Recognition",
+        "Face Verification",
+        "Image Processing",
+        "OpenCV",
+        "Deep Learning",
+        "Computer Vision"
       ],
       "favourite": true
     }
