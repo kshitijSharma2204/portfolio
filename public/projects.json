@@ -279,6 +279,30 @@
         "Computer Vision"
       ],
       "favourite": true
+    },
+    {
+      "id": "project-10",
+      "title": "Automatic Camera Caliberation",
+      "mainDescr": "Implemented an end-to-end camera calibration pipeline from scratch using Zhang’s method in Python, including robust checkerboard detection, intrinsic/extrinsic estimation, and bundle adjustment.",
+      "description": "Built a complete camera calibration system in Python using Zhang’s method, implementing all steps from checkerboard corner detection and homography estimation to intrinsic and extrinsic parameter calculation, radial distortion modeling, and nonlinear bundle adjustment optimization. Designed extensive visualization tools and compared results against OpenCV’s calibration function, demonstrating sub-pixel reprojection error and a clear understanding of the calibration process.",
+      "image": "/assets/projects/detected_vs_reprojected_corners.png",
+      "images": [],
+      "link": "https://github.com/kshitijSharma2204/auto-camera-calibration",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "NumPy",
+        "OpenCV",
+        "Matplotlib",
+        "SciPy",
+        "Camera Calibration",
+        "Computer Vision",
+        "Bundle Adjustment",
+        "Nonlinear Optimization",
+        "Homography Estimation",
+        "Checkerboard Detection"
+      ],
+      "favourite": true
     }
   ]
 }
