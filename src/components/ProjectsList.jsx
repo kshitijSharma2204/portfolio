@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import '../styles/ProjectsList.css';
 
 const ProjectsList = () => {
-  // —— All hooks at the top ——
+  // -- All hooks at the top --
   const [projects, setProjects] = useState([]);
   const [openGroups, setOpenGroups] = useState({});
 

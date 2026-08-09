@@ -83,7 +83,7 @@
     {
       "id": "project-4",
       "title": "Hybrid A*",
-      "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths—C++ core + Python visualization.",
+      "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths - C++ core + Python visualization.",
       "description": "In ROS 2 Humble, this package delivers a complete Hybrid A* planning pipeline: it generates occupancy maps and goal positions, computes smooth, collision-free non-holonomic trajectories using heuristic-guided motion primitives and path smoothing, and provides real-time visualization and animation of the planned path.",
       "image": "/assets/projects/hybrid-a-star-main.gif",
       "images": [
@@ -108,7 +108,7 @@
     {
       "id": "project-5",
       "title": "Trajectory Generation in Frenet Frame",
-      "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions—with full OpenCV visualization and video output.",
+      "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions - with full OpenCV visualization and video output.",
       "description": "Builds a center‐lane reference path (x, y, yaw, curvature, arc-length)\nGenerates lateral (quintic) & longitudinal (quartic/quintic) polynomial candidates over multiple horizons\nScores each by jerk, time, and deviation, then filters out collisions and kinematic violations\nConverts the best trajectory to world coordinates and renders all candidates + selected path with OpenCV (outputs trajectory.mp4)",
       "image": "/assets/projects/frenet-trajectory.gif",
       "images": [
@@ -134,7 +134,7 @@
     {
       "id": "project-6",
       "title": "EKF Localization",
-      "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter—including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
+      "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter - including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
       "description": "Initializes the EKF with state, covariance and noise matrices\nSimulates a three-phase reference path (sinusoid, straight down, semicircle)\nGenerates noisy odometry and position measurements\nRuns real-time EKF predict & update steps\nDynamically scales and centers all trajectories on the OpenCV canvas\nDraws a red covariance ellipse that shrinks as uncertainty decreases\nRenders color-coded ground truth, odometry, observations and EKF estimate\nOptionally records the animation to (ekf_demo.mp4)",
       "image": "/assets/projects/ekf_demo.gif",
       "images": [
@@ -183,7 +183,7 @@
       "favourite": true
     },
     {
-      "id": "project-7",
+      "id": "project-11",
       "title": "Sliding Mode Control for Quadrotor",
       "mainDescr": "Implements a Sliding Mode Controller on the Crazyflie 2.0 for robust 3D trajectory tracking using polynomial trajectories in a Gazebo simulation.",
       "description": "Designed a robust Sliding Mode Controller (SMC) for a Crazyflie 2.0 quadrotor UAV to follow 3D polynomial trajectories in a Gazebo simulation environment. The controller handles nonlinear dynamics and external disturbances effectively. The simulation publishes rotor speeds in real-time to Gazebo and logs flight data for visualization. Includes 5th-order polynomial trajectory generation, control allocation matrix, and dynamic SMC tuning parameters. A visualization script generates 3D plots of the actual trajectory.",
@@ -209,7 +209,7 @@
       "favourite": true
     },
     {
-      "id": "project-7",
+      "id": "project-12",
       "title": "Travelling Salesman Problem",
       "mainDescr": "Developed Python-based Algorithms to solve the Travelling Salesman Problem with interactive visualization and MP4 animation output.",
       "description": "Implemented a customizable Genetic Algorithm in Python to approximate optimal tours for the TSP. Features include greedy-seeded initial population, elitism and roulette‐wheel selection, ordered crossover, and distance-based mutation. Integrated real-time Matplotlib plots of route improvement and generated an MP4 animation of the GA’s convergence over generations.",

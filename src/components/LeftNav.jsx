@@ -35,9 +35,6 @@ const LeftNavigation = ({
     e.currentTarget.style.color = linkStyle.color;
   };
 
-  const RAW_BASE = 
-  'https://raw.githubusercontent.com/kshitijSharma2204/portfolio/master/public';
-
   return (
     <div className="nav-items">
       {/* Avatar + Profile Data */}
