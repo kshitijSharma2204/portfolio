@@ -2,6 +2,37 @@
   "projects": [
     {
       "id": "project-1",
+      "title": "LiDAR Odometry & SLAM Stack",
+      "mainDescr": "Building a C++ LiDAR odometry pipeline with KISS-ICP-style scan-to-map registration, evaluated against KITTI ground truth and replayed live in an Open3D visualizer.",
+      "description": "Building a production-structured C++ pipeline for KITTI LiDAR odometry: a deterministic, bounded multithreaded producer/consumer replay system, motion-distortion correction via OXTS-integrated deskewing, and KISS-ICP-style scan-to-map registration (adaptive-threshold Gauss-Newton ICP against a voxel hash map, parallelized across a persistent thread pool). Evaluates estimated trajectories against KITTI ground truth via relative pose error, with Python tooling to plot per-step translation/rotation error against the mean/RMSE, and an Open3D visualizer supporting accumulated-map, raw-scan, and dense-map playback with multiple camera modes.",
+      "image": "/assets/projects/seq00/lidar_odometry_and_map_visualized_00.gif",
+      "images": [
+        "/assets/projects/seq00/gt_vs_kiss_icp_00.png",
+        "/assets/projects/seq00/evaluation_metrics_00.png",
+        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_1.png",
+        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_2.png",
+        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_3.png",
+        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_4.png",
+        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_5.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/cpp_slam_stack",
+      "group": "Robotics",
+      "skills": [
+        "C++",
+        "CMake",
+        "Multithreading",
+        "LiDAR Odometry",
+        "KISS-ICP",
+        "Point Cloud Registration",
+        "ICP",
+        "Open3D",
+        "KITTI Dataset",
+        "Python"
+      ],
+      "favourite": true
+    },
+    {
+      "id": "project-2",
       "title": "3D Scene Reconstruction",
       "mainDescr": "Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
       "description": "Building an end-to-end SfM pipeline (SIFT, RANSAC, fundamental/essential matrices, pose estimation, triangulation, PnP, bundle adjustment) to reconstruct 3D scenes from 2D images. Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
@@ -25,35 +56,6 @@
         "Fundamental/Essential Matrices",
         "Triangulation",
         "Bundle Adjustment"
-      ],
-      "favourite": true
-    },
-    {
-      "id": "project-2",
-      "title": "One-Shot Object Detection",
-      "mainDescr": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset",
-      "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
-      "image": "/assets/projects/obj_detection.gif",
-      "images": [
-        "/assets/projects/obj_detection_01.jpg",
-        "/assets/projects/obj_detection_02.jpg",
-        "/assets/projects/obj_detection.gif"
-      ],
-      "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
-      "group": "Computer Vision",
-      "skills": [
-        "Python",
-        "PyTorch",
-        "YOLOv5",
-        "Object Detection",
-        "One-Shot Learning",
-        "Computer Vision",
-        "Model Training",
-        "Image Processing",
-        "Performance Evaluation",
-        "OpenCV",
-        "Precision/Recall Metrics",
-        "Custom Dataset Creation"
       ],
       "favourite": true
     },
@@ -82,6 +84,35 @@
     },
     {
       "id": "project-4",
+      "title": "One-Shot Object Detection",
+      "mainDescr": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset",
+      "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
+      "image": "/assets/projects/obj_detection.gif",
+      "images": [
+        "/assets/projects/obj_detection_01.jpg",
+        "/assets/projects/obj_detection_02.jpg",
+        "/assets/projects/obj_detection.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "PyTorch",
+        "YOLOv5",
+        "Object Detection",
+        "One-Shot Learning",
+        "Computer Vision",
+        "Model Training",
+        "Image Processing",
+        "Performance Evaluation",
+        "OpenCV",
+        "Precision/Recall Metrics",
+        "Custom Dataset Creation"
+      ],
+      "favourite": true
+    },
+    {
+      "id": "project-5",
       "title": "Hybrid A*",
       "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths - C++ core + Python visualization.",
       "description": "In ROS 2 Humble, this package delivers a complete Hybrid A* planning pipeline: it generates occupancy maps and goal positions, computes smooth, collision-free non-holonomic trajectories using heuristic-guided motion primitives and path smoothing, and provides real-time visualization and animation of the planned path.",
@@ -106,7 +137,7 @@
       "favourite": true
     },
     {
-      "id": "project-5",
+      "id": "project-6",
       "title": "Trajectory Generation in Frenet Frame",
       "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions - with full OpenCV visualization and video output.",
       "description": "Builds a center‐lane reference path (x, y, yaw, curvature, arc-length)\nGenerates lateral (quintic) & longitudinal (quartic/quintic) polynomial candidates over multiple horizons\nScores each by jerk, time, and deviation, then filters out collisions and kinematic violations\nConverts the best trajectory to world coordinates and renders all candidates + selected path with OpenCV (outputs trajectory.mp4)",
@@ -132,7 +163,7 @@
       "favourite": true
     },
     {
-      "id": "project-6",
+      "id": "project-7",
       "title": "EKF Localization",
       "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter - including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
       "description": "Initializes the EKF with state, covariance and noise matrices\nSimulates a three-phase reference path (sinusoid, straight down, semicircle)\nGenerates noisy odometry and position measurements\nRuns real-time EKF predict & update steps\nDynamically scales and centers all trajectories on the OpenCV canvas\nDraws a red covariance ellipse that shrinks as uncertainty decreases\nRenders color-coded ground truth, odometry, observations and EKF estimate\nOptionally records the animation to (ekf_demo.mp4)",
@@ -159,7 +190,7 @@
       "favourite": true
     },
     {
-      "id": "project-7",
+      "id": "project-8",
       "title": "Atari Breakout DQN Agent",
       "mainDescr": "Trains a Deep Q-Network (DQN) to master Atari Breakout using Stable-Baselines3 with frame stacking and custom preprocessing.",
       "description": "Implements a custom Breakout-v5 Gym environment with grayscale conversion, frame skipping, and 4-frame stacking\nTrains a Stable-Baselines3 DQN agent for 20 million timesteps on GPU, tuning hyperparameters for optimal performance\nIntegrates an EvalCallback to track and save the best model checkpoints during training\nUses Gym’s RecordVideo wrapper to capture high-resolution gameplay for analysis\nDemonstrates the agent’s learning curve and final policy performance in recorded video outputs",
@@ -183,7 +214,7 @@
       "favourite": true
     },
     {
-      "id": "project-11",
+      "id": "project-9",
       "title": "Sliding Mode Control for Quadrotor",
       "mainDescr": "Implements a Sliding Mode Controller on the Crazyflie 2.0 for robust 3D trajectory tracking using polynomial trajectories in a Gazebo simulation.",
       "description": "Designed a robust Sliding Mode Controller (SMC) for a Crazyflie 2.0 quadrotor UAV to follow 3D polynomial trajectories in a Gazebo simulation environment. The controller handles nonlinear dynamics and external disturbances effectively. The simulation publishes rotor speeds in real-time to Gazebo and logs flight data for visualization. Includes 5th-order polynomial trajectory generation, control allocation matrix, and dynamic SMC tuning parameters. A visualization script generates 3D plots of the actual trajectory.",
@@ -209,7 +240,7 @@
       "favourite": true
     },
     {
-      "id": "project-12",
+      "id": "project-10",
       "title": "Travelling Salesman Problem",
       "mainDescr": "Developed Python-based Algorithms to solve the Travelling Salesman Problem with interactive visualization and MP4 animation output.",
       "description": "Implemented a customizable Genetic Algorithm in Python to approximate optimal tours for the TSP. Features include greedy-seeded initial population, elitism and roulette‐wheel selection, ordered crossover, and distance-based mutation. Integrated real-time Matplotlib plots of route improvement and generated an MP4 animation of the GA’s convergence over generations.",
@@ -232,7 +263,7 @@
       "favourite": true
     },
     {
-      "id": "project-8",
+      "id": "project-11",
       "title": "Joint Space Control of SCARA arm",
       "mainDescr": "Developed a ROS-based PID control system with inverse kinematics for precise joint-space manipulation of a SCARA robot arm.",
       "description": "This project implements a joint-space control scheme for a SCARA robotic manipulator using ROS. It features an inverse kinematics solver to calculate joint parameters from target positions, a PID controller to precisely maneuver the robot arm's joints, and real-time visualization and trajectory plotting. The solution is structured into ROS packages including service servers, subscribers, and publishers for seamless robotic control.",
@@ -251,7 +282,7 @@
       "favourite": true
     },
     {
-      "id": "project-9",
+      "id": "project-12",
       "title": "Face Recognition/Verification Using Siamese Network",
       "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
       "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
@@ -281,7 +312,7 @@
       "favourite": true
     },
     {
-      "id": "project-10",
+      "id": "project-13",
       "title": "Automatic Camera Caliberation",
       "mainDescr": "Implemented an end-to-end camera calibration pipeline from scratch using Zhang’s method in Python, including robust checkerboard detection, intrinsic/extrinsic estimation, and bundle adjustment.",
       "description": "Built a complete camera calibration system in Python using Zhang’s method, implementing all steps from checkerboard corner detection and homography estimation to intrinsic and extrinsic parameter calculation, radial distortion modeling, and nonlinear bundle adjustment optimization. Designed extensive visualization tools and compared results against OpenCV’s calibration function, demonstrating sub-pixel reprojection error and a clear understanding of the calibration process.",
