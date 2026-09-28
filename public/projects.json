@@ -5,15 +5,15 @@
       "title": "LiDAR Odometry & SLAM Stack",
       "mainDescr": "Building a C++ LiDAR odometry pipeline with KISS-ICP-style scan-to-map registration, evaluated against KITTI ground truth and replayed live in an Open3D visualizer.",
       "description": "Building a production-structured C++ pipeline for KITTI LiDAR odometry: a deterministic, bounded multithreaded producer/consumer replay system, motion-distortion correction via OXTS-integrated deskewing, and KISS-ICP-style scan-to-map registration (adaptive-threshold Gauss-Newton ICP against a voxel hash map, parallelized across a persistent thread pool). Evaluates estimated trajectories against KITTI ground truth via relative pose error, with Python tooling to plot per-step translation/rotation error against the mean/RMSE, and an Open3D visualizer supporting accumulated-map, raw-scan, and dense-map playback with multiple camera modes.",
-      "image": "/assets/projects/seq00/lidar_odometry_and_map_visualized_00.gif",
+      "image": "/assets/projects/seq_00/lidar_odometry_and_map_visualized_00.gif",
       "images": [
-        "/assets/projects/seq00/gt_vs_kiss_icp_00.png",
-        "/assets/projects/seq00/evaluation_metrics_00.png",
-        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_1.png",
-        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_2.png",
-        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_3.png",
-        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_4.png",
-        "/assets/projects/seq00/lidar_odometry_and_map_visualized_00_5.png"
+        "/assets/projects/seq_00/gt_vs_kiss_icp_00.png",
+        "/assets/projects/seq_00/evaluation_metrics_00.png",
+        "/assets/projects/seq_00/lidar_odometry_and_map_visualized_00_1.png",
+        "/assets/projects/seq_00/lidar_odometry_and_map_visualized_00_2.png",
+        "/assets/projects/seq_00/lidar_odometry_and_map_visualized_00_3.png",
+        "/assets/projects/seq_00/lidar_odometry_and_map_visualized_00_4.png",
+        "/assets/projects/seq_00/lidar_odometry_and_map_visualized_00_5.png"
       ],
       "link": "https://github.com/kshitijSharma2204/cpp_slam_stack",
       "group": "Robotics",
