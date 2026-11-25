@@ -2,7 +2,7 @@
 /**
  * One card for every surface (homepage featured grid + all-projects gallery).
  * Everything essential is visible without interaction: real thumbnail, title, original short description,
- * key existing tags, a real link to the case study and a direct GitHub link.
+ * key existing tags, a real link to the project page and a direct GitHub link.
  */
 import Icon from './Icon.astro';
 import ProjectMedia from './ProjectMedia.astro';
@@ -42,7 +42,7 @@ const searchText = [p.title, p.name, p.mainDescr, p.description, p.group, ...p.s
         <Icon name="eye" size={16} /> Quick view<span class="sr-only">: {p.name}</span>
       </button>
       <span class="pcard-links">
-        <a class="pcard-link" href={href}>Case study<span class="sr-only">: {p.name}</span> <Icon name="arrow" size={16} /></a>
+        <a class="pcard-link" href={href}>View project<span class="sr-only">: {p.name}</span> <Icon name="arrow" size={16} /></a>
         <a class="pcard-link" href={p.link} rel="noopener">
           <Icon name="github" size={16} /> Code<span class="sr-only"> for {p.name} on GitHub</span>
         </a>

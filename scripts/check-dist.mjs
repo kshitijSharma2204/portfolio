@@ -85,7 +85,7 @@ if (home) {
   for (const p of featured) {
     check(t.includes(name(p)) && t.includes(p.mainDescr), `home: featured ${p.id} title/summary missing`);
     check(home.includes(`href="${p.link}"`), `home: featured ${p.id} GitHub link missing`);
-    check(home.includes(`href="${BASE}projects/${pres[p.id].slug}/"`), `home: featured ${p.id} case-study link missing`);
+    check(home.includes(`href="${BASE}projects/${pres[p.id].slug}/"`), `home: featured ${p.id} project-page link missing`);
   }
   for (const e of experienceData) check(t.includes(e.role), `home: experience role missing: ${e.role}`);
 }
@@ -100,7 +100,7 @@ if (gallery) {
   for (const p of projects) {
     check(t.includes(name(p)) && t.includes(p.mainDescr), `projects: ${p.id} title/summary missing`);
     check(gallery.includes(`href="${p.link}"`), `projects: ${p.id} GitHub link missing`);
-    check(gallery.includes(`href="${BASE}projects/${pres[p.id].slug}/"`), `projects: ${p.id} case-study link missing`);
+    check(gallery.includes(`href="${BASE}projects/${pres[p.id].slug}/"`), `projects: ${p.id} project-page link missing`);
   }
   for (const g of new Set(projects.map((p) => p.group))) check(t.includes(g), `projects: category "${g}" missing`);
 }

@@ -50,7 +50,7 @@ const { projects } = Astro.props;
       )}
     </div>
     <footer class="qv-foot btn-row">
-      <a class="btn btn-primary" href={withBase(`projects/${p.slug}/`)}>Full case study <Icon name="arrow" size={16} /></a>
+      <a class="btn btn-primary" href={withBase(`projects/${p.slug}/`)}>View full project <Icon name="arrow" size={16} /></a>
       <a class="btn" href={p.link} rel="noopener"><Icon name="github" size={16} /> GitHub repository</a>
     </footer>
   </template>
@@ -143,7 +143,7 @@ const { projects } = Astro.props;
       const me = e as MouseEvent;
       const trigger = (e.target as Element).closest<HTMLElement>('[data-qv-open]');
       if (!trigger) return;
-      // Let modified clicks on the thumbnail link open the case study normally.
+      // Let modified clicks on the thumbnail link open the project page normally.
       if (trigger.tagName === 'A' && (me.metaKey || me.ctrlKey || me.shiftKey || me.altKey || me.button !== 0)) return;
       const tpl = document.getElementById(`qv-${trigger.dataset.qvOpen}`) as HTMLTemplateElement | null;
       if (!tpl) return;
