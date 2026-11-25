@@ -16,7 +16,8 @@ if (!existsSync(dist)) {
 }
 const walk = (d) => readdirSync(d).flatMap((n) => (statSync(join(d, n)).isDirectory() ? walk(join(d, n)) : [join(d, n)]));
 const files = walk(dist);
-const htmlFiles = files.filter((f) => f.endsWith('.html'));
+// Google Search Console verification files (google<hex>.html) are plain text, not pages.
+const htmlFiles = files.filter((f) => f.endsWith('.html') && !/\/google[0-9a-f]+\.html$/.test(f));
 const decode = (s) =>
   s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
 const page = (rel) => {
