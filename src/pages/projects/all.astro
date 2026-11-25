@@ -1,0 +1,6 @@
+---
+// v1 route /projects/all → /projects/ (compatibility page; excluded from the sitemap)
+import LegacyRedirect from '../../components/LegacyRedirect.astro';
+import { withBase } from '../../lib/content';
+---
+<LegacyRedirect to={withBase('projects/')} label="All projects" />

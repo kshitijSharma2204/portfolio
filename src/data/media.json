@@ -1,0 +1,570 @@
+{
+  "projects": {
+    "project-1": {
+      "original": {
+        "path": "/assets/projects/lidar_odometry_and_map_visualized_00.gif",
+        "width": 800,
+        "height": 437,
+        "bytes": 17530609,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-1-640.webp",
+        "1280": "/media/posters/project-1-1280.webp",
+        "width": 800,
+        "height": 438,
+        "bytes640": 9852,
+        "bytes1280": 16106
+      },
+      "og": "/media/og/project-1.jpg",
+      "video": {
+        "mp4": "/media/video/project-1.mp4",
+        "webm": "/media/video/project-1.webm",
+        "width": 800,
+        "height": 436,
+        "duration": 9.5,
+        "mp4Bytes": 379758,
+        "webmBytes": 302770
+      }
+    },
+    "project-2": {
+      "original": {
+        "path": "/assets/projects/reconstruction.gif",
+        "width": 400,
+        "height": 400,
+        "bytes": 3216672,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-2-640.webp",
+        "1280": "/media/posters/project-2-1280.webp",
+        "width": 400,
+        "height": 400,
+        "bytes640": 7338,
+        "bytes1280": 7338
+      },
+      "og": "/media/og/project-2.jpg",
+      "video": {
+        "mp4": "/media/video/project-2.mp4",
+        "webm": "/media/video/project-2.webm",
+        "width": 400,
+        "height": 400,
+        "duration": 6.6,
+        "mp4Bytes": 370426,
+        "webmBytes": 397894
+      }
+    },
+    "project-3": {
+      "original": {
+        "path": "/assets/projects/semantic_segmentation_inference.gif",
+        "width": 2484,
+        "height": 374,
+        "bytes": 25263239,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-3-640.webp",
+        "1280": "/media/posters/project-3-1280.webp",
+        "width": 1280,
+        "height": 192,
+        "bytes640": 11144,
+        "bytes1280": 30912
+      },
+      "og": "/media/og/project-3.jpg",
+      "video": {
+        "mp4": "/media/video/project-3.mp4",
+        "webm": "/media/video/project-3.webm",
+        "width": 960,
+        "height": 144,
+        "duration": 9,
+        "mp4Bytes": 301046,
+        "webmBytes": 289034
+      }
+    },
+    "project-4": {
+      "original": {
+        "path": "/assets/projects/obj_detection.gif",
+        "width": 1280,
+        "height": 720,
+        "bytes": 54159934,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-4-640.webp",
+        "1280": "/media/posters/project-4-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes640": 14782,
+        "bytes1280": 92478
+      },
+      "og": "/media/og/project-4.jpg",
+      "video": {
+        "mp4": "/media/video/project-4.mp4",
+        "webm": "/media/video/project-4.webm",
+        "width": 960,
+        "height": 540,
+        "duration": 15.8,
+        "mp4Bytes": 1774163,
+        "webmBytes": 1459838
+      }
+    },
+    "project-5": {
+      "original": {
+        "path": "/assets/projects/hybrid-a-star-main.gif",
+        "width": 704,
+        "height": 704,
+        "bytes": 93781,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-5-640.webp",
+        "1280": "/media/posters/project-5-1280.webp",
+        "width": 704,
+        "height": 704,
+        "bytes640": 4248,
+        "bytes1280": 5804
+      },
+      "og": "/media/og/project-5.jpg",
+      "video": {
+        "mp4": "/media/video/project-5.mp4",
+        "webm": "/media/video/project-5.webm",
+        "width": 704,
+        "height": 704,
+        "duration": 4.9,
+        "mp4Bytes": 46691,
+        "webmBytes": 24475
+      }
+    },
+    "project-6": {
+      "original": {
+        "path": "/assets/projects/frenet-trajectory.gif",
+        "width": 1050,
+        "height": 400,
+        "bytes": 1951904,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-6-640.webp",
+        "1280": "/media/posters/project-6-1280.webp",
+        "width": 1050,
+        "height": 400,
+        "bytes640": 5452,
+        "bytes1280": 17384
+      },
+      "og": "/media/og/project-6.jpg",
+      "video": {
+        "mp4": "/media/video/project-6.mp4",
+        "webm": "/media/video/project-6.webm",
+        "width": 960,
+        "height": 366,
+        "duration": 8.8,
+        "mp4Bytes": 362765,
+        "webmBytes": 397323
+      }
+    },
+    "project-7": {
+      "original": {
+        "path": "/assets/projects/ekf_demo.gif",
+        "width": 800,
+        "height": 800,
+        "bytes": 5611648,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-7-640.webp",
+        "1280": "/media/posters/project-7-1280.webp",
+        "width": 800,
+        "height": 800,
+        "bytes640": 22088,
+        "bytes1280": 33346
+      },
+      "og": "/media/og/project-7.jpg",
+      "video": {
+        "mp4": "/media/video/project-7.mp4",
+        "webm": "/media/video/project-7.webm",
+        "width": 800,
+        "height": 800,
+        "duration": 30,
+        "mp4Bytes": 922764,
+        "webmBytes": 512546
+      }
+    },
+    "project-8": {
+      "original": {
+        "path": "/assets/projects/rl-video-episode-7.gif",
+        "width": 1080,
+        "height": 1920,
+        "bytes": 7155532,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-8-640.webp",
+        "1280": "/media/posters/project-8-1280.webp",
+        "width": 1080,
+        "height": 1920,
+        "bytes640": 4472,
+        "bytes1280": 17522
+      },
+      "og": "/media/og/project-8.jpg",
+      "video": {
+        "mp4": "/media/video/project-8.mp4",
+        "webm": "/media/video/project-8.webm",
+        "width": 540,
+        "height": 960,
+        "duration": 45.1,
+        "mp4Bytes": 101032,
+        "webmBytes": 84051
+      }
+    },
+    "project-9": {
+      "original": {
+        "path": "/assets/projects/SlidingMode_quad.gif",
+        "width": 600,
+        "height": 340,
+        "bytes": 1587196,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-9-640.webp",
+        "1280": "/media/posters/project-9-1280.webp",
+        "width": 600,
+        "height": 340,
+        "bytes640": 6892,
+        "bytes1280": 6892
+      },
+      "og": "/media/og/project-9.jpg",
+      "video": {
+        "mp4": "/media/video/project-9.mp4",
+        "webm": "/media/video/project-9.webm",
+        "width": 600,
+        "height": 340,
+        "duration": 60,
+        "mp4Bytes": 98076,
+        "webmBytes": 56378
+      }
+    },
+    "project-10": {
+      "original": {
+        "path": "/assets/projects/tsp.gif",
+        "width": 1840,
+        "height": 1000,
+        "bytes": 14386242,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-10-640.webp",
+        "1280": "/media/posters/project-10-1280.webp",
+        "width": 1280,
+        "height": 696,
+        "bytes640": 13426,
+        "bytes1280": 33280
+      },
+      "og": "/media/og/project-10.jpg",
+      "video": {
+        "mp4": "/media/video/project-10.mp4",
+        "webm": "/media/video/project-10.webm",
+        "width": 960,
+        "height": 522,
+        "duration": 7.5,
+        "mp4Bytes": 72343,
+        "webmBytes": 64020
+      }
+    },
+    "project-11": {
+      "original": {
+        "path": "/assets/projects/JointSpace_traj.gif",
+        "width": 800,
+        "height": 493,
+        "bytes": 580803,
+        "animated": true
+      },
+      "poster": {
+        "640": "/media/posters/project-11-640.webp",
+        "1280": "/media/posters/project-11-1280.webp",
+        "width": 800,
+        "height": 494,
+        "bytes640": 8384,
+        "bytes1280": 11830
+      },
+      "og": "/media/og/project-11.jpg",
+      "video": {
+        "mp4": "/media/video/project-11.mp4",
+        "webm": "/media/video/project-11.webm",
+        "width": 800,
+        "height": 492,
+        "duration": 5,
+        "mp4Bytes": 32961,
+        "webmBytes": 18693
+      }
+    },
+    "project-12": {
+      "original": {
+        "path": "/assets/projects/face_recognition_01.png",
+        "width": 996,
+        "height": 462,
+        "bytes": 186223,
+        "animated": false
+      },
+      "poster": {
+        "640": "/media/posters/project-12-640.webp",
+        "1280": "/media/posters/project-12-1280.webp",
+        "width": 996,
+        "height": 462,
+        "bytes640": 12088,
+        "bytes1280": 19010
+      },
+      "og": "/media/og/project-12.jpg",
+      "video": null
+    },
+    "project-13": {
+      "original": {
+        "path": "/assets/projects/detected_vs_reprojected_corners.png",
+        "width": 778,
+        "height": 923,
+        "bytes": 964539,
+        "animated": false
+      },
+      "poster": {
+        "640": "/media/posters/project-13-640.webp",
+        "1280": "/media/posters/project-13-1280.webp",
+        "width": 778,
+        "height": 924,
+        "bytes640": 30056,
+        "bytes1280": 38936
+      },
+      "og": "/media/og/project-13.jpg",
+      "video": null
+    }
+  },
+  "gallery": {
+    "/assets/projects/gt_vs_kiss_icp_00.png": {
+      "src": "/media/gallery/gt_vs_kiss_icp_00-1200.webp",
+      "width": 800,
+      "height": 800,
+      "bytes": 36270,
+      "originalBytes": 102042
+    },
+    "/assets/projects/evaluation_metrics_00.png": {
+      "src": "/media/gallery/evaluation_metrics_00-1200.webp",
+      "width": 1200,
+      "height": 800,
+      "bytes": 59460,
+      "originalBytes": 128604
+    },
+    "/assets/projects/lidar_odometry_and_map_visualized_00_1.png": {
+      "src": "/media/gallery/lidar_odometry_and_map_visualized_00_1-1200.webp",
+      "width": 1200,
+      "height": 656,
+      "bytes": 29668,
+      "originalBytes": 657436
+    },
+    "/assets/projects/lidar_odometry_and_map_visualized_00_2.png": {
+      "src": "/media/gallery/lidar_odometry_and_map_visualized_00_2-1200.webp",
+      "width": 1200,
+      "height": 656,
+      "bytes": 47604,
+      "originalBytes": 1124166
+    },
+    "/assets/projects/lidar_odometry_and_map_visualized_00_3.png": {
+      "src": "/media/gallery/lidar_odometry_and_map_visualized_00_3-1200.webp",
+      "width": 1200,
+      "height": 656,
+      "bytes": 39212,
+      "originalBytes": 859390
+    },
+    "/assets/projects/lidar_odometry_and_map_visualized_00_4.png": {
+      "src": "/media/gallery/lidar_odometry_and_map_visualized_00_4-1200.webp",
+      "width": 1200,
+      "height": 656,
+      "bytes": 50854,
+      "originalBytes": 1216779
+    },
+    "/assets/projects/lidar_odometry_and_map_visualized_00_5.png": {
+      "src": "/media/gallery/lidar_odometry_and_map_visualized_00_5-1200.webp",
+      "width": 1200,
+      "height": 656,
+      "bytes": 45348,
+      "originalBytes": 933615
+    },
+    "/assets/projects/reconstruction_01.png": {
+      "src": "/media/gallery/reconstruction_01-1200.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 16484,
+      "originalBytes": 122824
+    },
+    "/assets/projects/reconstruction_02.png": {
+      "src": "/media/gallery/reconstruction_02-1200.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 19394,
+      "originalBytes": 134733
+    },
+    "/assets/projects/reconstruction_03.png": {
+      "src": "/media/gallery/reconstruction_03-1200.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 17686,
+      "originalBytes": 128842
+    },
+    "/assets/projects/reconstruction_04.png": {
+      "src": "/media/gallery/reconstruction_04-1200.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 12252,
+      "originalBytes": 96571
+    },
+    "/assets/projects/obj_detection_01.jpg": {
+      "src": "/media/gallery/obj_detection_01-1200.webp",
+      "width": 1200,
+      "height": 676,
+      "bytes": 94504,
+      "originalBytes": 140010
+    },
+    "/assets/projects/obj_detection_02.jpg": {
+      "src": "/media/gallery/obj_detection_02-1200.webp",
+      "width": 1200,
+      "height": 676,
+      "bytes": 41046,
+      "originalBytes": 63320
+    },
+    "/assets/projects/obj_detection.gif": {
+      "src": "/media/gallery/obj_detection-1200.webp",
+      "width": 1200,
+      "height": 676,
+      "bytes": 135302,
+      "originalBytes": 54159934
+    },
+    "/assets/projects/hybrid-a-star-main.gif": {
+      "src": "/media/gallery/hybrid-a-star-main-1200.webp",
+      "width": 704,
+      "height": 704,
+      "bytes": 5814,
+      "originalBytes": 93781
+    },
+    "/assets/projects/frenet-trajectory.gif": {
+      "src": "/media/gallery/frenet-trajectory-1200.webp",
+      "width": 1050,
+      "height": 400,
+      "bytes": 20114,
+      "originalBytes": 1951904
+    },
+    "/assets/projects/ekf_demo.gif": {
+      "src": "/media/gallery/ekf_demo-1200.webp",
+      "width": 800,
+      "height": 800,
+      "bytes": 7480,
+      "originalBytes": 5611648
+    },
+    "/assets/projects/rl-video-episode-7.gif": {
+      "src": "/media/gallery/rl-video-episode-7-1200.webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 20626,
+      "originalBytes": 7155532
+    },
+    "/assets/projects/SlidingMode_quad.gif": {
+      "src": "/media/gallery/SlidingMode_quad-1200.webp",
+      "width": 600,
+      "height": 340,
+      "bytes": 6844,
+      "originalBytes": 1587196
+    },
+    "/assets/projects/tsp.gif": {
+      "src": "/media/gallery/tsp-1200.webp",
+      "width": 1200,
+      "height": 652,
+      "bytes": 36564,
+      "originalBytes": 14386242
+    },
+    "/assets/projects/JointSpace_traj.gif": {
+      "src": "/media/gallery/JointSpace_traj-1200.webp",
+      "width": 800,
+      "height": 494,
+      "bytes": 12850,
+      "originalBytes": 580803
+    },
+    "/assets/projects/face_recognition_01.png": {
+      "src": "/media/gallery/face_recognition_01-1200.webp",
+      "width": 996,
+      "height": 462,
+      "bytes": 20302,
+      "originalBytes": 186223
+    },
+    "/assets/projects/face_recognition_02.png": {
+      "src": "/media/gallery/face_recognition_02-1200.webp",
+      "width": 1200,
+      "height": 392,
+      "bytes": 31350,
+      "originalBytes": 2748434
+    },
+    "/assets/projects/face_recognition_03.png": {
+      "src": "/media/gallery/face_recognition_03-1200.webp",
+      "width": 1200,
+      "height": 426,
+      "bytes": 37690,
+      "originalBytes": 2874757
+    },
+    "/assets/projects/face_recognition_04.png": {
+      "src": "/media/gallery/face_recognition_04-1200.webp",
+      "width": 1200,
+      "height": 620,
+      "bytes": 11514,
+      "originalBytes": 90339
+    },
+    "/assets/projects/face_recognition_05.png": {
+      "src": "/media/gallery/face_recognition_05-1200.webp",
+      "width": 1006,
+      "height": 492,
+      "bytes": 21868,
+      "originalBytes": 195682
+    }
+  },
+  "skills": {
+    "ROS 2.png": {
+      "src": "/media/skills/ros-2.webp",
+      "width": 442,
+      "height": 128
+    },
+    "c++.png": {
+      "src": "/media/skills/cplusplus.webp",
+      "width": 114,
+      "height": 128
+    },
+    "computer vision.jpg": {
+      "src": "/media/skills/computer-vision.webp",
+      "width": 128,
+      "height": 128
+    },
+    "cuda.png": {
+      "src": "/media/skills/cuda.webp",
+      "width": 166,
+      "height": 128
+    },
+    "deep learning.jpg": {
+      "src": "/media/skills/deep-learning.webp",
+      "width": 146,
+      "height": 128
+    },
+    "docker.png": {
+      "src": "/media/skills/docker.webp",
+      "width": 128,
+      "height": 128
+    },
+    "nav 2.png": {
+      "src": "/media/skills/nav-2.webp",
+      "width": 70,
+      "height": 128
+    },
+    "python.png": {
+      "src": "/media/skills/python.webp",
+      "width": 228,
+      "height": 128
+    },
+    "pytorch.png": {
+      "src": "/media/skills/pytorch.webp",
+      "width": 256,
+      "height": 128
+    }
+  }
+}

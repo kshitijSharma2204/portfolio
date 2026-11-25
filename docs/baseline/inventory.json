@@ -1,0 +1,271 @@
+{
+  "sourceCommit": "e8201098c5a46f464b9a219986726e0b21024915",
+  "generatedAt": "2026-11-25T08:45:38.280Z",
+  "files": [
+    {
+      "path": "public/assets/projects/JointSpace_traj.gif",
+      "bytes": 580803,
+      "sha256": "3a02a86e7512af4766d2aca3dc54c26e185d62613388abd5e57142f677a2a1a1"
+    },
+    {
+      "path": "public/assets/projects/SlidingMode_quad.gif",
+      "bytes": 1587196,
+      "sha256": "662d67fbf540534d6a3bf07950562a14016bd95e243bf60c94c82b663aa3ab50"
+    },
+    {
+      "path": "public/assets/projects/detected_vs_reprojected_corners.png",
+      "bytes": 964539,
+      "sha256": "f6facddaaa09d7dfd99fe0dc994b522d770160b7113ff063c82807b653c6f8a1"
+    },
+    {
+      "path": "public/assets/projects/ekf_demo.gif",
+      "bytes": 5611648,
+      "sha256": "329252e6a56f0f23ed71b37831ccbe020c5bc8a319f773604f926e61b95a1043"
+    },
+    {
+      "path": "public/assets/projects/evaluation_metrics_00.png",
+      "bytes": 128604,
+      "sha256": "33bf3b1236431efcb6aa73bb06efdcaa9bea04c9d9c5bf4a86be8ec5dc58ee68"
+    },
+    {
+      "path": "public/assets/projects/face_recognition_01.png",
+      "bytes": 186223,
+      "sha256": "dd3ec8e43049b825cb23d38169711bee0414c4932d65264f3d968f6408dd321e"
+    },
+    {
+      "path": "public/assets/projects/face_recognition_02.png",
+      "bytes": 2748434,
+      "sha256": "cf46c2ddb5410c98286aa353866b4f34ddc02664bcb30a2ec9b25fcf3946a533"
+    },
+    {
+      "path": "public/assets/projects/face_recognition_03.png",
+      "bytes": 2874757,
+      "sha256": "809ab1bf94547653c198bd8e31448c0ee6f94ce2f221593704a0a16ce06e40a6"
+    },
+    {
+      "path": "public/assets/projects/face_recognition_04.png",
+      "bytes": 90339,
+      "sha256": "88919399b53e19d239ae5800d519ed6581864756178d26747d09db991c1c2331"
+    },
+    {
+      "path": "public/assets/projects/face_recognition_05.png",
+      "bytes": 195682,
+      "sha256": "821c7c4922938d40ccbd8cab7f2fe839d68c3ffbd700c9df8f250975f0adad5c"
+    },
+    {
+      "path": "public/assets/projects/frenet-trajectory.gif",
+      "bytes": 1951904,
+      "sha256": "6d1db04c6f5f7600fd3d2b5117c0eb47578cb7c6a44526d3d92fca1ffc49136c"
+    },
+    {
+      "path": "public/assets/projects/gt_vs_kiss_icp_00.png",
+      "bytes": 102042,
+      "sha256": "d5c773d95eaab4f4e82b75d997c7e5cb874a4c094afe86177a9417d0cbdb0c5a"
+    },
+    {
+      "path": "public/assets/projects/hybrid-a-star-main.gif",
+      "bytes": 93781,
+      "sha256": "7c68ba6234e8cbef2a68adfd2d72edd56ab124debfec28f21fb21240ee37f78b"
+    },
+    {
+      "path": "public/assets/projects/hybrid-a-star.gif",
+      "bytes": 224439,
+      "sha256": "05d83bea934261addee82b25b873dde2fe466f607c3afdb18b2f3012ffb3f609"
+    },
+    {
+      "path": "public/assets/projects/lidar_odometry_and_map_visualized_00.gif",
+      "bytes": 17530609,
+      "sha256": "391866ab555ec3d64c5f22d10e86e0d9d837462f2031eb2b6bdaed5c020801e2"
+    },
+    {
+      "path": "public/assets/projects/lidar_odometry_and_map_visualized_00_1.png",
+      "bytes": 657436,
+      "sha256": "cb9f3828d71e18d41e815259f469d0c065d749d7952e68f08092648dbbc16a7e"
+    },
+    {
+      "path": "public/assets/projects/lidar_odometry_and_map_visualized_00_2.png",
+      "bytes": 1124166,
+      "sha256": "3c617421db9c2f226ce0ef8663f8823aee5bb4f465d7998469a2093cc5df8427"
+    },
+    {
+      "path": "public/assets/projects/lidar_odometry_and_map_visualized_00_3.png",
+      "bytes": 859390,
+      "sha256": "8f1470c7d8c439fb0d598c115ba0d2a525af6cd31a9f57cdc27f0311c972a3b8"
+    },
+    {
+      "path": "public/assets/projects/lidar_odometry_and_map_visualized_00_4.png",
+      "bytes": 1216779,
+      "sha256": "a7219aa28449cd96999329add5d6a272e039ad90f67750b8a9e489230721fce1"
+    },
+    {
+      "path": "public/assets/projects/lidar_odometry_and_map_visualized_00_5.png",
+      "bytes": 933615,
+      "sha256": "3e42237d8a1b3d2e3823ce2eb17ad55236dc7136b1f34f935e581ce8cef816d3"
+    },
+    {
+      "path": "public/assets/projects/obj_detection.gif",
+      "bytes": 54159934,
+      "sha256": "ec3db7c158631da1598fe4920b69d535cc7cb6fa12982018fdbdde36a36549b4"
+    },
+    {
+      "path": "public/assets/projects/obj_detection_01.jpg",
+      "bytes": 140010,
+      "sha256": "19d1dc58134fe23b52a24d9de094f5e787064d7308f5a7dc33d8be53c442c1db"
+    },
+    {
+      "path": "public/assets/projects/obj_detection_02.jpg",
+      "bytes": 63320,
+      "sha256": "b80fcba963b8b4916585f051bfd55d80cc28a9b601ae7a716d0000a1b5bbf010"
+    },
+    {
+      "path": "public/assets/projects/reconstruction.gif",
+      "bytes": 3216672,
+      "sha256": "c07f29670860b137da6276bc0bf0c1433dc80d3b18bcc8bba8cb38396e2fdf40"
+    },
+    {
+      "path": "public/assets/projects/reconstruction_01.png",
+      "bytes": 122824,
+      "sha256": "cb315d85f5232577f7629b92e372366ff36809edd22537b030f437a957fcf384"
+    },
+    {
+      "path": "public/assets/projects/reconstruction_02.png",
+      "bytes": 134733,
+      "sha256": "5ca8d43093ca9aa7265d341009d1415b4329a2833ae62ef1ab4553c96484e27e"
+    },
+    {
+      "path": "public/assets/projects/reconstruction_03.png",
+      "bytes": 128842,
+      "sha256": "8e12cfb0650efa2102b7f8b145113d07b999d1ac6b5d66baaf4dd1ef1bef6591"
+    },
+    {
+      "path": "public/assets/projects/reconstruction_04.png",
+      "bytes": 96571,
+      "sha256": "17ea8903ce3aa62c2f8176ac73c19701a1e66afd3336d60ff1fcce431bc7c259"
+    },
+    {
+      "path": "public/assets/projects/rl-video-episode-7.gif",
+      "bytes": 7155532,
+      "sha256": "a4fe908144efd28c4fcb980a6918cf312e4ccdc020892725e76eac6a1969d452"
+    },
+    {
+      "path": "public/assets/projects/semantic_segmentation_inference.gif",
+      "bytes": 25263239,
+      "sha256": "de5ca57ce0d41db2246001c7066e6463d84d8638196fb407ac00695afb3ef863"
+    },
+    {
+      "path": "public/assets/projects/tsp.gif",
+      "bytes": 14386242,
+      "sha256": "ed88031fe346758c210d85d9b81959990d73a140e07abce9ee635d818d268769"
+    },
+    {
+      "path": "public/assets/skills/ROS 2.png",
+      "bytes": 29244,
+      "sha256": "c10ccb3e1cf827a244b744d0c10b4ea48c93f09eb6013210a20ca861639c7207"
+    },
+    {
+      "path": "public/assets/skills/c++.png",
+      "bytes": 70425,
+      "sha256": "71b29ef133b8017a4ae0e1509e7b0209f6dff4b3d486b1444dc49bf91870b8e7"
+    },
+    {
+      "path": "public/assets/skills/computer vision.jpg",
+      "bytes": 19136,
+      "sha256": "ce96db019006224b809bf6bf70dc16d4f03d057079b3ead6d61e486ab0ce1bd1"
+    },
+    {
+      "path": "public/assets/skills/cuda.png",
+      "bytes": 28034,
+      "sha256": "020786625aa5b03b2072e88efd27cf85bafa6abaadfd6ada2516b6cd244f5046"
+    },
+    {
+      "path": "public/assets/skills/deep learning.jpg",
+      "bytes": 23192,
+      "sha256": "6c818ac3848ea70069872a48ed5c798ee1d12fc8f3ac131a01e9c4a9a49e5336"
+    },
+    {
+      "path": "public/assets/skills/docker.png",
+      "bytes": 46154,
+      "sha256": "7efc7d40d145bf8911b77776083778151dad1e654333a50ae7dad6f8b397e66b"
+    },
+    {
+      "path": "public/assets/skills/nav 2.png",
+      "bytes": 28755,
+      "sha256": "06014e6e3bfad054cb03776a0530568708e58f0d9e1608e0cbd4d694df5e22d3"
+    },
+    {
+      "path": "public/assets/skills/python.png",
+      "bytes": 25994,
+      "sha256": "168d602212fc9fc0e10aadc80b42a1905c3fded886a04fa9d0fbcf901208a3a0"
+    },
+    {
+      "path": "public/assets/skills/pytorch.png",
+      "bytes": 12197,
+      "sha256": "ba234eb29838836931f570926a0a4463bce0fef30b76784437c100cac7048c64"
+    },
+    {
+      "path": "public/assets/skills/skills-manifest.json",
+      "bytes": 156,
+      "sha256": "145c7276bd560e88e3bd25f5e7107f713e4190365a2920da75439509bd158eb1"
+    },
+    {
+      "path": "public/avatar.jpg",
+      "bytes": 52924,
+      "sha256": "ac20f2228f0864d839c68f241b06579a66b5a688641e31e1bb506a2f7e1a3ec0"
+    },
+    {
+      "path": "public/bio.json",
+      "bytes": 1014,
+      "sha256": "2b4d8d154290f5b0c9fb3b26070b6ac1e93d4ec89101337b89d07e937b250407"
+    },
+    {
+      "path": "public/experience.json",
+      "bytes": 5415,
+      "sha256": "7083910b535ec76ec78f8820a3f8840fe1f618d3fcf32db4b315f76090fc9aa9"
+    },
+    {
+      "path": "public/favicon.ico",
+      "bytes": 3870,
+      "sha256": "3d10f7da6c603178340081668c4ac5b3ae9743ca9a262ab0fcd312fbb9f48bdd"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 1830,
+      "sha256": "96a12bdd0ef416975b2e7cd5f566aeebcd4f99bb774f2536899ffcd2ebd08448"
+    },
+    {
+      "path": "public/left_nav_bg.jpg",
+      "bytes": 2657139,
+      "sha256": "84f83819cda55475619d11a45a804d0773bf7fe54ca911c72a52378c5e93aa80"
+    },
+    {
+      "path": "public/logo192.png",
+      "bytes": 5347,
+      "sha256": "c386396ec70db3608075b5fbfaac4ab1ccaa86ba05a68ab393ec551eb66c3e00"
+    },
+    {
+      "path": "public/logo512.png",
+      "bytes": 9664,
+      "sha256": "9ea4f4da7050c0cc408926f6a39c253624e9babb1d43c7977cd821445a60b461"
+    },
+    {
+      "path": "public/manifest.json",
+      "bytes": 500,
+      "sha256": "c2b3e04810b6444e6c4f37094425194b07e5d7f6577cad792a304ae632cf1d95"
+    },
+    {
+      "path": "public/projects.json",
+      "bytes": 17235,
+      "sha256": "702c063143a4c9d3a1959e4ba9765c32c7e1a50a91a41843b5240108b2f1aa58"
+    },
+    {
+      "path": "public/resume.pdf",
+      "bytes": 129530,
+      "sha256": "6fb05145da5ad4a51c181c287710189c9e37047203990f2560ce2befab21c26d"
+    },
+    {
+      "path": "public/robots.txt",
+      "bytes": 67,
+      "sha256": "90d24bc3bf698ac1e173739502298ccca72adf1f564fab05f484b8c48d1cadd2"
+    }
+  ]
+}

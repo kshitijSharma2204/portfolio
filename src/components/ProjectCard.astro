@@ -1,0 +1,123 @@
+---
+/**
+ * One card for every surface (homepage featured grid + all-projects gallery).
+ * Everything essential is visible without interaction: real thumbnail, title, original short description,
+ * key existing tags, a real link to the case study and a direct GitHub link.
+ */
+import Icon from './Icon.astro';
+import ProjectMedia from './ProjectMedia.astro';
+import { withBase, type Project } from '../lib/content';
+
+interface Props {
+  project: Project;
+  headingLevel?: 'h2' | 'h3';
+  maxTags?: number;
+  eager?: boolean;
+}
+const { project: p, headingLevel: H = 'h3', maxTags = 4, eager = false } = Astro.props;
+const href = withBase(`projects/${p.slug}/`);
+const shown = p.skills.slice(0, maxTags);
+const more = p.skills.length - shown.length;
+const searchText = [p.title, p.name, p.mainDescr, p.description, p.group, ...p.skills].join(' ').toLowerCase();
+---
+<article
+  class="pcard card"
+  data-project={p.id}
+  data-category={p.categorySlug}
+  data-search={searchText}
+>
+  <a class="pcard-media" href={href} tabindex="-1" aria-hidden="true" data-qv-open={p.id}>
+    <ProjectMedia project={p} eager={eager} />
+  </a>
+  <div class="pcard-body">
+    <p class="pcard-group">{p.group}</p>
+    <H class="pcard-title"><a href={href}>{p.name}</a></H>
+    <p class="pcard-desc">{p.mainDescr}</p>
+    <ul class="tags" aria-label="Key skills">
+      {shown.map((s) => <li class="tag">{s}</li>)}
+      {more > 0 && <li class="tag tag-more">+{more} more</li>}
+    </ul>
+    <div class="pcard-actions">
+      <button type="button" class="btn btn-sm qv-btn" data-qv-open={p.id} aria-haspopup="dialog">
+        <Icon name="eye" size={16} /> Quick view<span class="sr-only">: {p.name}</span>
+      </button>
+      <span class="pcard-links">
+        <a class="pcard-link" href={href}>Case study<span class="sr-only">: {p.name}</span> <Icon name="arrow" size={16} /></a>
+        <a class="pcard-link" href={p.link} rel="noopener">
+          <Icon name="github" size={16} /> Code<span class="sr-only"> for {p.name} on GitHub</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .pcard {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .pcard:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); box-shadow: var(--shadow); }
+  @media (prefers-reduced-motion: no-preference) {
+    .pcard:hover { transform: translateY(-2px); }
+  }
+  .pcard-media { display: block; border-bottom: 1px solid var(--border); }
+  .pcard-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding: var(--s5);
+    flex: 1;
+  }
+  .pcard-group {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .pcard-title { font-size: 1.1875rem; margin: 0; }
+  .pcard-title a { color: var(--text); text-decoration: none; }
+  .pcard-title a:hover { color: var(--accent); text-decoration: underline; }
+  .pcard-desc { color: var(--muted); font-size: 0.9375rem; margin: 0; }
+  .pcard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s2) var(--s4);
+    margin-top: auto;
+    padding-top: var(--s3);
+    border-top: 1px solid var(--border);
+  }
+  .pcard-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  .pcard-link:hover { text-decoration: underline; }
+  .qv-btn { margin-right: auto; padding: 0 var(--s3); }
+  .pcard-links { display: inline-flex; gap: var(--s4); margin-left: auto; white-space: nowrap; }
+  :global(html:not(.js)) .qv-btn { display: none; }
+
+  /* List layout (toggled on the gallery container). */
+  :global([data-view='list']) .pcard {
+    flex-direction: row;
+  }
+  :global([data-view='list']) .pcard-media {
+    flex: 0 0 min(280px, 34%);
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+  }
+  :global([data-view='list']) .pcard-media :global(.media-well) { height: 100%; aspect-ratio: auto; min-height: 160px; }
+  @media (max-width: 640px) {
+    :global([data-view='list']) .pcard { flex-direction: column; }
+    :global([data-view='list']) .pcard-media { flex: none; border-right: 0; border-bottom: 1px solid var(--border); }
+    :global([data-view='list']) .pcard-media :global(.media-well) { aspect-ratio: 16 / 10; min-height: 0; }
+  }
+</style>

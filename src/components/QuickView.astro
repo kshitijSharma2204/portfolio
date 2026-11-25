@@ -1,0 +1,173 @@
+---
+/**
+ * Optional Quick View (Phase 3b). Native <dialog> + showModal(): focus is trapped by the browser, Escape closes,
+ * and focus is restored to the opener on close. Content for each project is server-rendered into a <template>,
+ * so nothing (including images) loads until a preview is opened. Without JS, the triggers are plain links/hidden.
+ */
+import Icon from './Icon.astro';
+import ProjectMedia from './ProjectMedia.astro';
+import { formatBytes, withBase, type Project } from '../lib/content';
+
+interface Props {
+  projects: Project[];
+}
+const { projects } = Astro.props;
+---
+<dialog class="qv" aria-labelledby="qv-title" data-qv>
+  <div class="qv-inner" data-qv-content></div>
+</dialog>
+
+{projects.map((p) => (
+  <template id={`qv-${p.id}`}>
+    <header class="qv-head">
+      <div>
+        <p class="eyebrow">Project preview · {p.group}</p>
+        <h2 id="qv-title">{p.name}</h2>
+      </div>
+      <button type="button" class="icon-btn qv-close" data-qv-close aria-label="Close preview">
+        <Icon name="close" />
+      </button>
+    </header>
+    <ProjectMedia project={p} playable showLinks sizes="(max-width: 900px) 100vw, 860px" class="qv-media" />
+    <div class="qv-body">
+      <p class="qv-desc">{p.description}</p>
+      <h3 class="qv-sub">Skills</h3>
+      <ul class="tags">{p.skills.map((s) => <li class="tag">{s}</li>)}</ul>
+      {p.gallery.length > 0 && (
+        <>
+          <h3 class="qv-sub">Gallery</h3>
+          <ul class="qv-gallery">
+            {p.gallery.map((g, i) => (
+              <li>
+                <a href={withBase(g.original)} aria-label={`Open original image ${i + 1} of ${p.gallery.length} (${formatBytes(g.originalBytes)})`}>
+                  <img src={withBase(g.src)} width={g.width} height={g.height} loading="lazy" decoding="async"
+                    alt={`${p.name} — gallery image ${i + 1} of ${p.gallery.length}`} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+    <footer class="qv-foot btn-row">
+      <a class="btn btn-primary" href={withBase(`projects/${p.slug}/`)}>Full case study <Icon name="arrow" size={16} /></a>
+      <a class="btn" href={p.link} rel="noopener"><Icon name="github" size={16} /> GitHub repository</a>
+    </footer>
+  </template>
+))}
+
+<style is:global>
+  .qv {
+    width: min(920px, calc(100vw - 32px));
+    max-height: calc(100dvh - 48px);
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 24px 64px -16px rgb(0 0 0 / 0.5);
+    overflow: hidden;
+  }
+  .qv::backdrop { background: rgb(2 6 23 / 0.7); backdrop-filter: blur(2px); }
+  .qv-inner { max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
+  .qv-head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--s4);
+    padding: var(--s5) var(--s5) var(--s4);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .qv-head h2 { font-size: clamp(1.25rem, 3vw, 1.625rem); margin: 0; }
+  .qv-head .eyebrow { margin-bottom: var(--s1); }
+  .qv-close { flex: none; }
+  .qv-media { padding: var(--s5) var(--s5) 0; }
+  .qv-media .media-well { border-radius: var(--radius-sm); border: 1px solid var(--border); }
+  .qv-body { padding: var(--s5); }
+  .qv-body > p { color: var(--muted); }
+  .qv-desc { white-space: pre-line; }
+  .qv-sub { font-size: 0.8125rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: var(--s5) 0 var(--s3); }
+  .qv-gallery {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--s3);
+  }
+  .qv-gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: var(--well);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .qv-foot {
+    position: sticky;
+    bottom: 0;
+    padding: var(--s4) var(--s5);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 640px) {
+    .qv {
+      width: 100vw;
+      max-width: 100vw;
+      height: 100dvh;
+      max-height: 100dvh;
+      margin: 0;
+      border-radius: 0;
+      border: 0;
+    }
+    .qv-inner { max-height: 100dvh; height: 100%; }
+    .qv-head { padding: var(--s4); }
+    .qv-media { padding: var(--s4) var(--s4) 0; }
+    .qv-body { padding: var(--s4); }
+    .qv-foot { padding: var(--s3) var(--s4); }
+    .qv-foot .btn { flex: 1; }
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-qv]');
+  const content = dialog?.querySelector<HTMLElement>('[data-qv-content]');
+  let opener: HTMLElement | null = null;
+
+  if (dialog && content && typeof dialog.showModal === 'function') {
+    document.addEventListener('click', (e) => {
+      const me = e as MouseEvent;
+      const trigger = (e.target as Element).closest<HTMLElement>('[data-qv-open]');
+      if (!trigger) return;
+      // Let modified clicks on the thumbnail link open the case study normally.
+      if (trigger.tagName === 'A' && (me.metaKey || me.ctrlKey || me.shiftKey || me.altKey || me.button !== 0)) return;
+      const tpl = document.getElementById(`qv-${trigger.dataset.qvOpen}`) as HTMLTemplateElement | null;
+      if (!tpl) return;
+      e.preventDefault();
+      // Restore focus to a focusable control: the thumbnail link is tabindex=-1, so use the card's button.
+      opener =
+        trigger.tagName === 'A'
+          ? trigger.closest('[data-project]')?.querySelector<HTMLElement>('button[data-qv-open]') ?? trigger
+          : trigger;
+      content.replaceChildren(tpl.content.cloneNode(true));
+      content.scrollTop = 0;
+      dialog.showModal();
+      dialog.querySelector<HTMLElement>('[data-qv-close]')?.focus();
+    });
+
+    dialog.addEventListener('click', (e) => {
+      if ((e.target as Element).closest('[data-qv-close]') || e.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener('close', () => {
+      content.querySelectorAll('video').forEach((v) => v.pause());
+      content.replaceChildren();
+      opener?.focus({ preventScroll: true });
+      opener = null;
+    });
+  }
+</script>

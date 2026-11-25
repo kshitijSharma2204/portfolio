@@ -1,3 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
+# Note: crawlers only treat https://kshitijsharma2204.github.io/robots.txt (host root) as authoritative.
+# This file documents intent for the /portfolio/ project site and points at its sitemap.
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://kshitijsharma2204.github.io/portfolio/sitemap.xml

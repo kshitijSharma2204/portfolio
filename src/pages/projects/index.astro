@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import QuickView from '../../components/QuickView.astro';
+import { categories, profile, projects, withBase } from '../../lib/content';
+
+const total = projects.length;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `Projects by ${profile.name}`,
+  url: new URL(withBase('projects/'), Astro.site).href,
+  author: { '@id': `${profile.siteUrl}#person` },
+  hasPart: projects.map((p) => ({
+    '@type': 'SoftwareSourceCode',
+    name: p.name,
+    url: new URL(withBase(`projects/${p.slug}/`), Astro.site).href,
+    codeRepository: p.link,
+  })),
+};
+---
+<BaseLayout
+  title={`Projects | ${profile.name}`}
+  description={`All ${total} robotics, perception, SLAM, motion planning and machine learning projects by ${profile.name}, with source code on GitHub.`}
+  jsonLd={jsonLd}
+>
+  <div class="container page-head">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href={withBase('')}>Home</a></li>
+        <li><span aria-current="page">Projects</span></li>
+      </ol>
+    </nav>
+    <span class="eyebrow">Portfolio</span>
+    <h1>Projects</h1>
+    <p class="lead">
+      {total} projects across computer vision, planning and control, robotics, reinforcement learning and
+      algorithms. Every card links to a case study and its GitHub repository.
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="toolbar js-only" data-filters>
+      <div class="search">
+        <label for="project-search" class="sr-only">Search projects</label>
+        <Icon name="search" />
+        <input
+          id="project-search"
+          type="search"
+          placeholder="Search titles, skills, algorithms…"
+          autocomplete="off"
+          spellcheck="false"
+          data-search-input
+        />
+      </div>
+      <div class="view-toggle" role="group" aria-label="Layout">
+        <button type="button" class="icon-btn" data-view-btn="grid" aria-pressed="true" aria-label="Grid view"><Icon name="grid" /></button>
+        <button type="button" class="icon-btn" data-view-btn="list" aria-pressed="false" aria-label="List view"><Icon name="list" /></button>
+      </div>
+    </div>
+
+    <div class="chips js-only" role="group" aria-label="Filter by category">
+      <button type="button" class="chip" data-category-btn="" aria-pressed="true">All <span class="chip-n">{total}</span></button>
+      {categories.map((c) => (
+        <button type="button" class="chip" data-category-btn={c.slug} aria-pressed="false">
+          {c.name} <span class="chip-n">{c.count}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="status">
+      <p class="count mono" aria-live="polite" data-count>{total} projects</p>
+      <button type="button" class="clear js-only" data-clear hidden>Clear filters</button>
+    </div>
+
+    <div class="grid-3 gallery" data-gallery data-view="grid">
+      {projects.map((p, i) => <ProjectCard project={p} headingLevel="h2" eager={i < 3} />)}
+    </div>
+
+    <div class="empty card" data-empty hidden>
+      <p><strong>No projects match your filters.</strong></p>
+      <p class="muted">Try a different search term or category.</p>
+      <button type="button" class="btn btn-sm" data-clear>Clear filters</button>
+    </div>
+  </div>
+
+  <QuickView projects={projects} />
+</BaseLayout>
+
+<style>
+  :global(html:not(.js)) .js-only { display: none !important; }
+  .toolbar {
+    display: flex;
+    gap: var(--s3);
+    align-items: center;
+    margin-bottom: var(--s4);
+  }
+  .search {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  .search :global(svg) { position: absolute; left: 14px; color: var(--muted); pointer-events: none; }
+  .search input {
+    width: 100%;
+    min-height: 46px;
+    padding: 0 var(--s4) 0 42px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+  }
+  .search input::placeholder { color: var(--muted); opacity: 1; }
+  .search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .view-toggle { display: flex; gap: var(--s1); }
+  .view-toggle .icon-btn { width: 46px; height: 46px; border-color: var(--border-strong); }
+  .view-toggle .icon-btn[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s4); }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+    min-height: 40px;
+    padding: 0 var(--s4);
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+    font: 500 0.875rem/1 var(--font-body);
+    cursor: pointer;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .chip-n { font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.8; }
+
+  .status { display: flex; align-items: center; gap: var(--s4); min-height: 36px; margin-bottom: var(--s4); }
+  .count { margin: 0; font-size: 0.875rem; color: var(--muted); }
+  .clear {
+    background: none;
+    border: 0;
+    padding: var(--s2) 0;
+    color: var(--accent);
+    font: 600 0.875rem/1 var(--font-body);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .gallery[data-view='list'] { grid-template-columns: minmax(0, 1fr); }
+  .empty { padding: var(--s6); text-align: center; }
+  .empty p { margin-bottom: var(--s2); }
+  .empty .btn { margin-top: var(--s3); }
+  @media (max-width: 480px) {
+    .view-toggle { display: none; }
+  }
+</style>
+
+<script>
+  const gallery = document.querySelector<HTMLElement>('[data-gallery]')!;
+  const cards = [...gallery.querySelectorAll<HTMLElement>('[data-project]')];
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]')!;
+  const catBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-category-btn]')];
+  const viewBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-view-btn]')];
+  const countEl = document.querySelector<HTMLElement>('[data-count]')!;
+  const emptyEl = document.querySelector<HTMLElement>('[data-empty]')!;
+  const clearBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-clear]')];
+  const total = cards.length;
+  const validCats = new Set(catBtns.map((b) => b.dataset.categoryBtn));
+
+  const params = new URLSearchParams(location.search);
+  let category = validCats.has(params.get('category') ?? '') ? params.get('category')! : '';
+  let query = params.get('q') ?? '';
+  let view = params.get('view') === 'list' ? 'list' : 'grid';
+  input.value = query;
+
+  function syncUrl() {
+    const p = new URLSearchParams();
+    if (category) p.set('category', category);
+    if (query.trim()) p.set('q', query.trim());
+    if (view === 'list') p.set('view', 'list');
+    const qs = p.toString();
+    history.replaceState(history.state, '', `${location.pathname}${qs ? `?${qs}` : ''}${location.hash}`);
+  }
+
+  function apply() {
+    const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const card of cards) {
+      const text = card.dataset.search ?? '';
+      const match = (!category || card.dataset.category === category) && terms.every((t) => text.includes(t));
+      card.hidden = !match;
+      if (match) shown++;
+    }
+    for (const b of catBtns) b.setAttribute('aria-pressed', String(b.dataset.categoryBtn === category));
+    for (const b of viewBtns) b.setAttribute('aria-pressed', String(b.dataset.viewBtn === view));
+    gallery.dataset.view = view;
+    const filtered = Boolean(category || terms.length);
+    countEl.textContent = filtered ? `Showing ${shown} of ${total} projects` : `${total} projects`;
+    emptyEl.hidden = shown > 0;
+    clearBtns[0].hidden = !filtered;
+    syncUrl();
+  }
+
+  input.addEventListener('input', () => {
+    query = input.value;
+    apply();
+  });
+  input.closest('.toolbar')?.addEventListener('submit', (e) => e.preventDefault());
+  catBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      category = b.dataset.categoryBtn ?? '';
+      apply();
+    }),
+  );
+  viewBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      view = b.dataset.viewBtn === 'list' ? 'list' : 'grid';
+      apply();
+    }),
+  );
+  clearBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      category = '';
+      query = '';
+      input.value = '';
+      apply();
+      input.focus();
+    }),
+  );
+  apply();
+</script>

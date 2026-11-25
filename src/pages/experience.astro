@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import Icon from '../components/Icon.astro';
+import { currentRole, experience, profile, withBase } from '../lib/content';
+---
+<BaseLayout
+  title={`Experience | ${profile.name}`}
+  description={`Professional experience of ${profile.name}: ${currentRole.role} at ${currentRole.employer}, with previous robotics and C++ roles at ${experience
+    .slice(1, 4)
+    .map((e) => e.client ?? e.employer)
+    .join(', ')} and more.`}
+>
+  <div class="container page-head">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href={withBase('')}>Home</a></li>
+        <li><span aria-current="page">Experience</span></li>
+      </ol>
+    </nav>
+    <span class="eyebrow">Career</span>
+    <h1>Experience</h1>
+    <p class="lead">
+      Currently {currentRole.role} at {currentRole.employer}. Full professional timeline below.
+    </p>
+    <a class="btn" href={withBase('resume.pdf')}><Icon name="file" size={16} /> Download résumé (PDF)</a>
+  </div>
+  <div class="container">
+    <h2 class="sr-only">Professional timeline</h2>
+    <ExperienceTimeline entries={experience} />
+  </div>
+</BaseLayout>
