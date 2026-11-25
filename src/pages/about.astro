@@ -4,7 +4,13 @@ import Icon from '../components/Icon.astro';
 import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/content';
 ---
 <BaseLayout
-  title={`About | ${profile.name}`}
+  title={`About ${profile.name} | ${profile.title}`}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    url: new URL(withBase('about/'), Astro.site).href,
+    mainEntity: { '@id': `${profile.siteUrl}#person` },
+  }}
   description={`About ${profile.name}: Perception Software Engineer at Lucid Motors with a Master’s in Robotics Engineering from Worcester Polytechnic Institute (WPI), working in perception, SLAM, sensor fusion and motion planning.`}
 >
   <div class="container page-head">

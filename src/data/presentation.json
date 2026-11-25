@@ -1,18 +1,101 @@
 {
-  "$comment": "Presentation-only metadata keyed by project ID: URL slug, featured rank (1-6 on the homepage), optional displayTitle and posterTime (seconds into a GIF used for its still poster).",
+  "$comment": "Presentation-only metadata. projects: keyed by project ID — URL slug, featuredRank (1-6 on the homepage), displayCategory (key from displayCategories), optional displayTitle, posterTime (seconds into a GIF for its still poster) and captions (gallery image path → verified caption). displayCategories: gallery filter chips; legacyKeys keep old ?category= links working via the original project group. experience: short homepage summaries keyed by employer, derived from the bullets in experience.json.",
+  "displayCategories": [
+    {
+      "key": "slam-state-estimation",
+      "label": "SLAM & State Estimation"
+    },
+    {
+      "key": "computer-vision-perception",
+      "label": "Computer Vision & Perception"
+    },
+    {
+      "key": "planning-control",
+      "label": "Motion Planning & Control"
+    },
+    {
+      "key": "reinforcement-learning",
+      "label": "Reinforcement Learning"
+    },
+    {
+      "key": "algorithms",
+      "label": "Algorithms"
+    }
+  ],
   "projects": {
-    "project-1": { "slug": "lidar-odometry-slam-stack", "featuredRank": 1 },
-    "project-2": { "slug": "3d-scene-reconstruction", "featuredRank": 2 },
-    "project-3": { "slug": "kitti-semantic-segmentation", "featuredRank": 4 },
-    "project-4": { "slug": "one-shot-object-detection" },
-    "project-5": { "slug": "hybrid-a-star", "featuredRank": 3 },
-    "project-6": { "slug": "trajectory-generation-frenet-frame", "featuredRank": 5 },
-    "project-7": { "slug": "ekf-localization", "featuredRank": 6, "posterTime": 29.5 },
-    "project-8": { "slug": "atari-breakout-dqn-agent" },
-    "project-9": { "slug": "sliding-mode-control-quadrotor" },
-    "project-10": { "slug": "travelling-salesman-problem", "posterTime": 7.3 },
-    "project-11": { "slug": "scara-joint-space-control" },
-    "project-12": { "slug": "face-recognition-siamese-network" },
-    "project-13": { "slug": "automatic-camera-calibration" }
+    "project-1": {
+      "slug": "lidar-odometry-slam-stack",
+      "featuredRank": 1,
+      "displayCategory": "slam-state-estimation",
+      "captions": {
+        "/assets/projects/gt_vs_kiss_icp_00.png": "Estimated trajectory vs. KITTI ground truth, sequence 00 (top-down)",
+        "/assets/projects/evaluation_metrics_00.png": "Per-step translation and rotation error vs. ground truth, sequence 00, with mean and RMSE lines",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_1.png": "Open3D visualizer screenshot, KITTI sequence 00 (1 of 5)",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_2.png": "Open3D visualizer screenshot, KITTI sequence 00 (2 of 5)",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_3.png": "Open3D visualizer screenshot, KITTI sequence 00 (3 of 5)",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_4.png": "Open3D visualizer screenshot, KITTI sequence 00 (4 of 5)",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_5.png": "Open3D visualizer screenshot, KITTI sequence 00 (5 of 5)"
+      }
+    },
+    "project-2": {
+      "slug": "3d-scene-reconstruction",
+      "featuredRank": 2,
+      "displayCategory": "computer-vision-perception"
+    },
+    "project-3": {
+      "slug": "kitti-semantic-segmentation",
+      "featuredRank": 4,
+      "displayCategory": "computer-vision-perception"
+    },
+    "project-4": {
+      "slug": "one-shot-object-detection",
+      "displayCategory": "computer-vision-perception"
+    },
+    "project-5": {
+      "slug": "hybrid-a-star",
+      "featuredRank": 3,
+      "displayCategory": "planning-control"
+    },
+    "project-6": {
+      "slug": "trajectory-generation-frenet-frame",
+      "featuredRank": 5,
+      "displayCategory": "planning-control"
+    },
+    "project-7": {
+      "slug": "ekf-localization",
+      "featuredRank": 6,
+      "posterTime": 29.5,
+      "displayCategory": "slam-state-estimation"
+    },
+    "project-8": {
+      "slug": "atari-breakout-dqn-agent",
+      "displayCategory": "reinforcement-learning"
+    },
+    "project-9": {
+      "slug": "sliding-mode-control-quadrotor",
+      "displayCategory": "planning-control"
+    },
+    "project-10": {
+      "slug": "travelling-salesman-problem",
+      "posterTime": 7.3,
+      "displayCategory": "algorithms"
+    },
+    "project-11": {
+      "slug": "scara-joint-space-control",
+      "displayCategory": "planning-control"
+    },
+    "project-12": {
+      "slug": "face-recognition-siamese-network",
+      "displayCategory": "computer-vision-perception"
+    },
+    "project-13": {
+      "slug": "automatic-camera-calibration",
+      "displayCategory": "computer-vision-perception"
+    }
+  },
+  "experience": {
+    "Lucid Motors": "Real-time LiDAR and ultrasonic sensor fusion, occupancy mapping and production vehicle perception.",
+    "Kforce, Inc": "Modern C++ architecture for multi-arm robotic welding, resource coordination and controller test infrastructure.",
+    "VueData LLC": "Python-based warehouse automation and robotic system evaluation for motion planning and perception."
   }
 }

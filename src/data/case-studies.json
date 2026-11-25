@@ -1,0 +1,163 @@
+{
+  "$comment": "Optional engineering case studies keyed by project ID. Only entries with status \"approved\" are rendered on the public site; \"draft\" entries are for owner review (npm run preview:drafts, docs/case-study-review/). Every claim must be backed by an evidence link to the project repository at a fixed commit. reviewNotes are never rendered.",
+  "caseStudies": [
+    {
+      "projectId": "project-1",
+      "status": "draft",
+      "problem": "Estimate a vehicle's trajectory from KITTI Velodyne scans alone, with the software structured like a live sensor system: scans replayed at their original capture timing, bounded memory between stages, and the estimate evaluated against ground truth.",
+      "approach": "A producer thread loads a KITTI raw drive and releases scans at their original capture spacing into a fixed-capacity queue. A consumer thread filters each scan, removes motion distortion using OXTS velocity, and registers it against a running voxel map with KISS-ICP-style scan-to-map ICP. Poses are written in KITTI format, evaluated with relative pose error, and can be replayed live in an Open3D viewer.",
+      "pipeline": [
+        { "step": "KITTI replay", "detail": "DataLoader reads Velodyne and OXTS frames; ReplayClock/ReplayScheduler pace scans by original capture timestamps.", "source": "src/kitti/, src/replay/" },
+        { "step": "Bounded queue", "detail": "Fixed-capacity, thread-safe queue; the producer blocks when the consumer falls behind.", "source": "src/pipeline/BoundedQueue.hpp" },
+        { "step": "Preprocess", "detail": "Reject invalid returns, range filter, voxel downsample.", "source": "src/preprocessor/" },
+        { "step": "Deskew", "detail": "Re-express each point at a single instant using OXTS velocity over its capture offset.", "source": "src/deskew/Deskew.cpp" },
+        { "step": "Scan-to-map ICP", "detail": "Constant-velocity initial guess, adaptive correspondence threshold, robust Gauss–Newton against a voxel hash map.", "source": "src/odometry/" },
+        { "step": "Evaluate / visualize", "detail": "KITTI-format trajectory, relative pose error vs. ground truth, Open3D playback.", "source": "src/evaluation/, apps/" }
+      ],
+      "decisions": [
+        {
+          "title": "Back-pressure instead of buffering",
+          "explanation": "Stages are connected by a fixed-capacity queue. When odometry falls behind, the reader blocks rather than accumulating scans in memory, which keeps memory use bounded on long drives.",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/src/pipeline/BoundedQueue.hpp", "note": "Thread-safe, capacity-bounded queue; push blocks while full" }]
+        },
+        {
+          "title": "Prediction and an adaptive correspondence threshold",
+          "explanation": "Each scan starts ICP from a constant-velocity prediction (the last relative motion applied again). The correspondence distance is three times an adaptive threshold, itself three times the RMS of recent model deviations above a floor, so matching tightens when motion is well predicted.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/src/odometry/Odometry.cpp#L246-L253", "note": "Constant-velocity prediction; max correspondence distance = 3 × kappa" },
+            { "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/src/odometry/AdaptiveThreshold.cpp", "note": "Threshold = 3·sqrt(mean squared deviation)" }
+          ]
+        },
+        {
+          "title": "Robust Gauss–Newton on a persistent thread pool",
+          "explanation": "Nearest-neighbour search and normal-equation accumulation are split across a fixed worker pool that is reused every iteration, with per-thread partial results so no locking is needed. Residuals are down-weighted with a robust kernel, and each step is solved with an LDLT decomposition (up to 500 iterations, 1e-4 convergence).",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/src/odometry/Odometry.cpp#L21-L217", "note": "ThreadPool, parallel correspondences, solveGaussNewton, ICP loop" }]
+        },
+        {
+          "title": "Strict build and test discipline",
+          "explanation": "C++20 with -Wall -Wextra -Wpedantic -Werror, unit and integration tests for every module (GoogleTest/CTest), AddressSanitizer, UndefinedBehaviorSanitizer and ThreadSanitizer presets, and a CI workflow.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/CMakeLists.txt", "note": "Warnings as errors, C++20" },
+            { "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/tree/00a7257c8af625ac6c4d591172b5216db253a3ba/tests", "note": "14 unit/integration test files" }
+          ]
+        }
+      ],
+      "evaluation": [
+        { "metric": "Mean relative translation error", "value": 0.0319, "unit": "m per scan", "protocol": "KITTI sequence 00, 4,541 evaluated poses (4,544 scans processed, 0 load failures); relative pose error between consecutive scans vs. KITTI odometry ground truth converted to the Velodyne frame. Reported in the repository README; not re-run for this page.", "evidence": [{ "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/README.md#sequence-00" }] },
+        { "metric": "RMSE relative translation error", "value": 0.0406, "unit": "m per scan", "protocol": "Same run as above.", "evidence": [{ "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/README.md#sequence-00" }] },
+        { "metric": "Mean relative rotation error", "value": 0.110, "unit": "deg per scan", "protocol": "Same run as above (README table: 0.110326°; the per-step error plot's recomputation shows 0.1090°).", "evidence": [{ "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/blob/00a7257c8af625ac6c4d591172b5216db253a3ba/README.md#sequence-00" }] }
+      ],
+      "limitations": [
+        "Pure LiDAR odometry: no loop closure or back-end optimization, so error accumulates with distance travelled.",
+        "The map inherits the same drift; on loops this shows as ghosting where the return pass does not overlay the first.",
+        "No absolute correction (GPS/RTK or map matching) bounds the drift.",
+        "Evaluated on one sequence (KITTI 00). The largest error spike is at scan 2, where ICP starts from a zero-motion guess; smaller spikes line up with sharp turns."
+      ],
+      "nextSteps": [
+        "Loop closure with a pose-graph back end",
+        "IMU fusion via an error-state Kalman filter",
+        "Absolute correction (GPS/RTK or map-relative localization)",
+        "Multi-sequence regression benchmark",
+        "Export of the accumulated map"
+      ],
+      "reproducibility": "Build with the CMake presets (clang, C++20, Ninja), point src/config/dataset_config.json at a local KITTI raw-data copy, then run run_odometry with --gt and --calib to print the metrics. See the repository Quickstart.",
+      "evidence": [{ "url": "https://github.com/kshitijSharma2204/cpp_slam_stack/tree/00a7257c8af625ac6c4d591172b5216db253a3ba", "commit": "00a7257c8af625ac6c4d591172b5216db253a3ba", "note": "Repository at review time (branch slam_stack)" }],
+      "reviewNotes": [
+        "The site title says \"SLAM Stack\", while the repository describes the current system as pure odometry (no loop closure). Consider a title such as \"LiDAR Odometry Stack\" or keep the title and rely on the limitations section.",
+        "The existing site description mentions \"a persistent thread pool\": confirmed in Odometry.cpp."
+      ]
+    },
+    {
+      "projectId": "project-2",
+      "status": "draft",
+      "problem": "Synthesize new, photorealistic views of a scene from a set of posed 2D images.",
+      "approach": "A PyTorch implementation of NeRF (Mildenhall et al., 2020) trained on the synthetic LEGO scene at 400×400. Positionally encoded 3D positions and viewing directions feed a coarse and a fine MLP (8 layers, 256 units, skip connection at layer 4). Pixels are rendered by volume rendering along camera rays, with 64 stratified coarse samples plus 128 importance samples drawn from the coarse weights.",
+      "decisions": [
+        {
+          "title": "Hierarchical sampling",
+          "explanation": "The coarse network's density weights define a distribution along each ray; 128 extra samples are drawn from it so the fine network spends capacity near surfaces.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/NERF-Project/blob/132b96e638fdeddc420d37adb6ce1d89e6fcecad/scripts/render_rays.py", "note": "sample_pdf, render_rays" },
+            { "url": "https://github.com/kshitijSharma2204/NERF-Project/blob/132b96e638fdeddc420d37adb6ce1d89e6fcecad/configs/synthetic_lego.yaml", "note": "coarse 64 / fine 128 depth samples" }
+          ]
+        },
+        {
+          "title": "Training setup",
+          "explanation": "Adam (learning rate 5e-4), 1,024 random rays per step, photometric MSE on both coarse and fine outputs, configured for up to 300,000 steps with resumable checkpoints and TensorBoard logging.",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/NERF-Project/blob/132b96e638fdeddc420d37adb6ce1d89e6fcecad/scripts/train.py" }]
+        }
+      ],
+      "limitations": [
+        "Synthetic, object-centric scene with known camera poses.",
+        "No quantitative image-quality metrics (PSNR/SSIM) are recorded in the repository, so none are reported here."
+      ],
+      "reproducibility": "run_lego.sh trains (resuming from the last checkpoint), renders the test split and encodes a video; requires a CUDA-capable GPU.",
+      "evidence": [{ "url": "https://github.com/kshitijSharma2204/NERF-Project/tree/132b96e638fdeddc420d37adb6ce1d89e6fcecad", "commit": "132b96e638fdeddc420d37adb6ce1d89e6fcecad" }],
+      "reviewNotes": [
+        "The site description also describes a Structure-from-Motion pipeline (SIFT, RANSAC, PnP, bundle adjustment). The linked repository contains only the NeRF implementation. Provide the SfM repository/report before any SfM content is added, or confirm it should stay as-is.",
+        "Gallery images reconstruction_01–04 on the site could not be matched to files in the repository, so their captions remain generic."
+      ]
+    },
+    {
+      "projectId": "project-5",
+      "status": "draft",
+      "problem": "Plan smooth, collision-free paths for a car-like vehicle on an occupancy grid. Plain grid A* produces paths the vehicle cannot follow, because a car cannot turn in place.",
+      "approach": "A ROS 2 package: a Python node publishes the map, start and goal; a C++ node runs Hybrid A* over continuous (x, y, heading) states, binned by heading, expanding forward and reverse motion primitives from a bicycle model; a Python node animates the planned path.",
+      "pipeline": [
+        { "step": "Environment", "detail": "env_publisher.py publishes /map, /start and /goal.", "source": "scripts/env_publisher.py" },
+        { "step": "Heuristic", "detail": "Grid Dijkstra flood fill from the goal, so the cost-to-go accounts for obstacles.", "source": "src/planner.cpp (buildHeuristic)" },
+        { "step": "Search", "detail": "Expand motion primitives (wheelbase 2.5 m, max steer 0.45 rad, 1 m steps) forward and reverse, with sub-step collision checks against a k-d tree of obstacles.", "source": "src/planner.cpp, config/params.yaml" },
+        { "step": "Analytic expansion", "detail": "Try an exact Reeds–Shepp connection to the goal pose using OMPL.", "source": "src/planner.cpp (tryReedsSheppConnect)" },
+        { "step": "Output", "detail": "Publish /planned_path; path_viz.py animates it.", "source": "src/hybrid_astar_node.cpp, scripts/path_viz.py" }
+      ],
+      "decisions": [
+        {
+          "title": "Cost terms that shape drivable paths",
+          "explanation": "Edge costs penalize reversing, changes of direction, steering magnitude and steering changes, favouring smooth forward motion while still allowing reverse manoeuvres such as parking.",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/hybrid_astar/blob/15d8cc18f59d3156b22edb8256697087486574f3/include/hybrid_astar/planner.hpp#L50-L54", "note": "kReverseCost, kDirectionChange, kSteerAngleCost, kSteerAngleChange" }]
+        },
+        {
+          "title": "Obstacle-aware heuristic",
+          "explanation": "A Dijkstra flood fill from the goal over the grid gives a cost-to-go that respects obstacles, rather than straight-line distance.",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/hybrid_astar/blob/15d8cc18f59d3156b22edb8256697087486574f3/src/planner.cpp#L225-L260" }]
+        }
+      ],
+      "limitations": [
+        "Demonstrated on a published synthetic map; no runtime or success-rate benchmarks are recorded.",
+        "config/params.yaml sets reverse_penalty to 1.5, while the planner header defines kReverseCost = 10.0; which value applies should be confirmed."
+      ],
+      "reproducibility": "Build with colcon on ROS 2 Humble with OMPL installed, then run: ros2 launch hybrid_astar astar_viz_launch.py",
+      "evidence": [{ "url": "https://github.com/kshitijSharma2204/hybrid_astar/tree/15d8cc18f59d3156b22edb8256697087486574f3", "commit": "15d8cc18f59d3156b22edb8256697087486574f3" }],
+      "reviewNotes": [
+        "Confirm the reverse-cost parameter discrepancy before publishing the limitations wording."
+      ]
+    },
+    {
+      "projectId": "project-3",
+      "status": "draft",
+      "problem": "Label every pixel of KITTI street-scene images with a semantic class (road, vehicle, building, vegetation and so on) for driving-scene understanding.",
+      "approach": "A UNet written from scratch in PyTorch: a four-level encoder (64→512 channels, double 3×3 convolutions with batch norm) and a transposed-convolution decoder with skip connections. Images are resized to 256×512; the KITTI semantic training set is split 80/20 into training and validation, with augmentation applied to the training split only.",
+      "decisions": [
+        {
+          "title": "Augmentation for a small dataset",
+          "explanation": "Albumentations pipeline: horizontal flip, brightness/contrast, colour jitter, Gaussian blur and shift-scale-rotate, followed by ImageNet normalization.",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/kitti_dataset.py#L17-L25" }]
+        },
+        {
+          "title": "Training and validation",
+          "explanation": "Adam (learning rate 1e-3), batch size 12, cross-entropy ignoring unlabeled pixels (label 255), with mean IoU computed on the validation split.",
+          "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/train.py" }]
+        }
+      ],
+      "limitations": [
+        "Mean IoU is computed during training, but no recorded value is in the repository, so no accuracy figure is reported here.",
+        "Validation uses a split of the KITTI training images rather than the official test server."
+      ],
+      "reproducibility": "Place the KITTI semantics data under data/ as described in the README, then run python train.py and python inference.py.",
+      "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/tree/6d4f23b35fc5429553e481372f9c38b816f4f2f2", "commit": "6d4f23b35fc5429553e481372f9c38b816f4f2f2" }],
+      "reviewNotes": [
+        "The current site description says the model \"achieves robust performance\"; no metric in the repository supports this. If a logged validation mIoU exists, it could be added with its split and epoch."
+      ]
+    }
+  ]
+}

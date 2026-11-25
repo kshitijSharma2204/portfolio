@@ -8,7 +8,7 @@ const { entries } = Astro.props;
 ---
 <ol class="timeline">
   {entries.map((e) => (
-    <li class:list={['tl-item', { current: e.current }]}>
+    <li id={e.anchor} class:list={['tl-item', { current: e.current }]}>
       <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-meta">
         <p class="tl-date mono">{e.date}</p>
@@ -45,6 +45,7 @@ const { entries } = Astro.props;
     background: var(--border);
   }
   .tl-item {
+    scroll-margin-top: calc(var(--header-h) + var(--s5));
     position: relative;
     display: grid;
     grid-template-columns: 200px minmax(0, 1fr);

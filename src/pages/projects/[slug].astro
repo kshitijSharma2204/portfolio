@@ -10,7 +10,17 @@ import LegacyRedirect from '../../components/LegacyRedirect.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import ProjectMedia from '../../components/ProjectMedia.astro';
 import QuickView from '../../components/QuickView.astro';
-import { profile, projects, relatedProjects, sizeNote, withBase, type Project } from '../../lib/content';
+import CaseStudy from '../../components/CaseStudy.astro';
+import {
+  caseStudyFor,
+  profile,
+  projects,
+  relatedProjects,
+  showDraftCaseStudies,
+  sizeNote,
+  withBase,
+  type Project,
+} from '../../lib/content';
 
 export const getStaticPaths = (() => [
   ...projects.map((project) => ({ params: { slug: project.slug }, props: { project, legacy: false } })),
@@ -25,6 +35,7 @@ const { project: p, legacy } = Astro.props;
 const pageUrl = withBase(`projects/${p.slug}/`);
 const abs = (path: string) => new URL(withBase(path), Astro.site).href;
 const related = relatedProjects(p, 3);
+const study = caseStudyFor(p.id);
 
 const jsonLd = [
   {
@@ -59,6 +70,7 @@ const jsonLd = [
     imageAlt={`${p.name} — project visualization`}
     type="article"
     jsonLd={jsonLd}
+    noindex={showDraftCaseStudies}
   >
     <article>
       <header class="container page-head detail-head">
@@ -69,7 +81,7 @@ const jsonLd = [
             <li><span aria-current="page">{p.name}</span></li>
           </ol>
         </nav>
-        <span class="eyebrow">{p.group}</span>
+        <span class="eyebrow">{p.category.label}</span>
         <h1>{p.name}</h1>
         <p class="lead">{p.mainDescr}</p>
         <div class="btn-row">
@@ -97,11 +109,13 @@ const jsonLd = [
             <h2 class="facts-title">Technical stack</h2>
             <ul class="tags">{p.skills.map((s) => <li class="tag">{s}</li>)}</ul>
             <dl>
-              <div><dt>Category</dt><dd><a href={`${withBase('projects/')}?category=${p.categorySlug}`}>{p.group}</a></dd></div>
+              <div><dt>Category</dt><dd><a href={`${withBase('projects/')}?category=${p.category.key}`}>{p.category.label}</a></dd></div>
               <div><dt>Source</dt><dd><a href={p.link} rel="noopener">{p.link.replace('https://github.com/', '')}</a></dd></div>
             </dl>
           </aside>
         </div>
+
+        {study && <CaseStudy study={study} />}
 
         {p.gallery.length > 0 && (
           <section class="gallery" aria-labelledby="gallery">
@@ -116,9 +130,9 @@ const jsonLd = [
                       height={g.height}
                       loading="lazy"
                       decoding="async"
-                      alt={`${p.name} — gallery image ${i + 1} of ${p.gallery.length}`}
+                      alt={g.caption ?? `${p.name} — gallery image ${i + 1} of ${p.gallery.length}`}
                     />
-                    <span class="mono">Image {i + 1}{sizeNote(g.originalBytes)}</span>
+                    <span class:list={['cap', { mono: !g.caption }]}>{g.caption ?? `Image ${i + 1}`}{sizeNote(g.originalBytes)}</span>
                   </a>
                 </li>
               ))}
@@ -184,7 +198,8 @@ const jsonLd = [
     transition: border-color 0.15s;
   }
   .gallery-grid a:hover img { border-color: var(--accent); }
-  .gallery-grid span { display: block; font-size: 0.75rem; margin-top: var(--s2); }
+  .gallery-grid .cap { display: block; font-size: 0.8125rem; line-height: 1.4; margin-top: var(--s2); }
+  .gallery-grid .cap.mono { font-size: 0.75rem; }
   .related { margin-top: var(--s8); padding-top: var(--s7); border-top: 1px solid var(--border); }
   @media (max-width: 900px) {
     .detail-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s5); }

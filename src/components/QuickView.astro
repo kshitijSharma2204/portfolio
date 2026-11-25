@@ -21,7 +21,7 @@ const { projects } = Astro.props;
   <template id={`qv-${p.id}`}>
     <header class="qv-head">
       <div>
-        <p class="eyebrow">Project preview · {p.group}</p>
+        <p class="eyebrow">Project preview · {p.category.label}</p>
         <h2 id="qv-title">{p.name}</h2>
       </div>
       <button type="button" class="icon-btn qv-close" data-qv-close aria-label="Close preview">
@@ -41,7 +41,7 @@ const { projects } = Astro.props;
               <li>
                 <a href={withBase(g.original)} aria-label={`Open full-quality image ${i + 1} of ${p.gallery.length}${sizeNote(g.originalBytes)}`}>
                   <img src={withBase(g.src)} width={g.width} height={g.height} loading="lazy" decoding="async"
-                    alt={`${p.name} — gallery image ${i + 1} of ${p.gallery.length}`} />
+                    alt={g.caption ?? `${p.name} — gallery image ${i + 1} of ${p.gallery.length}`} />
                 </a>
               </li>
             ))}

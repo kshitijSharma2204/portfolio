@@ -8,10 +8,10 @@ import {
   currentRole,
   education,
   experience,
+  expertiseDomains,
   featuredProjects,
   profile,
   projects,
-  resumeSkills,
   skillIcons,
   withBase,
 } from '../lib/content';
@@ -48,7 +48,11 @@ const jsonLd = {
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow">Robotics / Perception Engineering</span>
-        <h1 id="hero-title">{profile.name}</h1>
+        <div class="hero-id">
+          <img class="hero-photo" src={withBase(profile.photo.src)} width={profile.photo.width} height={profile.photo.height}
+            alt={`Photo of ${profile.name}`} decoding="async" />
+          <h1 id="hero-title">{profile.name}</h1>
+        </div>
         <p class="hero-title">{profile.title}</p>
         <p class="hero-role">
           <span class="badge badge-dot">Current role</span>
@@ -98,9 +102,13 @@ const jsonLd = {
               <p class="exp-employer">{e.employer}</p>
               {e.current && <span class="badge badge-dot">Current role</span>}
             </div>
-            {e.client && <p class="exp-client muted">Client: {e.client}</p>}
+            {e.client && <p class="exp-client muted">{e.note?.startsWith('Contract') ? 'Contract · ' : ''}Client: {e.client}</p>}
             <h3 class="exp-role">{e.role}</h3>
             <p class="exp-date mono muted">{e.date}</p>
+            {e.summary && <p class="exp-summary">{e.summary}</p>}
+            <a class="exp-link" href={withBase(`experience/#${e.anchor}`)}>
+              Role details<span class="sr-only">: {e.role} at {e.employer}</span> <Icon name="arrow" size={14} />
+            </a>
           </li>
         ))}
       </ol>
@@ -108,7 +116,7 @@ const jsonLd = {
         Earlier:{' '}
         {earlier.map((e, i) => (
           <>
-            <span><strong>{e.employer}</strong> ({e.role})</span>{i < earlier.length - 1 ? ' · ' : ''}
+            <span><a class="earlier-link" href={withBase(`experience/#${e.anchor}`)}>{e.employer}</a> ({e.role})</span>{i < earlier.length - 1 ? ' · ' : ''}
           </>
         ))}
       </p>
@@ -137,7 +145,16 @@ const jsonLd = {
     <div class="container split">
       <div id="skills">
         <span class="eyebrow">Technical expertise</span>
-        <h2>Skills</h2>
+        <h2>Expertise</h2>
+        <dl class="domains">
+          {expertiseDomains.map((d) => (
+            <div>
+              <dt>{d.label}</dt>
+              <dd>{d.items.map((i) => i.label).join(' · ')}</dd>
+            </div>
+          ))}
+        </dl>
+        <h3 class="sr-only">Core tools</h3>
         <ul class="skill-grid">
           {skillIcons.map((s) => (
             <li class="skill">
@@ -148,25 +165,11 @@ const jsonLd = {
             </li>
           ))}
         </ul>
-        <dl class="skill-lists">
-          {resumeSkills.map((g) => (
-            <div>
-              <dt>{g.label}</dt>
-              <dd>{g.items.join(' · ')}</dd>
-            </div>
-          ))}
-        </dl>
       </div>
 
       <div id="bio">
-        <div class="about-head">
-          <img class="about-photo" src={withBase(profile.photo.src)} width={profile.photo.width} height={profile.photo.height}
-            alt={`Photo of ${profile.name}`} loading="lazy" decoding="async" />
-          <div>
-            <span class="eyebrow">About / Education</span>
-            <h2>Education</h2>
-          </div>
-        </div>
+        <span class="eyebrow">About / Education</span>
+        <h2>Education</h2>
         <ul class="edu">
           {education.map((ed) => (
             <li class="card">
@@ -221,6 +224,13 @@ const jsonLd = {
     align-items: center;
   }
   .hero h1 { font-size: clamp(2.75rem, 7vw, 4.5rem); margin-bottom: var(--s2); letter-spacing: -0.03em; }
+  .hero-id { display: flex; align-items: center; gap: var(--s5); margin: var(--s2) 0 var(--s3); }
+  .hero-id h1 { margin-bottom: 0; font-size: clamp(2.5rem, 4.6vw, 4rem); }
+  .hero-photo { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); flex: none; }
+  @media (max-width: 480px) {
+    .hero-id { gap: var(--s4); }
+    .hero-photo { width: 88px; height: 88px; }
+  }
   .hero-title {
     font-family: var(--font-head);
     font-size: clamp(1.25rem, 2.6vw, 1.75rem);
@@ -264,6 +274,11 @@ const jsonLd = {
   .exp-client { margin: 0; font-size: 0.9375rem; }
   .exp-role { font-family: var(--font-body); font-size: 1rem; font-weight: 600; margin: var(--s3) 0 0; }
   .exp-date { margin: 0; font-size: 0.8125rem; }
+  .exp-summary { margin: var(--s3) 0 0; font-size: 0.9375rem; color: var(--muted); }
+  .exp-link { margin-top: auto; padding-top: var(--s3); display: inline-flex; align-items: center; gap: 6px; min-height: 36px; font-weight: 600; font-size: 0.875rem; text-decoration: none; align-self: start; }
+  .exp-link:hover { text-decoration: underline; }
+  .earlier-link { color: var(--text); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+  .earlier-link:hover { color: var(--accent); border-color: var(--accent); }
   .exp-earlier { margin: var(--s5) 0 0; font-size: 0.9375rem; }
   .exp-earlier strong { color: var(--text); font-weight: 600; }
 
@@ -291,14 +306,12 @@ const jsonLd = {
   }
   .skill-plate img { max-height: 44px; width: auto; object-fit: contain; }
   .skill-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center; }
-  .skill-lists { margin: 0; display: grid; gap: var(--s3); }
-  .skill-lists dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
-  .skill-lists dd { margin: 2px 0 0; }
+  .domains { margin: 0 0 var(--s5); display: grid; gap: var(--s3); }
+  .domains > div { padding-bottom: var(--s3); border-bottom: 1px solid var(--border); }
+  .domains dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .domains dd { margin: 2px 0 0; }
 
-  .about-head { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s3); }
-  .about-head h2 { margin: 0; }
-  .about-photo { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); flex: none; }
-  @media (max-width: 480px) { .about-photo { width: 88px; height: 88px; } }
+
   .edu { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; gap: var(--s3); }
   .edu li { padding: var(--s4) var(--s5); }
   .edu p { margin: 0; }

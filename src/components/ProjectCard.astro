@@ -18,19 +18,20 @@ const { project: p, headingLevel: H = 'h3', maxTags = 4, eager = false } = Astro
 const href = withBase(`projects/${p.slug}/`);
 const shown = p.skills.slice(0, maxTags);
 const more = p.skills.length - shown.length;
-const searchText = [p.title, p.name, p.mainDescr, p.description, p.group, ...p.skills].join(' ').toLowerCase();
+const searchText = [p.title, p.name, p.mainDescr, p.description, p.group, p.category.label, ...p.skills].join(' ').toLowerCase();
 ---
 <article
   class="pcard card"
   data-project={p.id}
-  data-category={p.categorySlug}
+  data-category={p.category.key}
+  data-group={p.groupSlug}
   data-search={searchText}
 >
   <a class="pcard-media" href={href} tabindex="-1" aria-hidden="true" data-qv-open={p.id}>
     <ProjectMedia project={p} eager={eager} />
   </a>
   <div class="pcard-body">
-    <p class="pcard-group">{p.group}</p>
+    <p class="pcard-group">{p.category.label}</p>
     <H class="pcard-title"><a href={href}>{p.name}</a></H>
     <p class="pcard-desc">{p.mainDescr}</p>
     <ul class="tags" aria-label="Key skills">
