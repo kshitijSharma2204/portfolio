@@ -1,0 +1,193 @@
+---
+/**
+ * Optional engineering case study for a project page. Supplements (never replaces) the original description.
+ * Only renders sections that have content; every decision/metric links to its evidence. reviewNotes are not rendered.
+ */
+import type { CaseStudy } from '../lib/content';
+
+interface Props {
+  study: CaseStudy;
+}
+const { study: c } = Astro.props;
+const fmt = (v: number) => (Math.abs(v) < 1 ? v.toPrecision(3) : v.toLocaleString('en-US'));
+const short = (url: string) =>
+  url
+    .replace('https://github.com/kshitijSharma2204/', '')
+    .replace(/\/(blob|tree)\/([0-9a-f]{7})[0-9a-f]{33}/, '@$2')
+    .replace(/#L(\d+)(-L(\d+))?$/, ':$1$2')
+    .replace(/-L/, '–');
+
+const sections = [
+  c.problem && { id: 'cs-problem', title: 'Problem' },
+  (c.approach || c.pipeline?.length) && { id: 'cs-approach', title: 'Approach' },
+  c.decisions?.length && { id: 'cs-decisions', title: 'Engineering decisions' },
+  c.evaluation?.length && { id: 'cs-evaluation', title: 'Evaluation' },
+  (c.limitations?.length || c.nextSteps?.length) && { id: 'cs-limitations', title: 'Limitations and next steps' },
+  c.reproducibility && { id: 'cs-reproduce', title: 'Reproduce it' },
+].filter(Boolean) as { id: string; title: string }[];
+---
+<section class="cs" aria-labelledby="cs-title">
+  {c.status === 'draft' && (
+    <p class="cs-draft" role="note">Draft case study — visible only in the local review preview, not on the public site.</p>
+  )}
+  <h2 id="cs-title">Engineering case study</h2>
+
+  {sections.length >= 4 && (
+    <nav class="cs-toc" aria-label="Case study sections">
+      <ol>{sections.map((s) => <li><a href={`#${s.id}`}>{s.title}</a></li>)}</ol>
+    </nav>
+  )}
+
+  {c.problem && (
+    <section id="cs-problem" class="cs-block">
+      <h3>Problem</h3>
+      <p>{c.problem}</p>
+    </section>
+  )}
+
+  {(c.approach || c.pipeline?.length) && (
+    <section id="cs-approach" class="cs-block">
+      <h3>Approach</h3>
+      {c.approach && <p>{c.approach}</p>}
+      {c.pipeline?.length && (
+        <figure class="flow">
+          <ol>
+            {c.pipeline.map((s, i) => (
+              <li>
+                <span class="flow-n mono" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <strong>{s.step}</strong>
+                <span class="flow-d">{s.detail}</span>
+                {s.source && <code class="flow-s">{s.source}</code>}
+              </li>
+            ))}
+          </ol>
+          <figcaption>Simplified data flow, derived from the repository's module structure.</figcaption>
+        </figure>
+      )}
+    </section>
+  )}
+
+  {c.decisions?.length && (
+    <section id="cs-decisions" class="cs-block">
+      <h3>Engineering decisions</h3>
+      <div class="decisions">
+        {c.decisions.map((d) => (
+          <article class="decision card">
+            <h4>{d.title}</h4>
+            <p>{d.explanation}</p>
+            {d.evidence.length > 0 && (
+              <p class="ev">Source: {d.evidence.map((e, i) => (
+                <>{i > 0 && ' · '}<a href={e.url} rel="noopener" title={e.note}>{short(e.url)}</a></>
+              ))}</p>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {c.evaluation?.length && (
+    <section id="cs-evaluation" class="cs-block">
+      <h3>Evaluation</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Metric</th><th scope="col">Value</th><th scope="col">Unit</th></tr></thead>
+          <tbody>
+            {c.evaluation.map((m) => (
+              <tr><th scope="row">{m.metric}</th><td class="mono">{fmt(m.value)}</td><td>{m.unit}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul class="protocol">
+        {[...new Set(c.evaluation.map((m) => m.protocol))].map((p) => <li>{p}</li>)}
+      </ul>
+      <p class="ev">Source: {[...new Set(c.evaluation.flatMap((m) => m.evidence.map((e) => e.url)))].map((u, i) => (
+        <>{i > 0 && ' · '}<a href={u} rel="noopener">{short(u)}</a></>
+      ))}</p>
+    </section>
+  )}
+
+  {(c.limitations?.length || c.nextSteps?.length) && (
+    <section id="cs-limitations" class="cs-block cs-two">
+      <h3>Limitations and next steps</h3>
+      {c.limitations?.length && (
+        <div><h4>Limitations</h4><ul>{c.limitations.map((l) => <li>{l}</li>)}</ul></div>
+      )}
+      {c.nextSteps?.length && (
+        <div><h4>Next steps</h4><ul>{c.nextSteps.map((n) => <li>{n}</li>)}</ul></div>
+      )}
+    </section>
+  )}
+
+  {c.reproducibility && (
+    <section id="cs-reproduce" class="cs-block">
+      <h3>Reproduce it</h3>
+      <p>{c.reproducibility}</p>
+      <p class="ev">Repository: {c.evidence.map((e, i) => (
+        <>{i > 0 && ' · '}<a href={e.url} rel="noopener">{short(e.url)}</a></>
+      ))}</p>
+    </section>
+  )}
+</section>
+
+<style>
+  .cs { margin-top: var(--s7); padding-top: var(--s6); border-top: 1px solid var(--border); max-width: 900px; }
+  .cs-draft {
+    padding: var(--s3) var(--s4);
+    border: 1px dashed var(--accent);
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    font-weight: 600;
+  }
+  .cs-toc ol { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); padding: 0; margin: 0 0 var(--s5); list-style: none; counter-reset: toc; }
+  .cs-toc li { counter-increment: toc; font-size: 0.9375rem; }
+  .cs-toc li::before { content: counter(toc, decimal-leading-zero) ' '; font-family: var(--font-mono); color: var(--muted); font-size: 0.75rem; }
+  .cs-block { margin-top: var(--s6); scroll-margin-top: calc(var(--header-h) + var(--s4)); }
+  .cs-block h3 { font-size: 1.25rem; }
+  .cs-block p { max-width: 72ch; }
+  h4 { font-size: 1rem; margin-bottom: var(--s2); }
+  .flow { margin: var(--s4) 0 0; }
+  .flow ol { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s2); }
+  .flow li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    column-gap: var(--s3);
+    padding: var(--s3) var(--s4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+  }
+  .flow li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 1.6rem;
+    bottom: -9px;
+    width: 2px;
+    height: 8px;
+    background: var(--accent);
+  }
+  .flow-n { grid-row: span 3; color: var(--accent); font-size: 0.8125rem; padding-top: 2px; }
+  .flow-d { color: var(--muted); font-size: 0.9375rem; }
+  .flow-s { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); overflow-wrap: anywhere; }
+  .flow figcaption { font-size: 0.8125rem; color: var(--muted); margin-top: var(--s2); }
+  .decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); }
+  .decision { padding: var(--s4) var(--s5); }
+  .decision p { color: var(--muted); margin-bottom: var(--s2); }
+  .ev { font-size: 0.8125rem; color: var(--muted); overflow-wrap: anywhere; }
+  .ev a { font-family: var(--font-mono); }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; max-width: 640px; font-size: 0.9375rem; }
+  th, td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--border); }
+  thead th { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  tbody th { font-weight: 500; }
+  .protocol { color: var(--muted); font-size: 0.875rem; padding-left: 1.1rem; margin-top: var(--s3); }
+  .cs-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2) var(--s6); }
+  .cs-two > h3 { grid-column: 1 / -1; }
+  .cs-two ul { padding-left: 1.1rem; display: grid; gap: var(--s2); color: var(--muted); }
+  @media (max-width: 760px) {
+    .decisions, .cs-two { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

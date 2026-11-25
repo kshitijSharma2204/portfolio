@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import { currentRole, experience, profile, withBase } from '../lib/content';
 ---
 <BaseLayout
-  title={`Experience | ${profile.name}`}
+  title={`Professional Experience | ${profile.name}`}
   description={`Professional experience of ${profile.name}: ${currentRole.role} at ${currentRole.employer}, with previous robotics and C++ roles at ${experience
     .slice(1, 4)
     .map((e) => e.client ?? e.employer)

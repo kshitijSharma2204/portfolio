@@ -8,6 +8,8 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   build: { format: 'directory' },
+  // `npm run preview:drafts` builds a separate, never-deployed copy with draft case studies visible.
+  outDir: process.env.CASE_STUDY_DRAFTS === '1' ? './dist-drafts' : './dist',
   compressHTML: true,
   devToolbar: { enabled: false },
 });

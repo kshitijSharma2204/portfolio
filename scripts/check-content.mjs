@@ -63,10 +63,49 @@ for (const s of skills) {
   check(media.skills?.[s] && pub(media.skills[s].src), `skill icon not processed: ${s} — run: npm run media`);
 }
 
+// 5. Presentation references: display categories, captions, homepage experience summaries.
+const presFile = json('src/data/presentation.json');
+const catKeys = presFile.displayCategories.map((c) => c.key);
+check(new Set(catKeys).size === catKeys.length, 'duplicate displayCategories keys');
+for (const p of projects) {
+  check(catKeys.includes(pres[p.id]?.displayCategory), `${p.id} displayCategory "${pres[p.id]?.displayCategory}" is not in displayCategories`);
+  for (const img of Object.keys(pres[p.id]?.captions ?? {})) check(p.images.includes(img), `${p.id} caption for an image not in its gallery: ${img}`);
+}
+const employers = experienceData.map((e) => e.company.replace(/\s*\(.*\)\s*$/, '').trim());
+for (const k of Object.keys(presFile.experience ?? {})) check(employers.includes(k), `experience summary for unknown employer "${k}"`);
+
+// 6. Case studies: valid project, status, evidence links; drafts never leak (enforced again in check-dist).
+const { caseStudies } = json('src/data/case-studies.json');
+const ghUrl = /^https:\/\/github\.com\/kshitijSharma2204\//;
+for (const c of caseStudies) {
+  const tag = `case study ${c.projectId}`;
+  check(ids.includes(c.projectId), `${tag}: unknown projectId`);
+  check(['draft', 'approved'].includes(c.status), `${tag}: status must be draft or approved`);
+  check(Array.isArray(c.evidence) && c.evidence.length > 0, `${tag}: needs at least one evidence link`);
+  const refs = [...(c.evidence ?? []), ...(c.decisions ?? []).flatMap((d) => d.evidence ?? []), ...(c.evaluation ?? []).flatMap((m) => m.evidence ?? [])];
+  for (const r of refs) check(ghUrl.test(r.url ?? ''), `${tag}: evidence must link to the owner's GitHub: ${r.url}`);
+  for (const d of c.decisions ?? []) check(d.title && d.explanation && d.evidence?.length, `${tag}: decision "${d.title}" needs title, explanation and evidence`);
+  for (const m of c.evaluation ?? []) {
+    check(typeof m.value === 'number' && Number.isFinite(m.value), `${tag}: metric "${m.metric}" value must be a number`);
+    check(m.unit && m.protocol && m.evidence?.length, `${tag}: metric "${m.metric}" needs unit, protocol and evidence`);
+  }
+}
+check(new Set(caseStudies.map((c) => c.projectId)).size === caseStudies.length, 'duplicate case study projectId');
+
+// 7. Homepage expertise items must be supported by project or experience text.
+const corpus = JSON.stringify([projects, experienceData]).toLowerCase();
+const contentTs = readFileSync(join(root, 'src/lib/content.ts'), 'utf8');
+const block = contentTs.slice(contentTs.indexOf('export const expertiseDomains'), contentTs.indexOf('/** Skills section of the public résumé'));
+for (const m of block.matchAll(/\{ label: '([^']+)'(?:, match: '([^']+)')? \}/g)) {
+  const needle = (m[2] ?? m[1]).toLowerCase();
+  check(corpus.includes(needle), `expertise item "${m[1]}" is not supported by projects/experience data (looked for "${needle}")`);
+}
+
 if (errors.length) {
   console.error(`✗ Content check: ${errors.length} problem(s)\n  - ${errors.join('\n  - ')}`);
   process.exit(1);
 }
 console.log(
-  `✓ Content check: ${projects.length} projects, ${experienceData.length} experience entries, ${skills.length} skill icons OK.`,
+  `✓ Content check: ${projects.length} projects, ${experienceData.length} experience entries, ${skills.length} skill icons, ` +
+    `${caseStudies.length} case studies (${caseStudies.filter((c) => c.status === 'approved').length} approved) OK.`,
 );

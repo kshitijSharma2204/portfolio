@@ -21,7 +21,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist -t",
     "serve": "node scripts/serve-dist.mjs",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "content:snapshot": "node scripts/content-snapshot.mjs",
+    "content:diff": "node scripts/content-snapshot.mjs --diff",
+    "measure": "node scripts/lighthouse.mjs",
+    "preview:drafts": "CASE_STUDY_DRAFTS=1 astro build && DIST_DIR=dist-drafts node scripts/serve-dist.mjs 4323",
+    "case-studies:review": "node scripts/case-study-review.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",

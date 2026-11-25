@@ -1,13 +1,15 @@
 /**
  * Single typed source for every surface (home, gallery, quick view, detail pages, sitemap).
- * Original records come from src/data/{projects,experience,bio}.json — exact copies of the v1 public/*.json.
- * Presentation-only fields (slug, featured rank, display title) come from presentation.json, keyed by project ID.
+ * Canonical content: src/data/{projects,experience,bio}.json. Presentation-only fields (slug, featured rank,
+ * display category, captions, homepage experience summaries) come from presentation.json; optional engineering
+ * case studies from case-studies.json (only "approved" entries render publicly).
  */
 import projectsJson from '../data/projects.json';
 import experienceJson from '../data/experience.json';
 import bioJson from '../data/bio.json';
 import presentationJson from '../data/presentation.json';
 import mediaJson from '../data/media.json';
+import caseStudiesJson from '../data/case-studies.json';
 import skillsManifest from '../../public/assets/skills/skills-manifest.json';
 
 /** Shape of an original record in projects.json. Never mutated. */
@@ -29,6 +31,14 @@ interface PresentationEntry {
   featuredRank?: number;
   displayTitle?: string;
   posterTime?: number;
+  displayCategory: string;
+  /** Gallery image path → caption verified against the project's own repository. */
+  captions?: Record<string, string>;
+}
+
+export interface DisplayCategory {
+  key: string;
+  label: string;
 }
 
 export interface ProjectMedia {
@@ -52,6 +62,7 @@ export interface GalleryImage {
   width: number;
   height: number;
   originalBytes: number;
+  caption?: string;
 }
 
 export interface Project extends OriginalProject {
@@ -59,7 +70,10 @@ export interface Project extends OriginalProject {
   name: string;
   slug: string;
   featuredRank?: number;
-  categorySlug: string;
+  /** Display category (gallery filters, card label). */
+  category: DisplayCategory;
+  /** slugify(original group) — kept so legacy ?category= links keep working. */
+  groupSlug: string;
   media: ProjectMedia;
   gallery: GalleryImage[];
 }
@@ -76,6 +90,10 @@ export interface ExperienceEntry {
   /** Client name when the note names one. */
   client?: string;
   current: boolean;
+  /** Stable anchor on the Experience page, e.g. "lucid-motors". */
+  anchor: string;
+  /** Short homepage summary derived from the bullets (presentation.json → experience). */
+  summary?: string;
 }
 
 export const slugify = (s: string) =>
@@ -85,6 +103,8 @@ export const slugify = (s: string) =>
     .replace(/^-|-$/g, '');
 
 const presentation = presentationJson.projects as Record<string, PresentationEntry>;
+export const displayCategories: DisplayCategory[] = presentationJson.displayCategories;
+const experienceSummaries = presentationJson.experience as Record<string, string>;
 const media = mediaJson as unknown as {
   projects: Record<string, ProjectMedia>;
   gallery: Record<string, Omit<GalleryImage, 'original'>>;
@@ -103,11 +123,14 @@ export const projects: Project[] = (projectsJson.projects as OriginalProject[]).
     name: pres.displayTitle ?? p.title,
     slug: pres.slug,
     featuredRank: pres.featuredRank,
-    categorySlug: slugify(p.group),
+    category:
+      displayCategories.find((c) => c.key === pres.displayCategory) ??
+      fail(`${p.id} has unknown displayCategory "${pres.displayCategory}"`),
+    groupSlug: slugify(p.group),
     media: m,
     gallery: p.images.map((img) => {
       const g = media.gallery[img] ?? fail(`media.json has no gallery derivative for ${img}`);
-      return { original: img, ...g };
+      return { original: img, ...g, caption: pres.captions?.[img] };
     }),
   };
 });
@@ -116,18 +139,21 @@ export const featuredProjects = projects
   .filter((p) => p.featuredRank !== undefined)
   .sort((a, b) => (a.featuredRank ?? 0) - (b.featuredRank ?? 0));
 
-/** Filter categories = original `group` values, in order of first appearance. */
-export const categories = [...new Set(projects.map((p) => p.group))].map((name) => ({
-  name,
-  slug: slugify(name),
-  count: projects.filter((p) => p.group === name).length,
+/** Gallery filter chips: display categories with live counts. */
+export const categories = displayCategories.map((c) => ({
+  name: c.label,
+  slug: c.key,
+  count: projects.filter((p) => p.category.key === c.key).length,
 }));
+
+/** Original groups, so bookmarked v2.0 links like ?category=robotics still filter correctly. */
+export const legacyCategories = [...new Set(projects.map((p) => p.group))].map((name) => ({ name, slug: slugify(name) }));
 
 export const projectBySlug = (slug: string) => projects.find((p) => p.slug === slug);
 
 export function relatedProjects(p: Project, n = 3): Project[] {
-  const same = projects.filter((x) => x.id !== p.id && x.group === p.group);
-  const others = projects.filter((x) => x.id !== p.id && x.group !== p.group);
+  const same = projects.filter((x) => x.id !== p.id && x.category.key === p.category.key);
+  const others = projects.filter((x) => x.id !== p.id && x.category.key !== p.category.key);
   return [...same, ...others].slice(0, n);
 }
 
@@ -136,7 +162,15 @@ export const experience: ExperienceEntry[] = experienceJson.experienceData.map((
   const employer = m ? m[1].trim() : e.company;
   const note = m ? m[2].trim() : undefined;
   const client = note?.match(/Client:\s*(.+)$/i)?.[1].trim();
-  return { ...e, employer, note, client, current: /present/i.test(e.date) };
+  return {
+    ...e,
+    employer,
+    note,
+    client,
+    current: /present/i.test(e.date),
+    anchor: slugify(employer),
+    summary: experienceSummaries[employer],
+  };
 });
 
 export const currentRole = experience.find((e) => e.current) ?? experience[0];
@@ -149,6 +183,64 @@ export const skillIcons = (skillsManifest as string[]).map((file) => {
   const d = media.skills[file] ?? fail(`media.json has no skill derivative for ${file} — run npm run media`);
   return { file, label: file.replace(/\.(png|jpe?g|svg)$/, ''), ...d };
 });
+
+/**
+ * Homepage expertise summary. Every item must be supported by projects.json or experience.json:
+ * scripts/check-content.mjs fails the build if an item's `match` text (default: the label) is not found there.
+ */
+export const expertiseDomains: { label: string; items: { label: string; match?: string }[] }[] = [
+  {
+    label: 'Perception & 3D Vision',
+    items: [
+      { label: 'LiDAR perception pipelines', match: 'LiDAR perception pipeline' },
+      { label: 'Point cloud registration' },
+      { label: 'Semantic segmentation' },
+      { label: '3D reconstruction' },
+      { label: 'Object detection', match: 'YOLOv5' },
+      { label: 'Camera calibration' },
+    ],
+  },
+  {
+    label: 'Localization & Mapping',
+    items: [
+      { label: 'LiDAR odometry' },
+      { label: 'Occupancy grid mapping' },
+      { label: 'Extended Kalman Filter' },
+      { label: 'Sensor fusion (RTK GPS, visual odometry, IMU)', match: 'Real-Time Kinematic (RTK) GPS' },
+    ],
+  },
+  {
+    label: 'Motion Planning & Control',
+    items: [
+      { label: 'Hybrid A*' },
+      { label: 'Frenet-frame trajectories', match: 'Frenet' },
+      { label: 'Sliding mode control', match: 'Sliding Mode' },
+      { label: 'Joint-space control', match: 'Joint Space Control' },
+      { label: 'Nav2' },
+    ],
+  },
+  {
+    label: 'Modern C++ & Systems',
+    items: [
+      { label: 'C++', match: 'C++' },
+      { label: 'Multithreading' },
+      { label: 'ROS 2', match: 'ROS2' },
+      { label: 'RTI DDS' },
+      { label: 'GoogleTest / GMock', match: 'GMock' },
+      { label: 'CMake' },
+    ],
+  },
+  {
+    label: 'Machine Learning',
+    items: [
+      { label: 'PyTorch' },
+      { label: 'UNet' },
+      { label: 'YOLOv5' },
+      { label: 'Deep Q-Networks', match: 'DQN' },
+      { label: 'Siamese networks', match: 'Siamese' },
+    ],
+  },
+];
 
 /** Skills section of the public résumé (public/resume.pdf), verbatim. */
 export const resumeSkills = [
@@ -184,6 +276,14 @@ export const profile = {
   /** Owner-approved profile photo (400×400). */
   photo: { src: '/profile.jpg', width: 400, height: 400 },
   siteUrl: 'https://kshitijsharma2204.github.io/portfolio/',
+  /** Branded share image (owner-supplied artwork, not a project screenshot). Project pages use their own image. */
+  ogImage: {
+    src: '/media/og/portfolio.jpg',
+    width: 1200,
+    height: 630,
+    type: 'image/jpeg',
+    alt: 'Kshitij Sharma — Robotics & Perception Software Engineer, with a stylized LiDAR city map',
+  },
   description:
     'Kshitij Sharma is a Perception Software Engineer at Lucid Motors and WPI robotics graduate. Explore projects in LiDAR, SLAM, sensor fusion and motion planning.',
 };
@@ -199,3 +299,34 @@ export const sizeNote = (bytes: number) => (bytes > LARGE_FILE_BYTES ? ` (${form
 
 export const formatBytes = (b: number) =>
   b >= 1e6 ? `${(b / 1e6).toFixed(b >= 1e7 ? 0 : 1)} MB` : `${Math.max(1, Math.round(b / 1e3))} KB`;
+
+/* ---------------------------------------------------------------- Case studies */
+
+export interface EvidenceRef {
+  url: string;
+  commit?: string;
+  note?: string;
+}
+export interface CaseStudy {
+  projectId: string;
+  status: 'draft' | 'approved';
+  problem?: string;
+  approach?: string;
+  pipeline?: { step: string; detail: string; source?: string }[];
+  decisions?: { title: string; explanation: string; evidence: EvidenceRef[] }[];
+  evaluation?: { metric: string; value: number; unit: string; protocol: string; evidence: EvidenceRef[] }[];
+  limitations?: string[];
+  nextSteps?: string[];
+  reproducibility?: string;
+  evidence: EvidenceRef[];
+  /** Internal review notes; never rendered. */
+  reviewNotes?: string[];
+}
+
+/** CASE_STUDY_DRAFTS=1 (npm run preview:drafts) renders drafts too, for local owner review only. */
+export const showDraftCaseStudies = process.env.CASE_STUDY_DRAFTS === '1';
+const caseStudyList = caseStudiesJson.caseStudies as CaseStudy[];
+
+/** The case study to render for a project: approved entries only, unless the local drafts preview is on. */
+export const caseStudyFor = (projectId: string): CaseStudy | undefined =>
+  caseStudyList.find((c) => c.projectId === projectId && (c.status === 'approved' || showDraftCaseStudies));
