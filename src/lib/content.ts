@@ -192,5 +192,10 @@ export const profile = {
 export const withBase = (path: string) =>
   `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 
-export const formatBytes =(b: number) =>
+/** Files above this size get their size shown next to download links, so nobody pulls 50 MB by accident. */
+export const LARGE_FILE_BYTES = 2e6;
+/** " (52 MB)" for large files, "" otherwise. */
+export const sizeNote = (bytes: number) => (bytes > LARGE_FILE_BYTES ? ` (${formatBytes(bytes)})` : '');
+
+export const formatBytes = (b: number) =>
   b >= 1e6 ? `${(b / 1e6).toFixed(b >= 1e7 ? 0 : 1)} MB` : `${Math.max(1, Math.round(b / 1e3))} KB`;

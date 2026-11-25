@@ -1,10 +1,11 @@
 ---
 /**
  * Poster-first project media. Never loads an original GIF: cards show a WebP poster; when `playable`,
- * a button swaps in the MP4/WebM derivative on demand, and `showLinks` offers the original file as a plain link.
+ * a button swaps in the MP4/WebM derivative on demand, and `showLinks` offers the video and the full-quality original
+ * as plain links (sizes shown only for large files).
  */
 import Icon from './Icon.astro';
-import { formatBytes, withBase, type Project } from '../lib/content';
+import { sizeNote, withBase, type Project } from '../lib/content';
 
 interface Props {
   project: Project;
@@ -58,10 +59,10 @@ const alt = original.animated
   {showLinks && (
     <figcaption class="pm-links">
       {video && (
-        <a href={withBase(video.mp4)}>Video ({formatBytes(video.mp4Bytes)} MP4)</a>
+        <a href={withBase(video.mp4)}>Watch video{sizeNote(video.mp4Bytes)}</a>
       )}
       <a href={withBase(original.path)}>
-        Original {original.animated ? 'GIF' : 'image'} ({formatBytes(original.bytes)})
+        Full-quality {original.animated ? 'GIF' : 'image'}{sizeNote(original.bytes)}
       </a>
     </figcaption>
   )}

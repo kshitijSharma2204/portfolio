@@ -6,7 +6,7 @@
  */
 import Icon from './Icon.astro';
 import ProjectMedia from './ProjectMedia.astro';
-import { formatBytes, withBase, type Project } from '../lib/content';
+import { sizeNote, withBase, type Project } from '../lib/content';
 
 interface Props {
   projects: Project[];
@@ -39,7 +39,7 @@ const { projects } = Astro.props;
           <ul class="qv-gallery">
             {p.gallery.map((g, i) => (
               <li>
-                <a href={withBase(g.original)} aria-label={`Open original image ${i + 1} of ${p.gallery.length} (${formatBytes(g.originalBytes)})`}>
+                <a href={withBase(g.original)} aria-label={`Open full-quality image ${i + 1} of ${p.gallery.length}${sizeNote(g.originalBytes)}`}>
                   <img src={withBase(g.src)} width={g.width} height={g.height} loading="lazy" decoding="async"
                     alt={`${p.name} — gallery image ${i + 1} of ${p.gallery.length}`} />
                 </a>
