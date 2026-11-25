@@ -1,0 +1,21 @@
+{
+  "$comment": "Presentation-only metadata keyed by original project ID. Original records in projects.json are never edited; anything here only changes how they are displayed.",
+  "projects": {
+    "project-1": { "slug": "lidar-odometry-slam-stack", "featuredRank": 1 },
+    "project-2": { "slug": "3d-scene-reconstruction", "featuredRank": 5 },
+    "project-3": { "slug": "kitti-semantic-segmentation", "featuredRank": 3 },
+    "project-4": { "slug": "one-shot-object-detection" },
+    "project-5": { "slug": "hybrid-a-star", "featuredRank": 2 },
+    "project-6": { "slug": "trajectory-generation-frenet-frame", "featuredRank": 4 },
+    "project-7": { "slug": "ekf-localization", "featuredRank": 6, "posterTime": 29.5 },
+    "project-8": { "slug": "atari-breakout-dqn-agent" },
+    "project-9": { "slug": "sliding-mode-control-quadrotor" },
+    "project-10": { "slug": "travelling-salesman-problem", "posterTime": 7.3 },
+    "project-11": { "slug": "scara-joint-space-control" },
+    "project-12": { "slug": "face-recognition-siamese-network" },
+    "project-13": {
+      "slug": "automatic-camera-calibration",
+      "displayTitle": "Automatic Camera Calibration"
+    }
+  }
+}
