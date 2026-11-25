@@ -5,7 +5,7 @@ import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/cont
 ---
 <BaseLayout
   title={`About | ${profile.name}`}
-  description={`About ${profile.name}: robotics software engineer with a Master’s in Robotics Engineering from Worcester Polytechnic Institute (WPI), working in perception, SLAM, sensor fusion and motion planning.`}
+  description={`About ${profile.name}: Perception Software Engineer at Lucid Motors with a Master’s in Robotics Engineering from Worcester Polytechnic Institute (WPI), working in perception, SLAM, sensor fusion and motion planning.`}
 >
   <div class="container page-head">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
@@ -21,7 +21,7 @@ import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/cont
   <div class="container about-grid">
     <section aria-labelledby="bio-title">
       <h2 id="bio-title" class="sr-only">Biography</h2>
-      <!-- Original biography from bio.json (owner-authored HTML), shown unchanged pending an approved update. -->
+      <!-- Biography from src/data/bio.json (owner-approved HTML). -->
       <div class="prose bio" set:html={bioHtml} />
       <div class="btn-row">
         <a class="btn btn-primary" href={withBase('resume.pdf')}><Icon name="file" size={16} /> Résumé (PDF)</a>
@@ -31,6 +31,8 @@ import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/cont
     </section>
 
     <aside class="side">
+      <img class="photo" src={withBase(profile.photo.src)} width={profile.photo.width} height={profile.photo.height}
+        alt={`Photo of ${profile.name}`} decoding="async" />
       <section aria-labelledby="edu-title" class="card block">
         <h2 id="edu-title">Education</h2>
         <ul class="edu">
@@ -68,6 +70,7 @@ import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/cont
   }
   .bio { font-size: 1.0625rem; margin-bottom: var(--s6); }
   .side { display: grid; gap: var(--s5); }
+  .photo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); }
   .block { padding: var(--s5); }
   .block h2 { font-size: 1.125rem; }
   .edu { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s4); }

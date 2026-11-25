@@ -30,6 +30,7 @@ const jsonLd = {
     name: profile.name,
     url: profile.siteUrl,
     description: profile.description,
+    image: new URL(withBase(profile.photo.src), Astro.site).href,
     jobTitle: currentRole.role,
     worksFor: { '@type': 'Organization', name: currentRole.employer },
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Worcester Polytechnic Institute' },
@@ -158,8 +159,14 @@ const jsonLd = {
       </div>
 
       <div id="bio">
-        <span class="eyebrow">About / Education</span>
-        <h2>Education</h2>
+        <div class="about-head">
+          <img class="about-photo" src={withBase(profile.photo.src)} width={profile.photo.width} height={profile.photo.height}
+            alt={`Photo of ${profile.name}`} loading="lazy" decoding="async" />
+          <div>
+            <span class="eyebrow">About / Education</span>
+            <h2>Education</h2>
+          </div>
+        </div>
         <ul class="edu">
           {education.map((ed) => (
             <li class="card">
@@ -181,9 +188,10 @@ const jsonLd = {
         <div>
           <span class="eyebrow">Contact</span>
           <h2 id="contact-title">Get in touch</h2>
-          <p class="muted">Find me on GitHub and LinkedIn, or download my résumé.</p>
+          <p class="muted">Email <a href={`mailto:${profile.email}`}>{profile.email}</a>, find me on GitHub and LinkedIn, or download my résumé.</p>
         </div>
         <div class="btn-row">
+          <a class="btn" href={`mailto:${profile.email}`}><Icon name="mail" size={16} /> Email</a>
           <a class="btn" href={profile.github} rel="me noopener"><Icon name="github" size={16} /> GitHub</a>
           <a class="btn" href={profile.linkedin} rel="me noopener"><Icon name="linkedin" size={16} /> LinkedIn</a>
           <a class="btn btn-primary" href={withBase('resume.pdf')}><Icon name="file" size={16} /> Résumé</a>
@@ -287,6 +295,9 @@ const jsonLd = {
   .skill-lists dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
   .skill-lists dd { margin: 2px 0 0; }
 
+  .about-head { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s3); }
+  .about-head h2 { margin: 0; }
+  .about-photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex: none; }
   .edu { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; gap: var(--s3); }
   .edu li { padding: var(--s4) var(--s5); }
   .edu p { margin: 0; }

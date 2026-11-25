@@ -21,8 +21,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist -t",
     "serve": "node scripts/serve-dist.mjs",
-    "screenshots": "node scripts/screenshots.mjs",
-    "baseline": "node scripts/baseline-inventory.mjs"
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",

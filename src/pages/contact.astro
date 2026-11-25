@@ -4,6 +4,7 @@ import Icon from '../components/Icon.astro';
 import { profile, withBase } from '../lib/content';
 
 const channels = [
+  { href: `mailto:${profile.email}`, icon: 'mail' as const, name: 'Email', detail: profile.email, rel: undefined },
   { href: profile.linkedin, icon: 'linkedin' as const, name: 'LinkedIn', detail: 'linkedin.com/in/kshitijsharma1992', rel: 'me noopener' },
   { href: profile.github, icon: 'github' as const, name: 'GitHub', detail: 'github.com/kshitijSharma2204', rel: 'me noopener' },
   { href: withBase('resume.pdf'), icon: 'file' as const, name: 'Résumé', detail: 'PDF download', rel: undefined },
@@ -11,7 +12,7 @@ const channels = [
 ---
 <BaseLayout
   title={`Contact | ${profile.name}`}
-  description={`Contact ${profile.name}, ${profile.title}, via LinkedIn or GitHub, or download the résumé.`}
+  description={`Contact ${profile.name}, ${profile.title}, by email, LinkedIn or GitHub, or download the résumé.`}
 >
   <div class="container page-head">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
@@ -22,7 +23,7 @@ const channels = [
     </nav>
     <span class="eyebrow">Contact</span>
     <h1>Get in touch</h1>
-    <p class="lead">Find me on LinkedIn and GitHub, or download my résumé.</p>
+    <p class="lead">Email me, find me on LinkedIn and GitHub, or download my résumé.</p>
   </div>
   <div class="container">
     <ul class="channels">
@@ -48,7 +49,7 @@ const channels = [
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--s5);
   }
   .channel {
