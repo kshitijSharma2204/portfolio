@@ -1,6 +1,13 @@
 # Portfolio 2.0 — owner review items
 
-Nothing below has been applied to the site. Each item needs your decision before launch (or explicitly "leave as is").
+**Status (2026-11-25):** reviewed by the owner. Decisions:
+
+- A1 résumé PDF stays public as is · A2 Lucid bullets fine · A3 new bio **applied** · A4 GitHub photo **added** (About, homepage, structured data) · A5 3D Scene Reconstruction moved to featured #2 · A6 email **shown** (Contact, homepage, footer) · A7 deployed.
+- Berkshire Grey metric changed to **70%**; other résumé mismatches (§3) left for the owner to update later.
+- All §4 text corrections **applied**, except "upto", which is only in the résumé PDF.
+- The migration content lock was removed; `src/data/` is now the single place to edit content.
+
+The original review notes follow for reference.
 
 ## 1. Approvals required by the plan
 

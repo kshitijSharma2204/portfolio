@@ -180,6 +180,9 @@ export const profile = {
   title: 'Robotics & Perception Software Engineer',
   github: 'https://github.com/kshitijSharma2204',
   linkedin: 'https://www.linkedin.com/in/kshitijsharma1992/',
+  email: 'kshitijj.sharma@gmail.com',
+  /** Owner-approved profile photo (400×400). */
+  photo: { src: '/profile.jpg', width: 400, height: 400 },
   siteUrl: 'https://kshitijsharma2204.github.io/portfolio/',
   description:
     'Kshitij Sharma is a Perception Software Engineer at Lucid Motors and WPI robotics graduate. Explore projects in LiDAR, SLAM, sensor fusion and motion planning.',

@@ -19,7 +19,7 @@
                 "Collaborated on architecture refactoring of legacy C++ code to orchestrate multi-arm welding, scaling from a single robot to a four-arm cell",
                 "Designed a modular resource management system using modern C++ (templates, smart pointers, std::optional, lambdas) to allocate and synchronize the resources across multiple robots.",
                 "Built test infrastructure using GMock with inheritance-based mocking and prototyped dependency injection for robust controller testing.",
-                "Collaborate cross-functionally with robotics and software teams to align system architecture with evolving manufacturing requirements.",
+                "Collaborated cross-functionally with robotics and software teams to align system architecture with evolving manufacturing requirements.",
                 "Utilized Git for version control, ensuring code integrity and facilitating seamless collaboration within the development team."
             ]
         },
@@ -28,7 +28,7 @@
             "role": "Robotics Software Quality Engineer",
             "company": "VueData LLC (Contract, Client: Berkshire Grey)",
             "description": [
-                "Developed Python-based automation tools for the Cubiscan 325 machine, reducing warehouse management time by 30% and enhancing product dimensioning accuracy for warehouse induction and packing systems.",
+                "Developed Python-based automation tools for the Cubiscan 325 machine, reducing warehouse management time by 70% and enhancing product dimensioning accuracy for warehouse induction and packing systems.",
                 "Collaborated with development teams on system evaluation to optimize robotic motion planning, perception algorithms, and application software, ensuring systems met design specifications."
             ]
         },
@@ -39,7 +39,7 @@
             "description": [
                 "Developed C++ software modules and automated Google Test suites within a Linux environment, enhancing an autonomous mobile robot's functionality through Nav2 implementation within a ROS2 environment, and facilitating team collaboration via Git in a CI/CD pipeline",
                 "Engineered a sophisticated mapping package, to precisely localize an AMR in outdoor environments, by integration and fusion of high precision data streams from Real-Time Kinematic (RTK) GPS, Zed2 Camera-based visual odometry, and Inertial Measurement Unit (IMU).",
-                "Integrated ROS2 for autonomous navigation, optimized Rviz C++ nodes for enhanced reliability through Google tests in localization and mapping, and seamlessly merged custom localization strategies with Nav2 and Rviz visualization",
+                "Integrated ROS2 for autonomous navigation, optimized RViz C++ nodes for enhanced reliability through Google tests in localization and mapping, and seamlessly merged custom localization strategies with Nav2 and Rviz visualization",
                 "Developed Arduino sketch to integrate Blynk with micro-ROS, facilitating advanced robotic functionalities; transitioned from Docker to Isaac ROS Buildfarm for ROS2 Humble installation, enhancing stability in agent-client connections on Jetson Orin and streamlining the communication process."
             ]
         },

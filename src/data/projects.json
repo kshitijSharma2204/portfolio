@@ -85,7 +85,7 @@
     {
       "id": "project-4",
       "title": "One-Shot Object Detection",
-      "mainDescr": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset",
+      "mainDescr": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset.",
       "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
       "image": "/assets/projects/obj_detection.gif",
       "images": [
@@ -114,7 +114,7 @@
     {
       "id": "project-5",
       "title": "Hybrid A*",
-      "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths - C++ core + Python visualization.",
+      "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths — C++ core + Python visualization.",
       "description": "In ROS 2 Humble, this package delivers a complete Hybrid A* planning pipeline: it generates occupancy maps and goal positions, computes smooth, collision-free non-holonomic trajectories using heuristic-guided motion primitives and path smoothing, and provides real-time visualization and animation of the planned path.",
       "image": "/assets/projects/hybrid-a-star-main.gif",
       "images": [
@@ -139,7 +139,7 @@
     {
       "id": "project-6",
       "title": "Trajectory Generation in Frenet Frame",
-      "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions - with full OpenCV visualization and video output.",
+      "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions — with full OpenCV visualization and video output.",
       "description": "Builds a center‐lane reference path (x, y, yaw, curvature, arc-length)\nGenerates lateral (quintic) & longitudinal (quartic/quintic) polynomial candidates over multiple horizons\nScores each by jerk, time, and deviation, then filters out collisions and kinematic violations\nConverts the best trajectory to world coordinates and renders all candidates + selected path with OpenCV (outputs trajectory.mp4)",
       "image": "/assets/projects/frenet-trajectory.gif",
       "images": [
@@ -165,7 +165,7 @@
     {
       "id": "project-7",
       "title": "EKF Localization",
-      "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter - including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
+      "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter — including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
       "description": "Initializes the EKF with state, covariance and noise matrices\nSimulates a three-phase reference path (sinusoid, straight down, semicircle)\nGenerates noisy odometry and position measurements\nRuns real-time EKF predict & update steps\nDynamically scales and centers all trajectories on the OpenCV canvas\nDraws a red covariance ellipse that shrinks as uncertainty decreases\nRenders color-coded ground truth, odometry, observations and EKF estimate\nOptionally records the animation to (ekf_demo.mp4)",
       "image": "/assets/projects/ekf_demo.gif",
       "images": [
@@ -264,7 +264,7 @@
     },
     {
       "id": "project-11",
-      "title": "Joint Space Control of SCARA arm",
+      "title": "Joint Space Control of SCARA Arm",
       "mainDescr": "Developed a ROS-based PID control system with inverse kinematics for precise joint-space manipulation of a SCARA robot arm.",
       "description": "This project implements a joint-space control scheme for a SCARA robotic manipulator using ROS. It features an inverse kinematics solver to calculate joint parameters from target positions, a PID controller to precisely maneuver the robot arm's joints, and real-time visualization and trajectory plotting. The solution is structured into ROS packages including service servers, subscribers, and publishers for seamless robotic control.",
       "image": "/assets/projects/JointSpace_traj.gif",
@@ -313,7 +313,7 @@
     },
     {
       "id": "project-13",
-      "title": "Automatic Camera Caliberation",
+      "title": "Automatic Camera Calibration",
       "mainDescr": "Implemented an end-to-end camera calibration pipeline from scratch using Zhang’s method in Python, including robust checkerboard detection, intrinsic/extrinsic estimation, and bundle adjustment.",
       "description": "Built a complete camera calibration system in Python using Zhang’s method, implementing all steps from checkerboard corner detection and homography estimation to intrinsic and extrinsic parameter calculation, radial distortion modeling, and nonlinear bundle adjustment optimization. Designed extensive visualization tools and compared results against OpenCV’s calibration function, demonstrating sub-pixel reprojection error and a clear understanding of the calibration process.",
       "image": "/assets/projects/detected_vs_reprojected_corners.png",
