@@ -9,6 +9,8 @@ const pres = presentationJson.projects as Record<string, { slug: string; feature
 const nameOf = (id: string) => pres[id].displayTitle ?? projects.find((p) => p.id === id)!.title;
 const slugOf = (id: string) => pres[id].slug;
 const featured = projects.filter((p) => pres[p.id].featuredRank);
+const total = projects.length;
+const inGroup = (g: string) => projects.filter((p) => p.group === g).length;
 const canonicalPages = ['', 'projects/', ...projects.map((p) => `projects/${slugOf(p.id)}/`), 'experience/', 'about/', 'contact/'];
 const pageTypes = ['', 'projects/', `projects/${slugOf('project-1')}/`, `projects/${slugOf('project-3')}/`, 'experience/', 'about/', 'contact/'];
 
@@ -70,15 +72,15 @@ test.describe('home', () => {
 });
 
 test.describe('project gallery', () => {
-  test('all 13 projects are browsable; category, search, empty state and clear work with URL state', async ({ page }) => {
+  test('every project is browsable; category, search, empty state and clear work with URL state', async ({ page }) => {
     await page.goto('projects/');
     const visible = page.locator('[data-gallery] article[data-project]:visible');
-    await expect(visible).toHaveCount(13);
+    await expect(visible).toHaveCount(total);
 
     await page.getByRole('button', { name: /^Computer Vision/ }).click();
-    await expect(visible).toHaveCount(5);
+    await expect(visible).toHaveCount(inGroup('Computer Vision'));
     await expect(page).toHaveURL(/category=computer-vision/);
-    await expect(page.locator('[data-count]')).toHaveText('Showing 5 of 13 projects');
+    await expect(page.locator('[data-count]')).toHaveText(`Showing ${inGroup('Computer Vision')} of ${total} projects`);
 
     await page.getByLabel('Search projects').fill('pytorch');
     await expect(page).toHaveURL(/q=pytorch/);
@@ -89,7 +91,7 @@ test.describe('project gallery', () => {
     await expect(visible).toHaveCount(0);
     await expect(page.getByText('No projects match your filters.')).toBeVisible();
     await page.locator('[data-empty]').getByRole('button', { name: 'Clear filters' }).click();
-    await expect(visible).toHaveCount(13);
+    await expect(visible).toHaveCount(total);
     await expect(page).toHaveURL(/\/projects\/$/);
   });
 
@@ -104,12 +106,12 @@ test.describe('project gallery', () => {
   test('filter state restores from the URL and survives back navigation', async ({ page }) => {
     await page.goto('projects/?category=planning-and-control&view=list');
     await expect(page.locator('[data-gallery]')).toHaveAttribute('data-view', 'list');
-    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(5);
+    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(inGroup('Planning and Control'));
     await page.locator('article[data-project="project-5"] h2 a').click();
     await expect(page.locator('h1')).toHaveText(nameOf('project-5'));
     await page.goBack();
     await expect(page).toHaveURL(/category=planning-and-control/);
-    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(5);
+    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(inGroup('Planning and Control'));
     await expect(page.getByRole('button', { name: 'List view' })).toHaveAttribute('aria-pressed', 'true');
   });
 });
@@ -118,7 +120,7 @@ test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
   test('all cards, case-study and source links remain available', async ({ page }) => {
     await page.goto('projects/');
-    await expect(page.locator('article[data-project]')).toHaveCount(13);
+    await expect(page.locator('article[data-project]')).toHaveCount(total);
     for (const p of projects) {
       await expect(page.locator(`article[data-project="${p.id}"] h2 a`)).toHaveAttribute('href', `/portfolio/projects/${slugOf(p.id)}/`);
       await expect(page.locator(`article[data-project="${p.id}"] a[href="${p.link}"]`)).toBeVisible();
