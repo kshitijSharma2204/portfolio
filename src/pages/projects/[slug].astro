@@ -10,7 +10,7 @@ import LegacyRedirect from '../../components/LegacyRedirect.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import ProjectMedia from '../../components/ProjectMedia.astro';
 import QuickView from '../../components/QuickView.astro';
-import { formatBytes, profile, projects, relatedProjects, withBase, type Project } from '../../lib/content';
+import { profile, projects, relatedProjects, sizeNote, withBase, type Project } from '../../lib/content';
 
 export const getStaticPaths = (() => [
   ...projects.map((project) => ({ params: { slug: project.slug }, props: { project, legacy: false } })),
@@ -118,7 +118,7 @@ const jsonLd = [
                       decoding="async"
                       alt={`${p.name} — gallery image ${i + 1} of ${p.gallery.length}`}
                     />
-                    <span class="mono">Image {i + 1} · original {formatBytes(g.originalBytes)}</span>
+                    <span class="mono">Image {i + 1}{sizeNote(g.originalBytes)}</span>
                   </a>
                 </li>
               ))}
