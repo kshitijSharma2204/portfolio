@@ -102,7 +102,7 @@ if (gallery) {
     check(gallery.includes(`href="${p.link}"`), `projects: ${p.id} GitHub link missing`);
     check(gallery.includes(`href="${BASE}projects/${pres[p.id].slug}/"`), `projects: ${p.id} project-page link missing`);
   }
-  for (const g of new Set(projects.map((p) => p.group))) check(t.includes(g), `projects: category "${g}" missing`);
+  for (const c of json('src/data/presentation.json').displayCategories) check(t.includes(c.label), `projects: category "${c.label}" missing`);
 }
 
 // --- 13 detail pages with full original content + legacy compatibility pages
@@ -116,7 +116,8 @@ for (const p of projects) {
   check(canonicalOf(html) === `${SITE}${BASE}projects/${slug}/`, `${slug}: canonical mismatch`);
   check(t.includes(p.mainDescr), `${slug}: mainDescr missing`);
   check(t.includes(norm(p.description)), `${slug}: description missing`);
-  check(t.includes(p.group), `${slug}: group missing`);
+  const catLabel = json('src/data/presentation.json').displayCategories.find((c) => c.key === pres[p.id].displayCategory)?.label;
+  check(catLabel && t.includes(catLabel), `${slug}: display category label missing`);
   for (const s of p.skills) check(t.includes(s), `${slug}: skill missing: ${s}`);
   check(html.includes(`href="${p.link}"`), `${slug}: GitHub link missing`);
   check(html.includes(`href="${BASE}${p.image.slice(1)}"`), `${slug}: link to original media missing`);
@@ -144,6 +145,63 @@ const about = page('about');
 const bio = json('src/data/bio.json').bio;
 check(about && about.includes(bio), 'about: original biography missing or altered');
 check(page('contact'), 'contact page missing');
+
+// --- v2.2: share images, experience anchors, display categories, case-study draft leakage, verification file
+const ogOf = (html) => attr(html, /<meta property="og:image" content="([^"]+)"/);
+const BRAND = `${SITE}${BASE}media/og/portfolio.jpg`;
+for (const rel of ['', 'projects', 'experience', 'about', 'contact']) {
+  const html = page(rel);
+  if (!html) continue;
+  check(ogOf(html) === BRAND, `${rel || 'home'}: og:image should be the branded image, got ${ogOf(html)}`);
+  check(/<meta property="og:image:type" content="image\/jpeg"/.test(html), `${rel || 'home'}: og:image:type missing`);
+}
+for (const p of projects) {
+  const html = page(`projects/${pres[p.id].slug}`);
+  if (html) check(ogOf(html) === `${SITE}${BASE}media/og/${p.id}.jpg`, `${p.id}: project page must keep its own og:image`);
+}
+const jpegSize = (buf) => {
+  for (let i = 2; i < buf.length - 9;) {
+    if (buf[i] !== 0xff) { i++; continue; }
+    const marker = buf[i + 1];
+    if (marker >= 0xc0 && marker <= 0xc3) return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+    i += 2 + buf.readUInt16BE(i + 2);
+  }
+  return null;
+};
+const brandFile = join(dist, 'media/og/portfolio.jpg');
+if (existsSync(brandFile)) {
+  const dims = jpegSize(readFileSync(brandFile));
+  check(dims?.w === 1200 && dims?.h === 630, `branded og image must be 1200×630, got ${JSON.stringify(dims)}`);
+} else errors.push('dist/media/og/portfolio.jpg missing');
+if (home) {
+  const person = ldOf(home).find((o) => o['@type'] === 'ProfilePage')?.mainEntity;
+  check(person?.image === `${SITE}${BASE}profile.jpg`, 'home: Person.image must be the profile photo, not the banner');
+  const anchors = [...home.matchAll(/href="\/portfolio\/experience\/#([a-z0-9-]+)"/g)].map((m) => m[1]);
+  check(anchors.length >= 3, 'home: experience cards must link to Experience page anchors');
+  for (const a of anchors) check(exp?.includes(`id="${a}"`), `home links to experience#${a}, which does not exist`);
+}
+const presFile = json('src/data/presentation.json');
+const catKeys = presFile.displayCategories.map((c) => c.key);
+if (gallery) {
+  for (const m of gallery.matchAll(/data-category="([^"]*)"/g)) check(catKeys.includes(m[1]), `projects: card has unknown category ${m[1]}`);
+  for (const k of catKeys) check(gallery.includes(`data-category-btn="${k}"`), `projects: missing filter chip ${k}`);
+}
+const { caseStudies } = json('src/data/case-studies.json');
+const allHtml = htmlFiles.map((f) => decode(readFileSync(f, 'utf8'))).join('\n');
+for (const c of caseStudies) {
+  const html = page(`projects/${pres[c.projectId].slug}`) ?? '';
+  const marker = (c.problem ?? c.approach ?? '').slice(0, 60);
+  if (c.status === 'draft') {
+    check(!marker || !allHtml.includes(marker), `draft case study ${c.projectId} leaked into public output`);
+  } else {
+    check(html.includes('id="cs-title"'), `approved case study ${c.projectId} is not rendered`);
+  }
+  for (const n of c.reviewNotes ?? []) check(!allHtml.includes(n.slice(0, 60)), `review note for ${c.projectId} leaked into output`);
+}
+check(!allHtml.includes('Draft case study'), 'draft banner present in public output');
+const verif = 'google0642a7ae8ef66a2c.html';
+check(existsSync(join(dist, verif)) && readFileSync(join(dist, verif)).equals(readFileSync(join(root, 'public', verif))),
+  'Search Console verification file missing or altered');
 
 // --- Sitemap: canonical, 200-able URLs only
 const sitemapFile = join(dist, 'sitemap.xml');

@@ -5,12 +5,14 @@ import presentationJson from '../src/data/presentation.json' with { type: 'json'
 import experienceJson from '../src/data/experience.json' with { type: 'json' };
 
 const projects = projectsJson.projects;
-const pres = presentationJson.projects as Record<string, { slug: string; featuredRank?: number; displayTitle?: string }>;
+const pres = presentationJson.projects as Record<string, { slug: string; featuredRank?: number; displayTitle?: string; displayCategory: string }>;
+const displayCats = presentationJson.displayCategories;
 const nameOf = (id: string) => pres[id].displayTitle ?? projects.find((p) => p.id === id)!.title;
 const slugOf = (id: string) => pres[id].slug;
 const featured = projects.filter((p) => pres[p.id].featuredRank);
 const total = projects.length;
 const inGroup = (g: string) => projects.filter((p) => p.group === g).length;
+const inCat = (key: string) => projects.filter((p) => pres[p.id].displayCategory === key).length;
 const canonicalPages = ['', 'projects/', ...projects.map((p) => `projects/${slugOf(p.id)}/`), 'experience/', 'about/', 'contact/'];
 const pageTypes = ['', 'projects/', `projects/${slugOf('project-1')}/`, `projects/${slugOf('project-3')}/`, 'experience/', 'about/', 'contact/'];
 
@@ -64,6 +66,18 @@ test.describe('home', () => {
     for (const e of experienceJson.experienceData) await expect(page.locator('#experience')).toContainText(e.role);
   });
 
+  test('hero shows the portrait; experience cards summarize and link to the timeline', async ({ page }) => {
+    await page.goto('');
+    await expect(page.locator('.hero img.hero-photo')).toBeVisible();
+    const cards = page.locator('#experience .exp-card');
+    await expect(cards).toHaveCount(3);
+    for (let i = 0; i < 3; i++) await expect(cards.nth(i).locator('.exp-summary')).not.toBeEmpty();
+    await expect(cards.nth(1)).toContainText('Client: Path Robotics');
+    await cards.nth(1).getByRole('link', { name: /Role details/ }).click();
+    await expect(page).toHaveURL(/experience\/#kforce-inc$/);
+    await expect(page.locator('#kforce-inc')).toBeInViewport();
+  });
+
   test('legacy homepage section anchors exist', async ({ page }) => {
     await page.goto('');
     for (const id of ['bio', 'projects', 'skills', 'experience']) await expect(page.locator(`#${id}`)).toHaveCount(1);
@@ -77,14 +91,14 @@ test.describe('project gallery', () => {
     const visible = page.locator('[data-gallery] article[data-project]:visible');
     await expect(visible).toHaveCount(total);
 
-    await page.getByRole('button', { name: /^Computer Vision/ }).click();
-    await expect(visible).toHaveCount(inGroup('Computer Vision'));
-    await expect(page).toHaveURL(/category=computer-vision/);
-    await expect(page.locator('[data-count]')).toHaveText(`Showing ${inGroup('Computer Vision')} of ${total} projects`);
+    await page.getByRole('button', { name: /^Computer Vision & Perception/ }).click();
+    await expect(visible).toHaveCount(inCat('computer-vision-perception'));
+    await expect(page).toHaveURL(/category=computer-vision-perception/);
+    await expect(page.locator('[data-count]')).toHaveText(`Showing ${inCat('computer-vision-perception')} of ${total} projects`);
 
     await page.getByLabel('Search projects').fill('pytorch');
     await expect(page).toHaveURL(/q=pytorch/);
-    const cvPytorch = projects.filter((p) => p.group === 'Computer Vision' && JSON.stringify(p).toLowerCase().includes('pytorch'));
+    const cvPytorch = projects.filter((p) => pres[p.id].displayCategory === 'computer-vision-perception' && JSON.stringify(p).toLowerCase().includes('pytorch'));
     await expect(visible).toHaveCount(cvPytorch.length);
 
     await page.getByLabel('Search projects').fill('zzzz-no-match');
@@ -93,6 +107,28 @@ test.describe('project gallery', () => {
     await page.locator('[data-empty]').getByRole('button', { name: 'Clear filters' }).click();
     await expect(visible).toHaveCount(total);
     await expect(page).toHaveURL(/\/projects\/$/);
+  });
+
+  test('display categories show the expected counts (2/5/4/1/1)', async ({ page }) => {
+    await page.goto('projects/');
+    const expected: Record<string, number> = {
+      'slam-state-estimation': 2, 'computer-vision-perception': 5, 'planning-control': 4, 'reinforcement-learning': 1, algorithms: 1,
+    };
+    for (const c of displayCats) {
+      expect(inCat(c.key), c.key).toBe(expected[c.key]);
+      await expect(page.locator(`[data-category-btn="${c.key}"]`)).toContainText(`${c.label} ${expected[c.key]}`);
+    }
+  });
+
+  test('legacy v2.0 category links still filter by the original group', async ({ page }) => {
+    for (const [key, group] of [['robotics', 'Robotics'], ['computer-vision', 'Computer Vision'], ['planning-and-control', 'Planning and Control'], ['algorithm-development', 'Algorithm Development']]) {
+      await page.goto(`projects/?category=${key}`);
+      await expect(page.locator('[data-gallery] article:visible'), key).toHaveCount(inGroup(group));
+      await expect(page.locator('[data-count]')).toContainText(`in “${group}”`);
+      await expect(page).toHaveURL(new RegExp(`category=${key}`));
+    }
+    await page.goto('projects/?category=not-a-category');
+    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(total);
   });
 
   test('search is case-insensitive across titles, descriptions and tags', async ({ page }) => {
@@ -104,14 +140,14 @@ test.describe('project gallery', () => {
   });
 
   test('filter state restores from the URL and survives back navigation', async ({ page }) => {
-    await page.goto('projects/?category=planning-and-control&view=list');
+    await page.goto('projects/?category=planning-control&view=list');
     await expect(page.locator('[data-gallery]')).toHaveAttribute('data-view', 'list');
-    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(inGroup('Planning and Control'));
+    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(inCat('planning-control'));
     await page.locator('article[data-project="project-5"] h2 a').click();
     await expect(page.locator('h1')).toHaveText(nameOf('project-5'));
     await page.goBack();
-    await expect(page).toHaveURL(/category=planning-and-control/);
-    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(inGroup('Planning and Control'));
+    await expect(page).toHaveURL(/category=planning-control/);
+    await expect(page.locator('[data-gallery] article:visible')).toHaveCount(inCat('planning-control'));
     await expect(page.getByRole('button', { name: 'List view' })).toHaveAttribute('aria-pressed', 'true');
   });
 });
@@ -147,6 +183,17 @@ test.describe('quick view', () => {
     await expect(page).toHaveURL(/category=robotics/);
   });
 
+  test('closing Quick View stops any playing video', async ({ page }) => {
+    await page.goto('projects/');
+    await page.locator('article[data-project="project-1"] button[data-qv-open]').click();
+    const dialog = page.getByRole('dialog');
+    await dialog.getByRole('button', { name: /^Play demo/ }).click();
+    await expect(dialog.locator('video')).toHaveCount(1);
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect.poll(() => page.evaluate(() => [...document.querySelectorAll('video')].filter((v) => !v.paused).length)).toBe(0);
+  });
+
   test('opens from the homepage thumbnail and closes via the close button', async ({ page }) => {
     await page.goto('');
     await page.locator('#projects article[data-project="project-5"] .pcard-media').click();
@@ -155,6 +202,26 @@ test.describe('quick view', () => {
     await dialog.getByRole('button', { name: 'Close preview' }).click();
     await expect(dialog).toBeHidden();
     await expect(page.locator('#projects article[data-project="project-5"] button[data-qv-open]')).toBeFocused();
+  });
+});
+
+test.describe('SEO and case studies', () => {
+  test('branded share image on main pages; project pages keep their own; Person image is the photo', async ({ request }) => {
+    const og = async (path: string) => (await (await request.get(path)).text()).match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+    for (const path of ['', 'projects/', 'experience/', 'about/', 'contact/']) expect(await og(path), path).toMatch(/\/media\/og\/portfolio\.jpg$/);
+    expect(await og(`projects/${slugOf('project-5')}/`)).toMatch(/\/media\/og\/project-5\.jpg$/);
+    const home = await (await request.get('')).text();
+    expect(home).toContain('"image":"https://kshitijsharma2204.github.io/portfolio/profile.jpg"');
+    const img = await request.get('media/og/portfolio.jpg');
+    expect(img.status()).toBe(200);
+    expect(img.headers()['content-type']).toBe('image/jpeg');
+  });
+
+  test('draft case studies are not published; verified captions are', async ({ page }) => {
+    await page.goto(`projects/${slugOf('project-1')}/`);
+    await expect(page.getByRole('heading', { name: 'Engineering case study' })).toHaveCount(0);
+    await expect(page.getByText('Draft case study')).toHaveCount(0);
+    await expect(page.getByText('Estimated trajectory vs. KITTI ground truth, sequence 00 (top-down)')).toBeVisible();
   });
 });
 
