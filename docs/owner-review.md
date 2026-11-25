@@ -62,3 +62,33 @@ Why: the original bio says "Robotics Software Engineer with more than four years
 - **Skills lists** on Home/About come verbatim from the résumé's Skills section; education from its Education section.
 - Quick View and grid/list toggle were built in the same pass as the gallery; the core gallery, filters and detail pages pass all gates independently of them, including with JavaScript disabled.
 - WebKit tests could not run on this machine (missing system library `libavif16`; needs `sudo npx playwright install-deps`). They run in CI.
+
+---
+
+## Decision log
+
+### 2026-11-25 — Portfolio 2.2 (branch `portfolio-v2.2`)
+
+Already approved and preserved (no re-approval needed): new biography, profile photo (home ~112 px, About ~220 px), public email and résumé, 70% Berkshire Grey metric, featured order (LiDAR SLAM, 3D Reconstruction, Hybrid A*, KITTI Segmentation, Frenet, EKF), text corrections, "View project" / "View full project" labels, friendlier media labels.
+
+Changes made in v2.2 that use existing approved content only:
+- Homepage experience cards show one-line summaries derived from the approved bullets (copy proposed in the v2.2 plan; please confirm the wording).
+- Portrait moved from the lower homepage About section into the hero, same size.
+- Gallery display categories (presentation only; original `group` values unchanged and still searchable; old `?category=` links still work).
+- Branded share image (owner-supplied banner) for Home, Projects, Experience, About and Contact. Earlier you chose not to publish it; the v2.2 plan asks for it, so it is in this pull request; say so and it will be removed.
+- Gallery captions for the LiDAR project, taken from that repository's README and checked against the images.
+
+Awaiting owner decision (not changed on the site):
+
+| Item | Question |
+|---|---|
+| Case studies | Review the four drafts in `docs/case-study-review/` (or `npm run preview:drafts`). Each becomes public only when its status is changed to `approved`. |
+| LiDAR project title | The repository describes pure LiDAR odometry (no loop closure). Keep "LiDAR Odometry & SLAM Stack" or rename (e.g. "LiDAR Odometry Stack")? |
+| 3D Scene Reconstruction | The description mentions an SfM pipeline that is not in the linked NeRF repository. Provide the SfM source, or keep the description as-is? |
+| KITTI Semantic Segmentation | "Achieves robust performance" has no recorded metric. Supply a logged validation mIoU, or soften the wording? |
+| Hybrid A* | `params.yaml` reverse_penalty 1.5 vs. hard-coded kReverseCost 10.0 — which applies? |
+| One-Shot Object Detection | The notebook trains Ultralytics YOLOv5 (s, m variants; 30 epochs) on basketball footage; "one-shot" appears nowhere. Proposed title: **Basketball Object Detection with YOLOv5** (URL slug unchanged). The description also lists n/s/m/l variants and an ">85% AP" goal; only s/m training appears in the notebook source. |
+| Path Robotics title | Résumé "C++ Software Developer" vs. site "C++ Software Engineer" (Kforce contract, client Path Robotics). |
+| Nagarro title | Résumé "Team Lead, Associate Staff Engineer" vs. site "Team Lead, Design Engineer". |
+| WPI MER Lab | Research Assistant, Aug–Dec 2022 (résumé) — add to Experience? |
+| Berkshire Grey throughput | Résumé "boosting system throughput upto 98%" is not on the site — add (with evidence), or leave out? Also "upto" → "up to" in the résumé PDF. |
