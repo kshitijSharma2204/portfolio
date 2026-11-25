@@ -70,7 +70,8 @@ import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/cont
   }
   .bio { font-size: 1.0625rem; margin-bottom: var(--s6); }
   .side { display: grid; gap: var(--s5); }
-  .photo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); }
+  .photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); }
+  @media (max-width: 900px) { .photo { width: 180px; height: 180px; } }
   .block { padding: var(--s5); }
   .block h2 { font-size: 1.125rem; }
   .edu { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s4); }
