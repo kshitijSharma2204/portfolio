@@ -2,12 +2,12 @@
 //  - serves dist/ under /portfolio/
 //  - /dir → 301 /dir/ when dir/index.html exists (as GitHub Pages does)
 //  - unknown paths → 404 status with dist/404.html
-// Usage: node scripts/serve-dist.mjs [port]
+// Usage: node scripts/serve-dist.mjs [port]   (DIST_DIR=/path/to/build serves another build, e.g. a frozen baseline)
 import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
-import { extname, join, normalize } from 'node:path';
+import { extname, join, normalize, resolve } from 'node:path';
 
-const root = join(new URL('..', import.meta.url).pathname, 'dist');
+const root = process.env.DIST_DIR ? resolve(process.env.DIST_DIR) : join(new URL('..', import.meta.url).pathname, 'dist');
 const port = Number(process.argv[2] ?? process.env.PORT ?? 4322);
 const BASE = '/portfolio/';
 const TYPES = {

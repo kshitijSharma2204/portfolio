@@ -1,0 +1,461 @@
+{
+  "sourceCommit": "2f1f731912496611c52f8190ba80c5fc345f6883",
+  "takenAt": "2026-11-25T11:06:37.571Z",
+  "projects": {
+    "project-1": {
+      "title": "LiDAR Odometry & SLAM Stack",
+      "mainDescr": "Building a C++ LiDAR odometry pipeline with KISS-ICP-style scan-to-map registration, evaluated against KITTI ground truth and replayed live in an Open3D visualizer.",
+      "description": "Building a production-structured C++ pipeline for KITTI LiDAR odometry: a deterministic, bounded multithreaded producer/consumer replay system, motion-distortion correction via OXTS-integrated deskewing, and KISS-ICP-style scan-to-map registration (adaptive-threshold Gauss-Newton ICP against a voxel hash map, parallelized across a persistent thread pool). Evaluates estimated trajectories against KITTI ground truth via relative pose error, with Python tooling to plot per-step translation/rotation error against the mean/RMSE, and an Open3D visualizer supporting accumulated-map, raw-scan, and dense-map playback with multiple camera modes.",
+      "image": "/assets/projects/lidar_odometry_and_map_visualized_00.gif",
+      "images": [
+        "/assets/projects/gt_vs_kiss_icp_00.png",
+        "/assets/projects/evaluation_metrics_00.png",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_1.png",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_2.png",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_3.png",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_4.png",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_5.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/cpp_slam_stack",
+      "group": "Robotics",
+      "skills": [
+        "C++",
+        "CMake",
+        "Multithreading",
+        "LiDAR Odometry",
+        "KISS-ICP",
+        "Point Cloud Registration",
+        "ICP",
+        "Open3D",
+        "KITTI Dataset",
+        "Python"
+      ],
+      "slug": "lidar-odometry-slam-stack",
+      "featuredRank": 1,
+      "media": {
+        "/assets/projects/lidar_odometry_and_map_visualized_00.gif": "391866ab555ec3d64c5f22d10e86e0d9d837462f2031eb2b6bdaed5c020801e2",
+        "/assets/projects/gt_vs_kiss_icp_00.png": "d5c773d95eaab4f4e82b75d997c7e5cb874a4c094afe86177a9417d0cbdb0c5a",
+        "/assets/projects/evaluation_metrics_00.png": "33bf3b1236431efcb6aa73bb06efdcaa9bea04c9d9c5bf4a86be8ec5dc58ee68",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_1.png": "cb9f3828d71e18d41e815259f469d0c065d749d7952e68f08092648dbbc16a7e",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_2.png": "3c617421db9c2f226ce0ef8663f8823aee5bb4f465d7998469a2093cc5df8427",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_3.png": "8f1470c7d8c439fb0d598c115ba0d2a525af6cd31a9f57cdc27f0311c972a3b8",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_4.png": "a7219aa28449cd96999329add5d6a272e039ad90f67750b8a9e489230721fce1",
+        "/assets/projects/lidar_odometry_and_map_visualized_00_5.png": "3e42237d8a1b3d2e3823ce2eb17ad55236dc7136b1f34f935e581ce8cef816d3"
+      }
+    },
+    "project-2": {
+      "title": "3D Scene Reconstruction",
+      "mainDescr": "Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
+      "description": "Building an end-to-end SfM pipeline (SIFT, RANSAC, fundamental/essential matrices, pose estimation, triangulation, PnP, bundle adjustment) to reconstruct 3D scenes from 2D images. Implementing NeRF on synthetic LEGO data to optimize volumetric scene models for photorealistic novel-view synthesis.",
+      "image": "/assets/projects/reconstruction.gif",
+      "images": [
+        "/assets/projects/reconstruction_01.png",
+        "/assets/projects/reconstruction_02.png",
+        "/assets/projects/reconstruction_03.png",
+        "/assets/projects/reconstruction_04.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/NERF-Project",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "PyTorch",
+        "NeRF",
+        "3D Reconstruction",
+        "SfM",
+        "PnP",
+        "RANSAC",
+        "Fundamental/Essential Matrices",
+        "Triangulation",
+        "Bundle Adjustment"
+      ],
+      "slug": "3d-scene-reconstruction",
+      "featuredRank": 2,
+      "media": {
+        "/assets/projects/reconstruction.gif": "c07f29670860b137da6276bc0bf0c1433dc80d3b18bcc8bba8cb38396e2fdf40",
+        "/assets/projects/reconstruction_01.png": "cb315d85f5232577f7629b92e372366ff36809edd22537b030f437a957fcf384",
+        "/assets/projects/reconstruction_02.png": "5ca8d43093ca9aa7265d341009d1415b4329a2833ae62ef1ab4553c96484e27e",
+        "/assets/projects/reconstruction_03.png": "8e12cfb0650efa2102b7f8b145113d07b999d1ac6b5d66baaf4dd1ef1bef6591",
+        "/assets/projects/reconstruction_04.png": "17ea8903ce3aa62c2f8176ac73c19701a1e66afd3336d60ff1fcce431bc7c259"
+      }
+    },
+    "project-3": {
+      "title": "KITTI Semantic Segmentation",
+      "mainDescr": "Implementing UNet architecture for pixel-wise semantic segmentation on KITTI autonomous driving dataset with comprehensive training and inference pipeline.",
+      "description": "Building an end-to-end semantic segmentation system using UNet architecture on the KITTI dataset for autonomous driving scene understanding. Features custom dataset handling with data augmentation, efficient training pipeline with validation tracking, and comprehensive inference capabilities generating side-by-side visualizations, overlay results, and colored semantic masks. Achieves robust performance on street scene segmentation with multiple output formats for analysis.",
+      "image": "/assets/projects/semantic_segmentation_inference.gif",
+      "images": [],
+      "link": "https://github.com/kshitijSharma2204/semantic-segmentation",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "PyTorch",
+        "UNet",
+        "Semantic Segmentation",
+        "KITTI Dataset",
+        "Data Augmentation",
+        "Albumentations",
+        "Computer Vision",
+        "Autonomous Driving",
+        "Deep Learning"
+      ],
+      "slug": "kitti-semantic-segmentation",
+      "featuredRank": 4,
+      "media": {
+        "/assets/projects/semantic_segmentation_inference.gif": "de5ca57ce0d41db2246001c7066e6463d84d8638196fb407ac00695afb3ef863"
+      }
+    },
+    "project-4": {
+      "title": "One-Shot Object Detection",
+      "mainDescr": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset.",
+      "description": "Training YOLOv5n, YOLOv5s, YOLOv5m, YOLOv5l variants on a custom basketball image dataset, comparing performance across multiple train–test splits. The goal is to achieve more than 85% average precision with YOLOv5n on multi-object, ambient-background basketball video.",
+      "image": "/assets/projects/obj_detection.gif",
+      "images": [
+        "/assets/projects/obj_detection_01.jpg",
+        "/assets/projects/obj_detection_02.jpg",
+        "/assets/projects/obj_detection.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Basketball-Object-Detection",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "PyTorch",
+        "YOLOv5",
+        "Object Detection",
+        "One-Shot Learning",
+        "Computer Vision",
+        "Model Training",
+        "Image Processing",
+        "Performance Evaluation",
+        "OpenCV",
+        "Precision/Recall Metrics",
+        "Custom Dataset Creation"
+      ],
+      "slug": "one-shot-object-detection",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/obj_detection.gif": "ec3db7c158631da1598fe4920b69d535cc7cb6fa12982018fdbdde36a36549b4",
+        "/assets/projects/obj_detection_01.jpg": "19d1dc58134fe23b52a24d9de094f5e787064d7308f5a7dc33d8be53c442c1db",
+        "/assets/projects/obj_detection_02.jpg": "b80fcba963b8b4916585f051bfd55d80cc28a9b601ae7a716d0000a1b5bbf010"
+      }
+    },
+    "project-5": {
+      "title": "Hybrid A*",
+      "mainDescr": "Lightweight ROS 2 Hybrid A* planner for smooth, non-holonomic, collision-free paths — C++ core + Python visualization.",
+      "description": "In ROS 2 Humble, this package delivers a complete Hybrid A* planning pipeline: it generates occupancy maps and goal positions, computes smooth, collision-free non-holonomic trajectories using heuristic-guided motion primitives and path smoothing, and provides real-time visualization and animation of the planned path.",
+      "image": "/assets/projects/hybrid-a-star-main.gif",
+      "images": [
+        "/assets/projects/hybrid-a-star-main.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/hybrid_astar",
+      "group": "Planning and Control",
+      "skills": [
+        "C++",
+        "ROS 2",
+        "Hybrid A*",
+        "Path Planning",
+        "Occupancy Grids",
+        "Heuristic Search",
+        "Motion Primitives",
+        "Reeds–Shepp Smoothing",
+        "Real-Time Visualization",
+        "Matplotlib Animation"
+      ],
+      "slug": "hybrid-a-star",
+      "featuredRank": 3,
+      "media": {
+        "/assets/projects/hybrid-a-star-main.gif": "7c68ba6234e8cbef2a68adfd2d72edd56ab124debfec28f21fb21240ee37f78b"
+      }
+    },
+    "project-6": {
+      "title": "Trajectory Generation in Frenet Frame",
+      "mainDescr": "Sample and score lateral & longitudinal polynomial paths to produce real-time, collision-free vehicle motions — with full OpenCV visualization and video output.",
+      "description": "Builds a center‐lane reference path (x, y, yaw, curvature, arc-length)\nGenerates lateral (quintic) & longitudinal (quartic/quintic) polynomial candidates over multiple horizons\nScores each by jerk, time, and deviation, then filters out collisions and kinematic violations\nConverts the best trajectory to world coordinates and renders all candidates + selected path with OpenCV (outputs trajectory.mp4)",
+      "image": "/assets/projects/frenet-trajectory.gif",
+      "images": [
+        "/assets/projects/frenet-trajectory.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Trajectory-Generation-In-Frenet-Frame",
+      "group": "Planning and Control",
+      "skills": [
+        "C++17",
+        "Eigen",
+        "OpenCV",
+        "Polynomial Trajectory Generation",
+        "Path Planning Algorithms",
+        "Collision Detection",
+        "Kinematic Modeling",
+        "Numerical Optimization",
+        "CMake",
+        "Git",
+        "Performance Tuning"
+      ],
+      "slug": "trajectory-generation-frenet-frame",
+      "featuredRank": 5,
+      "media": {
+        "/assets/projects/frenet-trajectory.gif": "6d1db04c6f5f7600fd3d2b5117c0eb47578cb7c6a44526d3d92fca1ffc49136c"
+      }
+    },
+    "project-7": {
+      "title": "EKF Localization",
+      "mainDescr": "Simulates and filters a 4D unicycle trajectory with an Extended Kalman Filter — including dynamic scaling, shrinking covariance ellipse visualization, and optional MP4 output using OpenCV.",
+      "description": "Initializes the EKF with state, covariance and noise matrices\nSimulates a three-phase reference path (sinusoid, straight down, semicircle)\nGenerates noisy odometry and position measurements\nRuns real-time EKF predict & update steps\nDynamically scales and centers all trajectories on the OpenCV canvas\nDraws a red covariance ellipse that shrinks as uncertainty decreases\nRenders color-coded ground truth, odometry, observations and EKF estimate\nOptionally records the animation to (ekf_demo.mp4)",
+      "image": "/assets/projects/ekf_demo.gif",
+      "images": [
+        "/assets/projects/ekf_demo.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/EKF-Localization",
+      "group": "Planning and Control",
+      "skills": [
+        "C++",
+        "Eigen",
+        "OpenCV",
+        "Extended Kalman Filter",
+        "Sensor Fusion",
+        "State Estimation",
+        "Linear Algebra",
+        "Probabilistic Modeling",
+        "Simulation",
+        "Data Visualization",
+        "Random Number Generation",
+        "Video Processing"
+      ],
+      "slug": "ekf-localization",
+      "featuredRank": 6,
+      "media": {
+        "/assets/projects/ekf_demo.gif": "329252e6a56f0f23ed71b37831ccbe020c5bc8a319f773604f926e61b95a1043"
+      }
+    },
+    "project-8": {
+      "title": "Atari Breakout DQN Agent",
+      "mainDescr": "Trains a Deep Q-Network (DQN) to master Atari Breakout using Stable-Baselines3 with frame stacking and custom preprocessing.",
+      "description": "Implements a custom Breakout-v5 Gym environment with grayscale conversion, frame skipping, and 4-frame stacking\nTrains a Stable-Baselines3 DQN agent for 20 million timesteps on GPU, tuning hyperparameters for optimal performance\nIntegrates an EvalCallback to track and save the best model checkpoints during training\nUses Gym’s RecordVideo wrapper to capture high-resolution gameplay for analysis\nDemonstrates the agent’s learning curve and final policy performance in recorded video outputs",
+      "image": "/assets/projects/rl-video-episode-7.gif",
+      "images": [
+        "/assets/projects/rl-video-episode-7.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/BreakOut-Atari-RL",
+      "group": "Reinforcement Learning",
+      "skills": [
+        "Python",
+        "OpenAI Gym",
+        "Stable-Baselines3",
+        "Deep Q-Network (DQN)",
+        "AtariPreprocessing",
+        "Frame Stacking",
+        "CUDA",
+        "Git & GitHub",
+        "Bash Scripting"
+      ],
+      "slug": "atari-breakout-dqn-agent",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/rl-video-episode-7.gif": "a4fe908144efd28c4fcb980a6918cf312e4ccdc020892725e76eac6a1969d452"
+      }
+    },
+    "project-9": {
+      "title": "Sliding Mode Control for Quadrotor",
+      "mainDescr": "Implements a Sliding Mode Controller on the Crazyflie 2.0 for robust 3D trajectory tracking using polynomial trajectories in a Gazebo simulation.",
+      "description": "Designed a robust Sliding Mode Controller (SMC) for a Crazyflie 2.0 quadrotor UAV to follow 3D polynomial trajectories in a Gazebo simulation environment. The controller handles nonlinear dynamics and external disturbances effectively. The simulation publishes rotor speeds in real-time to Gazebo and logs flight data for visualization. Includes 5th-order polynomial trajectory generation, control allocation matrix, and dynamic SMC tuning parameters. A visualization script generates 3D plots of the actual trajectory.",
+      "image": "/assets/projects/SlidingMode_quad.gif",
+      "images": [
+        "/assets/projects/SlidingMode_quad.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Sliding_Mode_Controller_for_UAV",
+      "group": "Planning and Control",
+      "skills": [
+        "Python",
+        "ROS Noetic",
+        "Gazebo",
+        "Crazyflie 2.0",
+        "Sliding Mode Control",
+        "Nonlinear Dynamics",
+        "Control Systems",
+        "Polynomial Trajectories",
+        "Robot Simulation",
+        "3D Visualization",
+        "Matplotlib"
+      ],
+      "slug": "sliding-mode-control-quadrotor",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/SlidingMode_quad.gif": "662d67fbf540534d6a3bf07950562a14016bd95e243bf60c94c82b663aa3ab50"
+      }
+    },
+    "project-10": {
+      "title": "Travelling Salesman Problem",
+      "mainDescr": "Developed Python-based Algorithms to solve the Travelling Salesman Problem with interactive visualization and MP4 animation output.",
+      "description": "Implemented a customizable Genetic Algorithm in Python to approximate optimal tours for the TSP. Features include greedy-seeded initial population, elitism and roulette‐wheel selection, ordered crossover, and distance-based mutation. Integrated real-time Matplotlib plots of route improvement and generated an MP4 animation of the GA’s convergence over generations.",
+      "image": "/assets/projects/tsp.gif",
+      "images": [
+        "/assets/projects/tsp.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Travelling_Salesman_Problem_DSA",
+      "group": "Algorithm Development",
+      "skills": [
+        "Python",
+        "Matplotlib",
+        "NumPy",
+        "Pandas",
+        "Object-Oriented Programming",
+        "Data Visualization",
+        "Algorithm Design",
+        "Animation"
+      ],
+      "slug": "travelling-salesman-problem",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/tsp.gif": "ed88031fe346758c210d85d9b81959990d73a140e07abce9ee635d818d268769"
+      }
+    },
+    "project-11": {
+      "title": "Joint Space Control of SCARA Arm",
+      "mainDescr": "Developed a ROS-based PID control system with inverse kinematics for precise joint-space manipulation of a SCARA robot arm.",
+      "description": "This project implements a joint-space control scheme for a SCARA robotic manipulator using ROS. It features an inverse kinematics solver to calculate joint parameters from target positions, a PID controller to precisely maneuver the robot arm's joints, and real-time visualization and trajectory plotting. The solution is structured into ROS packages including service servers, subscribers, and publishers for seamless robotic control.",
+      "image": "/assets/projects/JointSpace_traj.gif",
+      "images": [
+        "/assets/projects/JointSpace_traj.gif"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Joint_Space_Control_of_SCARA_Robot_Manipulator",
+      "group": "Planning and Control",
+      "skills": [
+        "ROS",
+        "Python",
+        "PID Control",
+        "Inverse Kinematics"
+      ],
+      "slug": "scara-joint-space-control",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/JointSpace_traj.gif": "3a02a86e7512af4766d2aca3dc54c26e185d62613388abd5e57142f677a2a1a1"
+      }
+    },
+    "project-12": {
+      "title": "Face Recognition/Verification Using Siamese Network",
+      "mainDescr": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow",
+      "description": "Develop an end-to-end face recognition system using the Siamese Network in TensorFlow and achieved at least 85% accuracy. Implementing Google’s FaceNet and a pre-trained random forest classification to compare accuracy with the results achieved with the Siamese Network.",
+      "image": "/assets/projects/face_recognition_01.png",
+      "images": [
+        "/assets/projects/face_recognition_01.png",
+        "/assets/projects/face_recognition_02.png",
+        "/assets/projects/face_recognition_03.png",
+        "/assets/projects/face_recognition_04.png",
+        "/assets/projects/face_recognition_05.png"
+      ],
+      "link": "https://github.com/kshitijSharma2204/Face_Recognition_Using_Siamese_Network",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "TensorFlow",
+        "Siamese Network",
+        "Data Augmentation",
+        "Custom Dataset Creation",
+        "Face Recognition",
+        "Face Verification",
+        "Image Processing",
+        "OpenCV",
+        "Deep Learning",
+        "Computer Vision"
+      ],
+      "slug": "face-recognition-siamese-network",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/face_recognition_01.png": "dd3ec8e43049b825cb23d38169711bee0414c4932d65264f3d968f6408dd321e",
+        "/assets/projects/face_recognition_02.png": "cf46c2ddb5410c98286aa353866b4f34ddc02664bcb30a2ec9b25fcf3946a533",
+        "/assets/projects/face_recognition_03.png": "809ab1bf94547653c198bd8e31448c0ee6f94ce2f221593704a0a16ce06e40a6",
+        "/assets/projects/face_recognition_04.png": "88919399b53e19d239ae5800d519ed6581864756178d26747d09db991c1c2331",
+        "/assets/projects/face_recognition_05.png": "821c7c4922938d40ccbd8cab7f2fe839d68c3ffbd700c9df8f250975f0adad5c"
+      }
+    },
+    "project-13": {
+      "title": "Automatic Camera Calibration",
+      "mainDescr": "Implemented an end-to-end camera calibration pipeline from scratch using Zhang’s method in Python, including robust checkerboard detection, intrinsic/extrinsic estimation, and bundle adjustment.",
+      "description": "Built a complete camera calibration system in Python using Zhang’s method, implementing all steps from checkerboard corner detection and homography estimation to intrinsic and extrinsic parameter calculation, radial distortion modeling, and nonlinear bundle adjustment optimization. Designed extensive visualization tools and compared results against OpenCV’s calibration function, demonstrating sub-pixel reprojection error and a clear understanding of the calibration process.",
+      "image": "/assets/projects/detected_vs_reprojected_corners.png",
+      "images": [],
+      "link": "https://github.com/kshitijSharma2204/auto-camera-calibration",
+      "group": "Computer Vision",
+      "skills": [
+        "Python",
+        "NumPy",
+        "OpenCV",
+        "Matplotlib",
+        "SciPy",
+        "Camera Calibration",
+        "Computer Vision",
+        "Bundle Adjustment",
+        "Nonlinear Optimization",
+        "Homography Estimation",
+        "Checkerboard Detection"
+      ],
+      "slug": "automatic-camera-calibration",
+      "featuredRank": null,
+      "media": {
+        "/assets/projects/detected_vs_reprojected_corners.png": "f6facddaaa09d7dfd99fe0dc994b522d770160b7113ff063c82807b653c6f8a1"
+      }
+    }
+  },
+  "experience": [
+    {
+      "date": "August 2025 - Present",
+      "role": "Perception Software Engineer",
+      "company": "Lucid Motors",
+      "description": [
+        "Designed and deployed a real-time fused occupancy grid mapping system combining USS and LiDAR in the ego frame, producing dense, low–false-positive obstacle maps for reliable motion planning currently running on production vehicles.",
+        "Developed a zone-adaptive probabilistic mapping framework with spatial thresholds and temporal hit-count decay, improving obstacle sensitivity in critical driving regions while maintaining planner-safe map stability.",
+        "Built a LiDAR perception pipeline including ego-time synchronization, motion compensation, voxelization, and Patchwork++ ground segmentation to extract obstacle-only 2-D point clouds for map fusion.",
+        "Implemented low-latency real-time sensor fusion over RTI DDS, delivering time-synchronized occupancy maps deployed in production vehicles."
+      ]
+    },
+    {
+      "date": "March 2025 - May 2025",
+      "role": "C++ Software Engineer",
+      "company": "Kforce, Inc (Contract, Client: Path Robotics)",
+      "description": [
+        "Collaborated on architecture refactoring of legacy C++ code to orchestrate multi-arm welding, scaling from a single robot to a four-arm cell",
+        "Designed a modular resource management system using modern C++ (templates, smart pointers, std::optional, lambdas) to allocate and synchronize the resources across multiple robots.",
+        "Built test infrastructure using GMock with inheritance-based mocking and prototyped dependency injection for robust controller testing.",
+        "Collaborated cross-functionally with robotics and software teams to align system architecture with evolving manufacturing requirements.",
+        "Utilized Git for version control, ensuring code integrity and facilitating seamless collaboration within the development team."
+      ]
+    },
+    {
+      "date": "July 2024 - March 2025",
+      "role": "Robotics Software Quality Engineer",
+      "company": "VueData LLC (Contract, Client: Berkshire Grey)",
+      "description": [
+        "Developed Python-based automation tools for the Cubiscan 325 machine, reducing warehouse management time by 70% and enhancing product dimensioning accuracy for warehouse induction and packing systems.",
+        "Collaborated with development teams on system evaluation to optimize robotic motion planning, perception algorithms, and application software, ensuring systems met design specifications."
+      ]
+    },
+    {
+      "date": "Sept 2023 - June 2024",
+      "role": "Robotics Engineer Intern",
+      "company": "Void Robotics",
+      "description": [
+        "Developed C++ software modules and automated Google Test suites within a Linux environment, enhancing an autonomous mobile robot's functionality through Nav2 implementation within a ROS2 environment, and facilitating team collaboration via Git in a CI/CD pipeline",
+        "Engineered a sophisticated mapping package, to precisely localize an AMR in outdoor environments, by integration and fusion of high precision data streams from Real-Time Kinematic (RTK) GPS, Zed2 Camera-based visual odometry, and Inertial Measurement Unit (IMU).",
+        "Integrated ROS2 for autonomous navigation, optimized RViz C++ nodes for enhanced reliability through Google tests in localization and mapping, and seamlessly merged custom localization strategies with Nav2 and Rviz visualization",
+        "Developed Arduino sketch to integrate Blynk with micro-ROS, facilitating advanced robotic functionalities; transitioned from Docker to Isaac ROS Buildfarm for ROS2 Humble installation, enhancing stability in agent-client connections on Jetson Orin and streamlining the communication process."
+      ]
+    },
+    {
+      "date": "Jan 2017 - June 2021",
+      "role": "Team Lead, Design Engineer",
+      "company": "Nagarro Software",
+      "description": [
+        "Developed a Minimum Viable Product (MVP) utilizing a 6-DOF robot arm with a camera-end effector for inspecting car chassis on a rotating platform, leveraging C++ and Python to achieve precise automation and high-accuracy defect detection in automotive manufacturing processes.",
+        "Designed and implemented IoT systems for smart homes, integrating PIR, ultrasonic, infrared, photodiode, and thermostat sensors"
+      ]
+    },
+    {
+      "date": "Aug 2014 - Jan 2017",
+      "role": "Research Design Engineer",
+      "company": "Automation Systems and Solution",
+      "description": [
+        "Developed an automated defect detection system for conveyor belts using Cognex Vision Systems, OpenCV, C++, and Python, enhancing quality control and reducing errors by 40%.",
+        "Designed an automated product sorting system for 1D and 2D barcodes integrated with electric actuators using C++ and Python, boosting sorting efficiency by 60%."
+      ]
+    }
+  ],
+  "bio": "I'm Kshitij Sharma, a Perception Software Engineer at Lucid Motors, where I build real-time LiDAR and ultrasonic sensor-fusion and occupancy-mapping software running on production vehicles. I work mainly in C++ and Python across perception, sensor fusion, SLAM and motion planning, with ROS/ROS2 experience on autonomous mobile robots and multi-robot systems.<br/><br/>I hold a Master's in Robotics Engineering from Worcester Polytechnic Institute, where I focused on SLAM, path planning and robot perception. Before Lucid, I worked on multi-arm robotic welding software for Path Robotics, robotics software quality for Berkshire Grey, and outdoor AMR localization fusing RTK GPS, visual odometry and IMU at Void Robotics. Earlier, I spent several years building machine-vision and automation systems at Nagarro Software and Automation Systems and Solution."
+}
