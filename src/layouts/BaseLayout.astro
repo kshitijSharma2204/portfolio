@@ -9,13 +9,13 @@ import groteskWoff2 from '@fontsource-variable/space-grotesk/files/space-grotesk
 import monoWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { profile, projects, withBase } from '../lib/content';
+import { profile, withBase } from '../lib/content';
 
 interface Props {
   /** Full <title>. */
   title: string;
   description: string;
-  /** Site-relative share image path, e.g. "/media/og/project-1.jpg". Defaults to the LiDAR project image. */
+  /** Site-relative 1200×630 JPEG share image, e.g. "/media/og/project-1.jpg". Defaults to the branded site image. */
   image?: string;
   imageAlt?: string;
   type?: 'website' | 'article' | 'profile';
@@ -27,8 +27,8 @@ interface Props {
 const {
   title,
   description,
-  image = projects[0].media.og,
-  imageAlt = `${projects[0].title} — project visualization by ${profile.name}`,
+  image = profile.ogImage.src,
+  imageAlt = profile.ogImage.alt,
   type = 'website',
   jsonLd,
   noindex = false,
@@ -66,11 +66,13 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
     <script is:inline>
       document.documentElement.classList.add('js');
