@@ -118,7 +118,7 @@ test.describe('project gallery', () => {
 
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
-  test('all cards, case-study and source links remain available', async ({ page }) => {
+  test('all cards, project-page and source links remain available', async ({ page }) => {
     await page.goto('projects/');
     await expect(page.locator('article[data-project]')).toHaveCount(total);
     for (const p of projects) {
