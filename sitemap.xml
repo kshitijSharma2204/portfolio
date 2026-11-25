@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/lidar-odometry-slam-stack/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/3d-scene-reconstruction/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/kitti-semantic-segmentation/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/one-shot-object-detection/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/hybrid-a-star/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/trajectory-generation-frenet-frame/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/ekf-localization/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/atari-breakout-dqn-agent/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/sliding-mode-control-quadrotor/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/travelling-salesman-problem/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/scara-joint-space-control/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/face-recognition-siamese-network/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/projects/automatic-camera-calibration/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/experience/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/about/</loc></url>
+  <url><loc>https://kshitijsharma2204.github.io/portfolio/contact/</loc></url>
+</urlset>
