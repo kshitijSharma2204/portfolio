@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/content';
+---
+<BaseLayout
+  title={`About | ${profile.name}`}
+  description={`About ${profile.name}: robotics software engineer with a Master’s in Robotics Engineering from Worcester Polytechnic Institute (WPI), working in perception, SLAM, sensor fusion and motion planning.`}
+>
+  <div class="container page-head">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href={withBase('')}>Home</a></li>
+        <li><span aria-current="page">About</span></li>
+      </ol>
+    </nav>
+    <span class="eyebrow">About</span>
+    <h1>About {profile.name}</h1>
+  </div>
+
+  <div class="container about-grid">
+    <section aria-labelledby="bio-title">
+      <h2 id="bio-title" class="sr-only">Biography</h2>
+      <!-- Original biography from bio.json (owner-authored HTML), shown unchanged pending an approved update. -->
+      <div class="prose bio" set:html={bioHtml} />
+      <div class="btn-row">
+        <a class="btn btn-primary" href={withBase('resume.pdf')}><Icon name="file" size={16} /> Résumé (PDF)</a>
+        <a class="btn" href={withBase('experience/')}>Experience</a>
+        <a class="btn" href={withBase('projects/')}>Projects</a>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section aria-labelledby="edu-title" class="card block">
+        <h2 id="edu-title">Education</h2>
+        <ul class="edu">
+          {education.map((ed) => (
+            <li>
+              <p class="deg">{ed.degree}</p>
+              <p>{ed.school}</p>
+              <p class="mono muted small">{ed.dates}</p>
+              {ed.detail && <p class="muted small">{ed.detail}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section aria-labelledby="exp-title" class="card block">
+        <h2 id="exp-title">Technical expertise</h2>
+        <dl class="lists">
+          {resumeSkills.map((g) => (
+            <div>
+              <dt>{g.label}</dt>
+              <dd>{g.items.join(' · ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: var(--s7);
+    align-items: start;
+  }
+  .bio { font-size: 1.0625rem; margin-bottom: var(--s6); }
+  .side { display: grid; gap: var(--s5); }
+  .block { padding: var(--s5); }
+  .block h2 { font-size: 1.125rem; }
+  .edu { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s4); }
+  .edu p { margin: 0; }
+  .deg { font-weight: 600; }
+  .small { font-size: 0.875rem; }
+  .lists { margin: 0; display: grid; gap: var(--s3); }
+  .lists dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .lists dd { margin: 2px 0 0; }
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

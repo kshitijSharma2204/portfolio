@@ -1,0 +1,30 @@
+---
+/**
+ * Compatibility page for v1 SPA routes (/projects/all, /projects/project-N). GitHub Pages cannot send 301s,
+ * so this is a canonical + meta refresh + visible link. Excluded from the sitemap.
+ */
+interface Props {
+  /** Site-relative destination including base, e.g. "/portfolio/projects/hybrid-a-star/". */
+  to: string;
+  label: string;
+}
+const { to, label } = Astro.props;
+const abs = new URL(to, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moved: {label} | Kshitij Sharma</title>
+    <link rel="canonical" href={abs} />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <style is:inline>
+      body { font: 16px/1.6 system-ui, sans-serif; margin: 0; display: grid; place-items: center; min-height: 100vh; background: #0b1120; color: #e2e8f0; }
+      a { color: #38bdf8; }
+    </style>
+  </head>
+  <body>
+    <p>This page has moved to <a href={to}>{label}</a>.</p>
+  </body>
+</html>

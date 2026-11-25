@@ -1,0 +1,146 @@
+---
+/**
+ * Poster-first project media. Never loads an original GIF: cards show a WebP poster; when `playable`,
+ * a button swaps in the MP4/WebM derivative on demand, and `showLinks` offers the original file as a plain link.
+ */
+import Icon from './Icon.astro';
+import { formatBytes, withBase, type Project } from '../lib/content';
+
+interface Props {
+  project: Project;
+  playable?: boolean;
+  showLinks?: boolean;
+  eager?: boolean;
+  sizes?: string;
+  class?: string;
+}
+const {
+  project,
+  playable = false,
+  showLinks = false,
+  eager = false,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px',
+  class: className = '',
+} = Astro.props;
+const { poster, video, original } = project.media;
+const alt = original.animated
+  ? `Frame from the ${project.name} project animation`
+  : `${project.name} project image`;
+---
+<figure class:list={['pm', className]}>
+  <div class="media-well">
+    <img
+      src={withBase(poster[640])}
+      srcset={`${withBase(poster[640])} 640w, ${withBase(poster[1280])} ${poster.width}w`}
+      sizes={sizes}
+      width={poster.width}
+      height={poster.height}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchpriority={eager ? 'high' : undefined}
+    />
+    {playable && video && (
+      <button
+        type="button"
+        class="pm-play"
+        data-play
+        data-mp4={withBase(video.mp4)}
+        data-webm={withBase(video.webm)}
+        data-w={video.width}
+        data-h={video.height}
+      >
+        <span class="pm-play-icon"><Icon name="play" size={20} /></span>
+        <span class="pm-play-text">Play demo<span class="sr-only">: {project.name} animation, {video.duration} seconds</span></span>
+      </button>
+    )}
+  </div>
+  {showLinks && (
+    <figcaption class="pm-links">
+      {video && (
+        <a href={withBase(video.mp4)}>Video ({formatBytes(video.mp4Bytes)} MP4)</a>
+      )}
+      <a href={withBase(original.path)}>
+        Original {original.animated ? 'GIF' : 'image'} ({formatBytes(original.bytes)})
+      </a>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .pm { margin: 0; }
+  .pm .media-well { border-radius: inherit; }
+  .pm-play {
+    position: absolute;
+    left: var(--s4);
+    bottom: var(--s4);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+    min-height: 44px;
+    padding: 0 var(--s4) 0 var(--s2);
+    border: 0;
+    border-radius: 999px;
+    background: rgb(11 17 32 / 0.82);
+    color: #fff;
+    font: 600 0.875rem/1 var(--font-body);
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .pm-play:hover { background: rgb(11 17 32 / 0.95); }
+  .pm-play:focus-visible { outline-color: #fff; outline-offset: 2px; }
+  .pm-play-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #38bdf8;
+    color: #0b1120;
+  }
+  :global(html:not(.js)) .pm-play { display: none; }
+  .pm-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s5);
+    padding-top: var(--s3);
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+  }
+  .pm-links a { color: var(--muted); }
+  .pm-links a:hover { color: var(--accent); }
+</style>
+
+<script>
+  // Delegated so it also works for media cloned into the Quick View dialog.
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('[data-play]');
+    if (!btn) return;
+    const well = btn.parentElement!;
+    const img = well.querySelector('img');
+    const video = document.createElement('video');
+    video.controls = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+    video.width = Number(btn.dataset.w);
+    video.height = Number(btn.dataset.h);
+    if (img) {
+      video.poster = img.currentSrc || img.src;
+      video.setAttribute('aria-label', img.alt.replace(/^Frame from the /, ''));
+    }
+    for (const [type, src] of [['video/webm', btn.dataset.webm], ['video/mp4', btn.dataset.mp4]] as const) {
+      const s = document.createElement('source');
+      s.type = type;
+      s.src = src!;
+      video.append(s);
+    }
+    img?.remove();
+    btn.remove();
+    well.prepend(video);
+    video.play().catch(() => {});
+    video.focus();
+  });
+</script>

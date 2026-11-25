@@ -1,0 +1,78 @@
+---
+/** Full professional timeline. Roles, dates and bullets are rendered verbatim from experience.json. */
+import type { ExperienceEntry } from '../lib/content';
+interface Props {
+  entries: ExperienceEntry[];
+}
+const { entries } = Astro.props;
+---
+<ol class="timeline">
+  {entries.map((e) => (
+    <li class:list={['tl-item', { current: e.current }]}>
+      <span class="tl-dot" aria-hidden="true"></span>
+      <div class="tl-meta">
+        <p class="tl-date mono">{e.date}</p>
+        {e.current && <span class="badge badge-dot">Current role</span>}
+      </div>
+      <div class="tl-body card">
+        <h3 class="tl-role">{e.role}</h3>
+        <p class="tl-company">
+          <strong>{e.employer}</strong>
+          {e.note && <span class="muted"> · {e.note}</span>}
+        </p>
+        <ul class="tl-desc">
+          {e.description.map((d) => <li>{d}</li>)}
+        </ul>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: var(--s5);
+    padding-left: var(--s6);
+    padding-bottom: var(--s6);
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border-strong);
+  }
+  .current .tl-dot { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .tl-meta { display: flex; flex-direction: column; align-items: start; gap: var(--s2); }
+  .tl-date { margin: 0; font-size: 0.875rem; color: var(--muted); }
+  .tl-body { padding: var(--s5); }
+  .tl-role { margin-bottom: var(--s1); font-size: 1.25rem; }
+  .tl-company { margin-bottom: var(--s4); }
+  .tl-desc { padding-left: 1.1rem; color: var(--muted); display: grid; gap: var(--s2); }
+  .tl-desc li::marker { color: var(--accent); }
+  @media (max-width: 760px) {
+    .tl-item { grid-template-columns: minmax(0, 1fr); gap: var(--s3); padding-left: var(--s5); }
+    .tl-body { padding: var(--s4); }
+  }
+</style>

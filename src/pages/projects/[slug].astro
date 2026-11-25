@@ -1,0 +1,192 @@
+---
+/**
+ * One template for all 13 project pages (/projects/<slug>/), plus lightweight compatibility pages for the
+ * v1 routes /projects/project-N/ that point at the new canonical URL.
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import LegacyRedirect from '../../components/LegacyRedirect.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectMedia from '../../components/ProjectMedia.astro';
+import QuickView from '../../components/QuickView.astro';
+import { formatBytes, profile, projects, relatedProjects, withBase, type Project } from '../../lib/content';
+
+export const getStaticPaths = (() => [
+  ...projects.map((project) => ({ params: { slug: project.slug }, props: { project, legacy: false } })),
+  ...projects.map((project) => ({ params: { slug: project.id }, props: { project, legacy: true } })),
+]) satisfies GetStaticPaths;
+
+interface Props {
+  project: Project;
+  legacy: boolean;
+}
+const { project: p, legacy } = Astro.props;
+const pageUrl = withBase(`projects/${p.slug}/`);
+const abs = (path: string) => new URL(withBase(path), Astro.site).href;
+const related = relatedProjects(p, 3);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: abs('') },
+      { '@type': 'ListItem', position: 2, name: 'Projects', item: abs('projects/') },
+      { '@type': 'ListItem', position: 3, name: p.name, item: abs(`projects/${p.slug}/`) },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: p.name,
+    description: p.mainDescr,
+    url: abs(`projects/${p.slug}/`),
+    codeRepository: p.link,
+    image: abs(p.media.og),
+    keywords: p.skills.join(', '),
+    author: { '@type': 'Person', '@id': `${profile.siteUrl}#person`, name: profile.name, url: profile.siteUrl },
+  },
+];
+---
+{legacy ? (
+  <LegacyRedirect to={pageUrl} label={p.name} />
+) : (
+  <BaseLayout
+    title={`${p.name} | ${profile.name}`}
+    description={p.mainDescr}
+    image={p.media.og}
+    imageAlt={`${p.name} — project visualization`}
+    type="article"
+    jsonLd={jsonLd}
+  >
+    <article>
+      <header class="container page-head detail-head">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href={withBase('')}>Home</a></li>
+            <li><a href={withBase('projects/')}>Projects</a></li>
+            <li><span aria-current="page">{p.name}</span></li>
+          </ol>
+        </nav>
+        <span class="eyebrow">{p.group}</span>
+        <h1>{p.name}</h1>
+        <p class="lead">{p.mainDescr}</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={p.link} rel="noopener"><Icon name="github" size={16} /> View source on GitHub</a>
+          <a class="btn" href={withBase('projects/')}>All projects</a>
+        </div>
+      </header>
+
+      <div class="container">
+        <ProjectMedia
+          project={p}
+          playable
+          showLinks
+          eager
+          sizes="(max-width: 1248px) calc(100vw - 48px), 1200px"
+          class="detail-media"
+        />
+
+        <div class="detail-grid">
+          <section aria-labelledby="overview">
+            <h2 id="overview">Overview</h2>
+            <p class="prose desc">{p.description}</p>
+          </section>
+          <aside class="facts card" aria-label="Project facts">
+            <h2 class="facts-title">Technical stack</h2>
+            <ul class="tags">{p.skills.map((s) => <li class="tag">{s}</li>)}</ul>
+            <dl>
+              <div><dt>Category</dt><dd><a href={`${withBase('projects/')}?category=${p.categorySlug}`}>{p.group}</a></dd></div>
+              <div><dt>Source</dt><dd><a href={p.link} rel="noopener">{p.link.replace('https://github.com/', '')}</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        {p.gallery.length > 0 && (
+          <section class="gallery" aria-labelledby="gallery">
+            <h2 id="gallery">Gallery</h2>
+            <ul class="gallery-grid">
+              {p.gallery.map((g, i) => (
+                <li>
+                  <a href={withBase(g.original)}>
+                    <img
+                      src={withBase(g.src)}
+                      width={g.width}
+                      height={g.height}
+                      loading="lazy"
+                      decoding="async"
+                      alt={`${p.name} — gallery image ${i + 1} of ${p.gallery.length}`}
+                    />
+                    <span class="mono">Image {i + 1} · original {formatBytes(g.originalBytes)}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="related" aria-labelledby="related">
+          <div class="section-head">
+            <h2 id="related">Related projects</h2>
+            <a class="link-arrow" href={withBase('projects/')}>Back to all projects →</a>
+          </div>
+          <div class="grid-3">
+            {related.map((r) => <ProjectCard project={r} />)}
+          </div>
+        </section>
+      </div>
+    </article>
+    <QuickView projects={related} />
+  </BaseLayout>
+)}
+
+<style>
+  .detail-head { max-width: calc(900px + 2 * var(--s5)); margin-left: max(0px, calc((100% - var(--max) - 2 * var(--s5)) / 2)); }
+  .detail-head .lead { margin-bottom: var(--s5); }
+  .detail-media :global(.media-well) {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    aspect-ratio: 16 / 9;
+    max-height: min(72vh, 600px);
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: var(--s7);
+    margin-top: var(--s7);
+    align-items: start;
+  }
+  .detail-grid .prose { font-size: 1.0625rem; }
+  .desc { white-space: pre-line; }
+  .facts { padding: var(--s5); }
+  .facts-title { font-size: 0.8125rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: var(--s3); }
+  .facts dl { margin: var(--s5) 0 0; display: grid; gap: var(--s3); font-size: 0.9375rem; }
+  .facts dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .facts dd { margin: 0; overflow-wrap: anywhere; }
+  .gallery { margin-top: var(--s7); }
+  .gallery-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--s4);
+  }
+  .gallery-grid a { display: block; text-decoration: none; color: var(--muted); }
+  .gallery-grid img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: var(--well);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.15s;
+  }
+  .gallery-grid a:hover img { border-color: var(--accent); }
+  .gallery-grid span { display: block; font-size: 0.75rem; margin-top: var(--s2); }
+  .related { margin-top: var(--s8); padding-top: var(--s7); border-top: 1px solid var(--border); }
+  @media (max-width: 900px) {
+    .detail-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s5); }
+  }
+</style>

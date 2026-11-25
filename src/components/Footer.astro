@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+import { profile, withBase } from '../lib/content';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container inner">
+    <div>
+      <p class="name">{profile.name}</p>
+      <p class="muted role">{profile.title}</p>
+    </div>
+    <ul class="links">
+      <li><a href={profile.github} rel="me noopener"><Icon name="github" /> GitHub</a></li>
+      <li><a href={profile.linkedin} rel="me noopener"><Icon name="linkedin" /> LinkedIn</a></li>
+      <li><a href={withBase('resume.pdf')}><Icon name="file" /> Résumé (PDF)</a></li>
+    </ul>
+  </div>
+  <div class="container fine">
+    <p class="muted">© {year} {profile.name}</p>
+    <nav aria-label="Footer">
+      <a href={withBase('projects/')}>Projects</a>
+      <a href={withBase('experience/')}>Experience</a>
+      <a href={withBase('about/')}>About</a>
+      <a href={withBase('contact/')}>Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding-block: var(--s6) var(--s5);
+    margin-top: var(--s8);
+  }
+  .inner, .fine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--s4);
+  }
+  .name { font-family: var(--font-head); font-weight: 600; font-size: 1.125rem; margin: 0; }
+  .role { margin: 0; font-size: 0.9375rem; }
+  .links { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s5); padding: 0; margin: 0; }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+    min-height: 44px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .links a:hover { color: var(--accent); }
+  .fine { margin-top: var(--s5); padding-top: var(--s4); border-top: 1px solid var(--border); font-size: 0.875rem; }
+  .fine p { margin: 0; }
+  .fine nav { display: flex; flex-wrap: wrap; gap: var(--s4); }
+  .fine nav a { color: var(--muted); display: inline-block; padding-block: var(--s2); }
+</style>
