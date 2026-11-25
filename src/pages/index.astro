@@ -297,7 +297,8 @@ const jsonLd = {
 
   .about-head { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s3); }
   .about-head h2 { margin: 0; }
-  .about-photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex: none; }
+  .about-photo { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); flex: none; }
+  @media (max-width: 480px) { .about-photo { width: 88px; height: 88px; } }
   .edu { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; gap: var(--s3); }
   .edu li { padding: var(--s4) var(--s5); }
   .edu p { margin: 0; }
