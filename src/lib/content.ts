@@ -12,7 +12,7 @@ import mediaJson from '../data/media.json';
 import caseStudiesJson from '../data/case-studies.json';
 import skillsManifest from '../../public/assets/skills/skills-manifest.json';
 
-/** Shape of an original record in projects.json. Never mutated. */
+/** A record in projects.json, as written there. */
 export interface OriginalProject {
   id: string;
   title: string;
@@ -175,7 +175,7 @@ export const experience: ExperienceEntry[] = experienceJson.experienceData.map((
 
 export const currentRole = experience.find((e) => e.current) ?? experience[0];
 
-/** Original biography HTML (contains <br/> line breaks authored by the owner). */
+/** Bio HTML from bio.json (paragraphs separated by <br/><br/>). */
 export const bioHtml: string = bioJson.bio;
 
 /** Skill icons from the (unchanged) skills manifest, with optimized derivatives for display. */
@@ -273,10 +273,10 @@ export const profile = {
   github: 'https://github.com/kshitijSharma2204',
   linkedin: 'https://www.linkedin.com/in/kshitijsharma1992/',
   email: 'kshitijj.sharma@gmail.com',
-  /** Owner-approved profile photo (400×400). */
+  /** Profile photo (400×400). */
   photo: { src: '/profile.jpg', width: 400, height: 400 },
   siteUrl: 'https://kshitijsharma2204.github.io/portfolio/',
-  /** Branded share image (owner-supplied artwork, not a project screenshot). Project pages use their own image. */
+  /** Share image for the main pages. Project pages use their own image instead. */
   ogImage: {
     src: '/media/og/portfolio.jpg',
     width: 1200,
@@ -284,8 +284,12 @@ export const profile = {
     type: 'image/jpeg',
     alt: 'Kshitij Sharma — Robotics & Perception Software Engineer, with a stylized LiDAR city map',
   },
+  /** Meta description and structured data for the homepage. */
   description:
-    'Kshitij Sharma is a Perception Software Engineer at Lucid Motors and WPI robotics graduate. Explore projects in LiDAR, SLAM, sensor fusion and motion planning.',
+    'Kshitij Sharma is a Perception Software Engineer at Lucid Motors with a robotics Master’s from WPI, working on LiDAR, SLAM, sensor fusion and motion planning.',
+  /** Intro line under the name on the homepage. */
+  intro:
+    'I work on LiDAR, SLAM, sensor fusion and motion planning. Below are the places I’ve worked and some of the projects I’ve built.',
 };
 
 /** Prefix a site-relative path ("/assets/x.png", "projects/") with the GitHub Pages base ("/portfolio"). */
@@ -323,7 +327,7 @@ export interface CaseStudy {
   reviewNotes?: string[];
 }
 
-/** CASE_STUDY_DRAFTS=1 (npm run preview:drafts) renders drafts too, for local owner review only. */
+/** CASE_STUDY_DRAFTS=1 (npm run preview:drafts) shows drafts too. Only for local previews. */
 export const showDraftCaseStudies = process.env.CASE_STUDY_DRAFTS === '1';
 const caseStudyList = caseStudiesJson.caseStudies as CaseStudy[];
 

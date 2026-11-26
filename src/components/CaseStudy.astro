@@ -1,7 +1,7 @@
 ---
 /**
- * Optional engineering case study for a project page. Supplements (never replaces) the original description.
- * Only renders sections that have content; every decision/metric links to its evidence. reviewNotes are not rendered.
+ * Case study section on a project page, shown under the normal description.
+ * Sections without content are skipped. Decisions and metrics link to the code they come from; reviewNotes stay private.
  */
 import type { CaseStudy } from '../lib/content';
 
@@ -9,7 +9,13 @@ interface Props {
   study: CaseStudy;
 }
 const { study: c } = Astro.props;
-const fmt = (v: number) => (Math.abs(v) < 1 ? v.toPrecision(3) : v.toLocaleString('en-US'));
+// Show metrics as written in the data: up to 4 decimals below 1 (0.0319, 0.9615), 2 decimals above (31.20 dB).
+const fmt = (v: number) =>
+  Number.isInteger(v)
+    ? v.toLocaleString('en-US')
+    : Math.abs(v) < 1
+      ? v.toLocaleString('en-US', { maximumFractionDigits: 4 })
+      : v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const short = (url: string) =>
   url
     .replace('https://github.com/kshitijSharma2204/', '')
@@ -61,7 +67,7 @@ const sections = [
               </li>
             ))}
           </ol>
-          <figcaption>Simplified data flow, derived from the repository's module structure.</figcaption>
+          <figcaption>Roughly how data moves through the code, with the files that handle each step.</figcaption>
         </figure>
       )}
     </section>

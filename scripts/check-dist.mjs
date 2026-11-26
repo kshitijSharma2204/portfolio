@@ -71,7 +71,7 @@ if (home) {
   check(/<title>Kshitij Sharma \| Robotics &amp; Perception Software Engineer<\/title>/.test(home), 'home: wrong <title>');
   check(/<h1[^>]*>Kshitij Sharma<\/h1>/.test(home), 'home: H1 must be "Kshitij Sharma"');
   check(
-    home.includes('content="Kshitij Sharma is a Perception Software Engineer at Lucid Motors and WPI robotics graduate. Explore projects in LiDAR, SLAM, sensor fusion and motion planning."'),
+    home.includes('content="Kshitij Sharma is a Perception Software Engineer at Lucid Motors with a robotics Master’s from WPI, working on LiDAR, SLAM, sensor fusion and motion planning."'),
     'home: meta description mismatch',
   );
   check(canonicalOf(home) === SITE + BASE, 'home: canonical must be the site root');
@@ -146,7 +146,7 @@ const bio = json('src/data/bio.json').bio;
 check(about && about.includes(bio), 'about: original biography missing or altered');
 check(page('contact'), 'contact page missing');
 
-// --- v2.2: share images, experience anchors, display categories, case-study draft leakage, verification file
+// --- Share images, experience anchors, display categories, draft case studies, Search Console file
 const ogOf = (html) => attr(html, /<meta property="og:image" content="([^"]+)"/);
 const BRAND = `${SITE}${BASE}media/og/portfolio.jpg`;
 for (const rel of ['', 'projects', 'experience', 'about', 'contact']) {

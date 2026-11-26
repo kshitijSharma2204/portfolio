@@ -1,4 +1,5 @@
-// Generates owner-review documents from src/data/case-studies.json (single source; never edit the .md by hand).
+// Writes a readable Markdown copy of each case study from src/data/case-studies.json, so drafts are easy to
+// check on GitHub. Edit the JSON, not the .md files; they get overwritten.
 // Usage: npm run case-studies:review   → docs/case-study-review/<slug>.md + README.md
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -18,49 +19,47 @@ for (const c of caseStudies) {
   const p = projects.find((x) => x.id === c.projectId);
   const slug = pres[c.projectId].slug;
   const md = [
-    `# Case study review — ${p.title}`,
+    `# ${p.title}: case study`,
     '',
     `- **Project:** ${c.projectId} · [/projects/${slug}/](https://kshitijsharma2204.github.io/portfolio/projects/${slug}/) · source: ${p.link}`,
-    `- **Status:** \`${c.status}\` ${c.status === 'draft' ? '— not shown on the public site' : '— published'}`,
-    `- **Evidence snapshot:** ${ev(c.evidence)}`,
-    '- **To publish:** confirm every statement below is accurate and publishable, resolve the review notes, then change `"status": "draft"` to `"approved"` for this entry in `src/data/case-studies.json`.',
-    '- **Preview locally:** `npm run preview:drafts`, then open the project page at http://127.0.0.1:4323/portfolio/',
+    `- **Status:** \`${c.status}\` ${c.status === 'draft' ? '(not on the site yet)' : '(on the site)'}`,
+    `- **Code:** ${ev(c.evidence)}`,
+    '- **To publish:** check everything below against the code, sort out the notes, then set `"status": "approved"` for this entry in `src/data/case-studies.json`.',
+    '- **Preview:** `npm run preview:drafts`, then open the project page at http://127.0.0.1:4323/portfolio/',
     '',
   ];
-  if (c.reviewNotes?.length) md.push('## Review notes (owner decision needed)', '', ...c.reviewNotes.map((n) => `- [ ] ${n}`), '');
+  if (c.reviewNotes?.length) md.push('## Notes before publishing', '', ...c.reviewNotes.map((n) => `- [ ] ${n}`), '');
   if (c.problem) md.push('## Problem', '', c.problem, '');
   if (c.approach) md.push('## Approach', '', c.approach, '');
-  if (c.pipeline?.length) md.push('### Data flow', '', ...c.pipeline.map((s, i) => `${i + 1}. **${s.step}** — ${s.detail}${s.source ? ` (\`${s.source}\`)` : ''}`), '');
+  if (c.pipeline?.length) md.push('### Data flow', '', ...c.pipeline.map((s, i) => `${i + 1}. **${s.step}**: ${s.detail}${s.source ? ` (\`${s.source}\`)` : ''}`), '');
   if (c.decisions?.length) {
-    md.push('## Engineering decisions', '');
-    for (const d of c.decisions) md.push(`### ${d.title}`, '', d.explanation, '', `Evidence: ${ev(d.evidence)}`, '');
+    md.push('## Design decisions', '');
+    for (const d of c.decisions) md.push(`### ${d.title}`, '', d.explanation, '', `Code: ${ev(d.evidence)}`, '');
   }
   if (c.evaluation?.length) {
-    md.push('## Evaluation', '', '| Metric | Value | Unit | Protocol | Evidence |', '|---|---|---|---|---|');
+    md.push('## Evaluation', '', '| Metric | Value | Unit | How it was measured | Source |', '|---|---|---|---|---|');
     for (const m of c.evaluation) md.push(`| ${m.metric} | ${m.value} | ${m.unit} | ${m.protocol} | ${ev(m.evidence)} |`);
     md.push('');
   } else {
-    md.push('## Evaluation', '', '_No recorded, verifiable metrics in the repository — none will be published._', '');
+    md.push('## Evaluation', '', '_No measured results in the repo yet._', '');
   }
   if (c.limitations?.length) md.push('## Limitations', '', ...c.limitations.map((l) => `- ${l}`), '');
   if (c.nextSteps?.length) md.push('## Next steps', '', ...c.nextSteps.map((n) => `- ${n}`), '');
-  if (c.reproducibility) md.push('## Reproducibility', '', c.reproducibility, '');
-  md.push('---', '', '_Generated from `src/data/case-studies.json` by `npm run case-studies:review`._', '');
+  if (c.reproducibility) md.push('## How to reproduce', '', c.reproducibility, '');
+  md.push('---', '', '_Generated from `src/data/case-studies.json` with `npm run case-studies:review`._', '');
   writeFileSync(join(outDir, `${slug}.md`), md.join('\n'));
-  index.push(`| [${p.title}](./${slug}.md) | \`${c.status}\` | ${c.evaluation?.length ? `${c.evaluation.length} metrics` : 'no metrics'} | ${c.reviewNotes?.length ?? 0} |`);
+  index.push(`| [${p.title}](./${slug}.md) | \`${c.status}\` | ${c.evaluation?.length ? `${c.evaluation.length} metrics` : 'none yet'} | ${c.reviewNotes?.length ?? 0} |`);
 }
 
 writeFileSync(join(outDir, 'README.md'), [
-  '# Case study review',
+  '# Case studies',
   '',
-  'Draft engineering case studies for the flagship projects, written only from evidence in each project\'s own repository at a fixed commit.',
-  'Nothing here is public until its status is changed to `approved` in `src/data/case-studies.json`.',
+  'Longer write-ups for the main projects. Each one only describes what the project\'s repo shows at a fixed commit.',
+  'Drafts stay off the site until their status is `approved` in `src/data/case-studies.json`.',
   '',
-  '| Project | Status | Evaluation | Open review notes |',
+  '| Project | Status | Results | Open notes |',
   '|---|---|---|---|',
   ...index,
   '',
-  'Stretch candidates not drafted in this release: Frenet trajectory generation (project-6), EKF localization (project-7).',
-  '',
 ].join('\n'));
-console.log(`Wrote ${caseStudies.length} review documents to docs/case-study-review/`);
+console.log(`Wrote ${caseStudies.length} case studies to docs/case-study-review/`);

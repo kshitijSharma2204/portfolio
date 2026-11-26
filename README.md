@@ -1,66 +1,57 @@
-# Kshitij Sharma — Portfolio
+# Portfolio
 
-Static portfolio site for **https://kshitijsharma2204.github.io/portfolio/**, built with [Astro](https://astro.build) and deployed to the `gh-pages` branch.
+The source for my portfolio site, live at **https://kshitijsharma2204.github.io/portfolio/**.
 
-## Requirements
+It's a static site built with [Astro](https://astro.build) and hosted on GitHub Pages from the `gh-pages` branch. There's no backend and almost no client-side JavaScript. Every page is plain HTML generated from a few JSON files.
 
-- Node.js ≥ 22.23 (see `.nvmrc`), npm
-- `ffmpeg`/`ffprobe` and Python 3 + Pillow — only to regenerate media derivatives (`npm run media`)
+## Running it locally
 
-## Commands
+You need Node 22 or newer (see `.nvmrc`). If you want to regenerate images and videos, you also need `ffmpeg` and Python 3 with Pillow.
+
+```bash
+npm ci
+npm run dev        # http://localhost:4321/portfolio/
+```
+
+Other scripts I use:
 
 | Command | What it does |
 |---|---|
-| `npm ci` | Install pinned dependencies |
-| `npm run dev` | Dev server at `http://localhost:4321/portfolio/` |
-| `npm run build` | Content check → `astro build` → `dist/` check (fails on broken links, missing pages/media, SEO tags) |
-| `npm run serve` | Serve `dist/` with GitHub Pages semantics at `http://127.0.0.1:4322/portfolio/` |
-| `npm run check` | TypeScript / Astro diagnostics |
-| `npm run test:e2e` | Playwright (Chromium, Firefox, WebKit): routes, gallery, no-JS, Quick View, layout, axe |
-| `npm test` | check + build + e2e |
-| `npm run media` | Regenerate posters, MP4/WebM, OG images and gallery/skill WebPs into `public/media/` |
-| `npm run screenshots` | Screenshot every page type (both themes, 390/1440 px) into `reports/screenshots/` |
-| `npm run measure -- <url> <outPrefix> 3` | Lighthouse ×3 per page and device (mobile/desktop), medians as JSON + Markdown |
-| `npm run content:diff` | Field-by-field content changes since `docs/v2.2-content-snapshot.json` (review aid, not a lock) |
-| `npm run preview:drafts` | Build a separate, never-deployed copy with draft case studies visible, served at `http://127.0.0.1:4323/portfolio/` |
-| `npm run case-studies:review` | Regenerate `docs/case-study-review/*.md` from `src/data/case-studies.json` |
-| `npm run deploy` | Build and push `dist/` to `gh-pages` (owner only — see below) |
+| `npm run build` | Checks the content, builds into `dist/`, then checks the output for broken links, missing pages or media, and SEO tags |
+| `npm run serve` | Serves `dist/` the way GitHub Pages would, at http://127.0.0.1:4322/portfolio/ |
+| `npm test` | Type check, build and the Playwright tests (Chromium, Firefox, WebKit) |
+| `npm run media` | Regenerates posters, MP4/WebM clips, share images and WebP gallery images in `public/media/` |
+| `npm run preview:drafts` | Builds a local-only copy that includes draft case studies, at http://127.0.0.1:4323/portfolio/ |
+| `npm run case-studies:review` | Writes the case studies out as Markdown in `docs/case-study-review/` |
+| `npm run content:diff` | Lists content changes since the last snapshot (`npm run content:snapshot` takes a new one) |
+| `npm run screenshots` | Screenshots every page type in both themes at phone and desktop widths |
+| `npm run measure -- <url> <outPrefix> 3` | Runs Lighthouse three times per page and device and saves the medians |
 
-First-time Playwright setup: `npx playwright install --with-deps`.
+The first time you run the Playwright tests, install the browsers with `npx playwright install --with-deps`.
 
-## Editing content
+## Where things live
 
-All site content lives in `src/data/`. Edit, save, preview with `npm run dev`, then commit and deploy.
+All the text on the site comes from `src/data/`:
 
-| To change… | Edit |
-|---|---|
-| Project titles, descriptions, skill tags, GitHub links, images | `src/data/projects.json` |
-| Homepage featured projects and their order, URL slugs | `src/data/presentation.json` (`featuredRank` 1–6) |
-| Gallery categories (filter chips, card labels) | `src/data/presentation.json` → `displayCategories` and each project's `displayCategory` |
-| Gallery image captions | `src/data/presentation.json` → project `captions` (only captions verified against the project) |
-| Homepage experience summaries | `src/data/presentation.json` → `experience` (keyed by employer) |
-| Engineering case studies | `src/data/case-studies.json` — only `"status": "approved"` entries are published |
-| Homepage expertise summary | `expertiseDomains` in `src/lib/content.ts` (every item must appear in project/experience data, or the build fails) |
-| Share image for non-project pages | `public/media/og/portfolio.jpg` (1200×630 JPEG; source PNG in `docs/branding/`) |
-| Jobs, dates, bullet points | `src/data/experience.json` |
-| About-page biography (HTML; paragraphs separated by `<br/><br/>`) | `src/data/bio.json` |
-| Education, résumé skills lists, email, photo | `src/lib/content.ts` |
-| Project media | add files to `public/assets/projects/`, then `npm run media` |
-| Skill icons | add images to `public/assets/skills/`, then `npm run media` |
+- `projects.json` has the project titles, descriptions, skill tags, GitHub links and images.
+- `presentation.json` controls how projects are shown: URL slugs, which six are featured on the homepage (`featuredRank`), the gallery categories, image captions and the one-line job summaries on the homepage.
+- `case-studies.json` holds the longer write-ups. Only entries with `"status": "approved"` are published. Every claim links to the project's code at a fixed commit, and every number says how it was measured.
+- `experience.json` has jobs, dates and bullet points. `bio.json` is the About page text.
+- `src/lib/content.ts` has the education, résumé skills, contact links, photo and the expertise list on the homepage. The build fails if an expertise item isn't backed by something in the project or experience data.
 
-**Publishing a case study:** review its draft in `docs/case-study-review/` (or `npm run preview:drafts`), then change its `status` to `"approved"`. Every claim needs an evidence link to the project repository; metrics need a unit and a protocol. `reviewNotes` are never shown.
+Project images and GIFs go in `public/assets/projects/`. After adding or changing one, run `npm run media` to make the optimized versions (`src/data/media.json` is generated by that script). Large GIFs are never loaded automatically. Pages show a poster and play a small video when you click it.
 
-**Adding a project:** add a record to `projects.json` (copy an existing one; give it a new `id`), add a matching entry with a `slug` and `displayCategory` to `presentation.json`, put its image in `public/assets/projects/`, then run `npm run media`. The build tells you exactly what is missing if a step is skipped.
+To add a project, copy an existing entry in `projects.json` with a new `id`, add a matching entry in `presentation.json` with a `slug` and `displayCategory`, drop the image into `public/assets/projects/` and run `npm run media`. If you miss a step, the build tells you what's missing.
 
-`src/data/media.json` is generated by `npm run media` (paths, dimensions and sizes of the optimized derivatives in `public/media/`). Original media in `public/assets/` is never modified; large GIFs are only linked, never auto-loaded. `docs/baseline/inventory.json` is a historical record of the v1 content at launch.
-
-## Deployment
-
-Pages serves the `gh-pages` branch. `public/.nojekyll` is required so `_astro/` is not stripped.
+## Deploying
 
 ```bash
-npm ci && npm test        # all gates must pass
-npm run deploy            # gh-pages -d dist -t
+npm ci && npm test
+npm run deploy     # pushes dist/ to gh-pages
 ```
 
-Rollback: `git push --force origin 62816f911a76def225f7320ab08bbb3bc18f1f1c:gh-pages` (v1 build, recorded before the first v2 deploy).
+`public/.nojekyll` has to stay, otherwise Pages drops the `_astro/` folder. `public/google0642a7ae8ef66a2c.html` is the Search Console verification file, so leave that in place too.
+
+After a deploy that changes a page in a meaningful way, I run URL Inspection on it in Search Console and request indexing.
+
+If a deploy goes wrong, the original v1 build can be restored with `git push --force origin 62816f911a76def225f7320ab08bbb3bc18f1f1c:gh-pages`. Normally it's easier to redeploy an earlier commit of `master`.

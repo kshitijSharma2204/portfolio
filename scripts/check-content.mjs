@@ -1,7 +1,6 @@
-// Content checks (run before every build). src/data/*.json is the single place to edit site content.
-// Catches real mistakes — missing fields, missing media, duplicate slugs, stale media derivatives — without
-// blocking legitimate edits. (The migration-era byte-for-byte baseline lock was removed after launch;
-// docs/baseline/inventory.json remains as a historical record of the v1 content.)
+// Runs before every build. All site content lives in src/data/*.json; this catches the mistakes that are easy
+// to make when editing it by hand: missing fields or media, duplicate slugs, stale media derivatives.
+// (docs/baseline/inventory.json is just a record of what the original v1 site contained.)
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
@@ -83,7 +82,7 @@ for (const c of caseStudies) {
   check(['draft', 'approved'].includes(c.status), `${tag}: status must be draft or approved`);
   check(Array.isArray(c.evidence) && c.evidence.length > 0, `${tag}: needs at least one evidence link`);
   const refs = [...(c.evidence ?? []), ...(c.decisions ?? []).flatMap((d) => d.evidence ?? []), ...(c.evaluation ?? []).flatMap((m) => m.evidence ?? [])];
-  for (const r of refs) check(ghUrl.test(r.url ?? ''), `${tag}: evidence must link to the owner's GitHub: ${r.url}`);
+  for (const r of refs) check(ghUrl.test(r.url ?? ''), `${tag}: evidence must link to my GitHub: ${r.url}`);
   for (const d of c.decisions ?? []) check(d.title && d.explanation && d.evidence?.length, `${tag}: decision "${d.title}" needs title, explanation and evidence`);
   for (const m of c.evaluation ?? []) {
     check(typeof m.value === 'number' && Number.isFinite(m.value), `${tag}: metric "${m.metric}" value must be a number`);

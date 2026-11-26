@@ -1,6 +1,6 @@
 // Lab performance measurement: N Lighthouse runs per page × form factor, reported as medians.
 // Usage: node scripts/lighthouse.mjs <baseUrl> <outPrefix> [runs=3]
-//   e.g. node scripts/lighthouse.mjs http://127.0.0.1:4322/portfolio/ reports/v2.2/lighthouse-candidate 3
+//   e.g. node scripts/lighthouse.mjs http://127.0.0.1:4322/portfolio/ reports/lighthouse-candidate 3
 // Needs Chrome/Chromium (set CHROME_PATH if not auto-detected). Lab numbers are not field (CrUX) data.
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
