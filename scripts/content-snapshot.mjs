@@ -1,5 +1,5 @@
-// Content snapshot + reviewable diff (not a lock — legitimate edits are expected; this makes them visible).
-//   node scripts/content-snapshot.mjs           → write docs/v2.2-content-snapshot.json from current data
+// Saves a snapshot of the site content so I can see exactly what changed before a release. It doesn't block anything.
+//   node scripts/content-snapshot.mjs           → write docs/content-snapshot.json from the current data
 //   node scripts/content-snapshot.mjs --diff    → print field-level changes vs. the snapshot (exit 0 either way)
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 
 const root = new URL('..', import.meta.url).pathname;
-const SNAP = join(root, 'docs/v2.2-content-snapshot.json');
+const SNAP = join(root, 'docs/content-snapshot.json');
 const json = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
 const sha = (p) => createHash('sha256').update(readFileSync(join(root, 'public', p))).digest('hex');
 const FIELDS = ['title', 'mainDescr', 'description', 'image', 'images', 'link', 'group', 'skills'];
@@ -50,5 +50,5 @@ snap.experience.forEach((e, i) => { if (!eq(e, now.experience[i])) out.push(`~ e
 if (now.experience.length !== snap.experience.length) out.push(`~ experience count ${snap.experience.length} → ${now.experience.length}`);
 if (snap.bio !== now.bio) out.push('~ bio changed');
 console.log(out.length
-  ? `Content changes since snapshot ${snap.sourceCommit.slice(0, 7)} (review before publishing):\n${out.join('\n')}`
+  ? `Content changes since snapshot ${snap.sourceCommit.slice(0, 7)} (check these before deploying):\n${out.join('\n')}`
   : `No content changes since snapshot ${snap.sourceCommit.slice(0, 7)}.`);

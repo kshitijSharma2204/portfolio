@@ -27,7 +27,7 @@ import { bioHtml, education, profile, resumeSkills, withBase } from '../lib/cont
   <div class="container about-grid">
     <section aria-labelledby="bio-title">
       <h2 id="bio-title" class="sr-only">Biography</h2>
-      <!-- Biography from src/data/bio.json (owner-approved HTML). -->
+      <!-- Bio text lives in src/data/bio.json (HTML). -->
       <div class="prose bio" set:html={bioHtml} />
       <div class="btn-row">
         <a class="btn btn-primary" href={withBase('resume.pdf')}><Icon name="file" size={16} /> Résumé (PDF)</a>
