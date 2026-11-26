@@ -29,10 +29,10 @@
     },
     "project-2": {
       "original": {
-        "path": "/assets/projects/reconstruction.gif",
+        "path": "/assets/projects/nerf_lego_v2.gif",
         "width": 400,
         "height": 400,
-        "bytes": 3216672,
+        "bytes": 5341067,
         "animated": true
       },
       "poster": {
@@ -40,8 +40,8 @@
         "1280": "/media/posters/project-2-1280.webp",
         "width": 400,
         "height": 400,
-        "bytes640": 7338,
-        "bytes1280": 7338
+        "bytes640": 12024,
+        "bytes1280": 12024
       },
       "og": "/media/og/project-2.jpg",
       "video": {
@@ -49,9 +49,9 @@
         "webm": "/media/video/project-2.webm",
         "width": 400,
         "height": 400,
-        "duration": 6.6,
-        "mp4Bytes": 370426,
-        "webmBytes": 397894
+        "duration": 4,
+        "mp4Bytes": 228004,
+        "webmBytes": 361737
       }
     },
     "project-3": {
@@ -386,33 +386,47 @@
       "bytes": 45348,
       "originalBytes": 933615
     },
-    "/assets/projects/reconstruction_01.png": {
-      "src": "/media/gallery/reconstruction_01-1200.webp",
+    "/assets/projects/nerf_lego_v2_r160.png": {
+      "src": "/media/gallery/nerf_lego_v2_r160-1200.webp",
       "width": 400,
       "height": 400,
-      "bytes": 16484,
-      "originalBytes": 122824
+      "bytes": 15250,
+      "originalBytes": 116684
     },
-    "/assets/projects/reconstruction_02.png": {
-      "src": "/media/gallery/reconstruction_02-1200.webp",
+    "/assets/projects/nerf_lego_v2_r150.png": {
+      "src": "/media/gallery/nerf_lego_v2_r150-1200.webp",
       "width": 400,
       "height": 400,
-      "bytes": 19394,
-      "originalBytes": 134733
+      "bytes": 11164,
+      "originalBytes": 89660
     },
-    "/assets/projects/reconstruction_03.png": {
-      "src": "/media/gallery/reconstruction_03-1200.webp",
+    "/assets/projects/nerf_lego_v2_r162.png": {
+      "src": "/media/gallery/nerf_lego_v2_r162-1200.webp",
       "width": 400,
       "height": 400,
-      "bytes": 17686,
-      "originalBytes": 128842
+      "bytes": 16544,
+      "originalBytes": 121500
     },
-    "/assets/projects/reconstruction_04.png": {
-      "src": "/media/gallery/reconstruction_04-1200.webp",
+    "/assets/projects/nerf_lego_v2_r178.png": {
+      "src": "/media/gallery/nerf_lego_v2_r178-1200.webp",
       "width": 400,
       "height": 400,
-      "bytes": 12252,
-      "originalBytes": 96571
+      "bytes": 19034,
+      "originalBytes": 127239
+    },
+    "/assets/projects/nerf_lego_v2_r193.png": {
+      "src": "/media/gallery/nerf_lego_v2_r193-1200.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 16330,
+      "originalBytes": 117786
+    },
+    "/assets/projects/nerf_lego_v2_r81.png": {
+      "src": "/media/gallery/nerf_lego_v2_r81-1200.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 14876,
+      "originalBytes": 99925
     },
     "/assets/projects/obj_detection_01.jpg": {
       "src": "/media/gallery/obj_detection_01-1200.webp",

@@ -14,7 +14,8 @@ const total = projects.length;
 const inGroup = (g: string) => projects.filter((p) => p.group === g).length;
 const inCat = (key: string) => projects.filter((p) => pres[p.id].displayCategory === key).length;
 const canonicalPages = ['', 'projects/', ...projects.map((p) => `projects/${slugOf(p.id)}/`), 'experience/', 'about/', 'contact/'];
-const pageTypes = ['', 'projects/', `projects/${slugOf('project-1')}/`, `projects/${slugOf('project-3')}/`, 'experience/', 'about/', 'contact/'];
+// project-2 has the published case study, project-1 and project-3 have drafts (which must stay hidden).
+const pageTypes = ['', 'projects/', `projects/${slugOf('project-1')}/`, `projects/${slugOf('project-2')}/`, `projects/${slugOf('project-3')}/`, 'experience/', 'about/', 'contact/'];
 
 async function noHorizontalOverflow(page: Page) {
   const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
@@ -222,6 +223,14 @@ test.describe('SEO and case studies', () => {
     await expect(page.getByRole('heading', { name: 'Engineering case study' })).toHaveCount(0);
     await expect(page.getByText('Draft case study')).toHaveCount(0);
     await expect(page.getByText('Estimated trajectory vs. KITTI ground truth, sequence 00 (top-down)')).toBeVisible();
+  });
+
+  test('approved case study is published with its metrics', async ({ page }) => {
+    await page.goto(`projects/${slugOf('project-2')}/`);
+    await expect(page.getByRole('heading', { name: 'Engineering case study' })).toBeVisible();
+    await expect(page.locator('#cs-evaluation tbody tr').first()).toContainText('Mean PSNR');
+    await expect(page.locator('#cs-evaluation tbody tr').first()).toContainText('31.20');
+    await expect(page.getByText('Draft case study')).toHaveCount(0);
   });
 });
 

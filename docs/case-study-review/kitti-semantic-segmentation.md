@@ -1,50 +1,50 @@
-# Case study review — KITTI Semantic Segmentation
+# KITTI Semantic Segmentation: case study
 
 - **Project:** project-3 · [/projects/kitti-semantic-segmentation/](https://kshitijsharma2204.github.io/portfolio/projects/kitti-semantic-segmentation/) · source: https://github.com/kshitijSharma2204/semantic-segmentation
-- **Status:** `draft` — not shown on the public site
-- **Evidence snapshot:** [semantic-segmentation/tree/6d4f23b35fc5429553e481372f9c38b816f4f2f2](https://github.com/kshitijSharma2204/semantic-segmentation/tree/6d4f23b35fc5429553e481372f9c38b816f4f2f2)
-- **To publish:** confirm every statement below is accurate and publishable, resolve the review notes, then change `"status": "draft"` to `"approved"` for this entry in `src/data/case-studies.json`.
-- **Preview locally:** `npm run preview:drafts`, then open the project page at http://127.0.0.1:4323/portfolio/
+- **Status:** `draft` (not on the site yet)
+- **Code:** [semantic-segmentation/tree/6d4f23b35fc5429553e481372f9c38b816f4f2f2](https://github.com/kshitijSharma2204/semantic-segmentation/tree/6d4f23b35fc5429553e481372f9c38b816f4f2f2)
+- **To publish:** check everything below against the code, sort out the notes, then set `"status": "approved"` for this entry in `src/data/case-studies.json`.
+- **Preview:** `npm run preview:drafts`, then open the project page at http://127.0.0.1:4323/portfolio/
 
-## Review notes (owner decision needed)
+## Notes before publishing
 
-- [ ] The current site description says the model "achieves robust performance"; no metric in the repository supports this. If a logged validation mIoU exists, it could be added with its split and epoch.
+- [ ] Re-score the saved checkpoints with the standard 19-class mIoU and record the number (with split and epoch) in the repo before publishing.
 
 ## Problem
 
-Label every pixel of KITTI street-scene images with a semantic class (road, vehicle, building, vegetation and so on) for driving-scene understanding.
+Label every pixel of a KITTI street image with a class such as road, vehicle, building or vegetation.
 
 ## Approach
 
-A UNet written from scratch in PyTorch: a four-level encoder (64→512 channels, double 3×3 convolutions with batch norm) and a transposed-convolution decoder with skip connections. Images are resized to 256×512; the KITTI semantic training set is split 80/20 into training and validation, with augmentation applied to the training split only.
+A UNet I wrote from scratch in PyTorch: a four-level encoder (64 to 512 channels, two 3×3 convolutions with batch norm per level) and a transposed-convolution decoder with skip connections. Images are resized to 256×512. The KITTI semantic training set is split 80/20 into training and validation, with augmentation on the training part only.
 
-## Engineering decisions
+## Design decisions
 
 ### Augmentation for a small dataset
 
-Albumentations pipeline: horizontal flip, brightness/contrast, colour jitter, Gaussian blur and shift-scale-rotate, followed by ImageNet normalization.
+An Albumentations pipeline with horizontal flips, brightness and contrast changes, colour jitter, Gaussian blur and shift-scale-rotate, followed by ImageNet normalization.
 
-Evidence: [semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/kitti_dataset.py#L17-L25](https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/kitti_dataset.py#L17-L25)
+Code: [semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/kitti_dataset.py#L17-L25](https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/kitti_dataset.py#L17-L25)
 
 ### Training and validation
 
-Adam (learning rate 1e-3), batch size 12, cross-entropy ignoring unlabeled pixels (label 255), with mean IoU computed on the validation split.
+Adam at 1e-3, batch size 12, cross-entropy that ignores unlabelled pixels (label 255), and mean IoU computed on the validation split.
 
-Evidence: [semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/train.py](https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/train.py)
+Code: [semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/train.py](https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/train.py)
 
 ## Evaluation
 
-_No recorded, verifiable metrics in the repository — none will be published._
+_No measured results in the repo yet._
 
 ## Limitations
 
-- Mean IoU is computed during training, but no recorded value is in the repository, so no accuracy figure is reported here.
-- Validation uses a split of the KITTI training images rather than the official test server.
+- Mean IoU is computed during training, but no result is recorded in the repository yet, so there's no accuracy number here.
+- Validation uses part of the KITTI training images, not the official test server.
 
-## Reproducibility
+## How to reproduce
 
-Place the KITTI semantics data under data/ as described in the README, then run python train.py and python inference.py.
+Put the KITTI semantics data under data/ as the README describes, then run python train.py and python inference.py.
 
 ---
 
-_Generated from `src/data/case-studies.json` by `npm run case-studies:review`._
+_Generated from `src/data/case-studies.json` with `npm run case-studies:review`._

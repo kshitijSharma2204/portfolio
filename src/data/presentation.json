@@ -1,5 +1,5 @@
 {
-  "$comment": "Presentation-only metadata. projects: keyed by project ID — URL slug, featuredRank (1-6 on the homepage), displayCategory (key from displayCategories), optional displayTitle, posterTime (seconds into a GIF for its still poster) and captions (gallery image path → verified caption). displayCategories: gallery filter chips; legacyKeys keep old ?category= links working via the original project group. experience: short homepage summaries keyed by employer, derived from the bullets in experience.json.",
+  "$comment": "Display settings that aren't part of the project records. projects: keyed by project ID, with the URL slug, featuredRank (1-6 on the homepage), displayCategory (a key from displayCategories), an optional displayTitle, posterTime (seconds into a GIF to grab the still poster) and captions (gallery image path -> caption). displayCategories are the filter chips on the projects page; old ?category= links still work through each project's original group. experience: one-line homepage summaries keyed by employer.",
   "displayCategories": [
     {
       "key": "slam-state-estimation",
@@ -40,7 +40,15 @@
     "project-2": {
       "slug": "3d-scene-reconstruction",
       "featuredRank": 2,
-      "displayCategory": "computer-vision-perception"
+      "displayCategory": "computer-vision-perception",
+      "captions": {
+        "/assets/projects/nerf_lego_v2_r160.png": "Test view r_160, the best of the 200: 33.40 dB PSNR, SSIM 0.964",
+        "/assets/projects/nerf_lego_v2_r150.png": "Test view r_150: 32.67 dB PSNR, SSIM 0.963",
+        "/assets/projects/nerf_lego_v2_r162.png": "Test view r_162: 33.12 dB PSNR, SSIM 0.965",
+        "/assets/projects/nerf_lego_v2_r178.png": "Test view r_178: 30.53 dB PSNR, SSIM 0.961",
+        "/assets/projects/nerf_lego_v2_r193.png": "Test view r_193: 31.33 dB PSNR, SSIM 0.960",
+        "/assets/projects/nerf_lego_v2_r81.png": "Test view r_81, the worst of the 200: 27.73 dB PSNR, SSIM 0.947"
+      }
     },
     "project-3": {
       "slug": "kitti-semantic-segmentation",
@@ -94,8 +102,8 @@
     }
   },
   "experience": {
-    "Lucid Motors": "Real-time LiDAR and ultrasonic sensor fusion, occupancy mapping and production vehicle perception.",
-    "Kforce, Inc": "Modern C++ architecture for multi-arm robotic welding, resource coordination and controller test infrastructure.",
-    "VueData LLC": "Python-based warehouse automation and robotic system evaluation for motion planning and perception."
+    "Lucid Motors": "Real-time LiDAR and ultrasonic sensor fusion and occupancy mapping, running on production vehicles.",
+    "Kforce, Inc": "Modern C++ for multi-arm robotic welding: sharing resources across robots, plus test infrastructure for the controllers.",
+    "VueData LLC": "Python automation for warehouse equipment, and evaluation of robotic motion planning and perception software."
   }
 }
