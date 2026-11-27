@@ -186,29 +186,69 @@
     },
     {
       "projectId": "project-3",
-      "status": "draft",
-      "problem": "Label every pixel of a KITTI street image with a class such as road, vehicle, building or vegetation.",
-      "approach": "A UNet I wrote from scratch in PyTorch: a four-level encoder (64 to 512 channels, two 3×3 convolutions with batch norm per level) and a transposed-convolution decoder with skip connections. Images are resized to 256×512. The KITTI semantic training set is split 80/20 into training and validation, with augmentation on the training part only.",
+      "status": "approved",
+      "problem": "Label every pixel of a KITTI street image as one of the 19 Cityscapes classes, such as road, car, building or vegetation, with only 200 labelled images to learn from.",
+      "approach": "A UNet I wrote from scratch in PyTorch: a four-level encoder (64 to 512 channels, two 3×3 convolutions with batch norm per level) and a transposed-convolution decoder with skip connections. No pretrained weights. The 200 labelled KITTI images are split once into 160 for training and 40 for validation, and the split is saved in the repo. The first version (v1) trained on all 34 KITTI label IDs at 256×512. The second (v2) trains on the 19 classes that are scored, at 352×1184, and was trained from scratch for 600 epochs on my laptop's 6 GB RTX 3060, in fp32.",
+      "pipeline": [
+        { "step": "Load data", "detail": "The 34 KITTI label IDs are mapped to the 19 trainIds with a lookup table. Everything else becomes 255 and is ignored. Images are resized once to 352×1184 and kept in RAM.", "source": "kitti_dataset.py, metrics.py" },
+        { "step": "Augment", "detail": "Random scale between 0.75 and 1.5, a random 352×592 crop, flips, brightness, contrast, colour jitter and blur.", "source": "kitti_dataset.py" },
+        { "step": "Train", "detail": "Batch 4, plain cross-entropy that skips ignored pixels, AdamW at 1e-3 with 5 warm-up epochs and then poly decay to 0.", "source": "train.py" },
+        { "step": "Validate", "detail": "Every 5 epochs on the 40 val images. best.pt is saved when val mIoU goes up and last.pt every epoch, so a run can resume.", "source": "train.py" },
+        { "step": "Evaluate", "detail": "Predict at 352×1184, upsample the logits to the original image size and add every image to one 19×19 confusion matrix.", "source": "evaluate.py, metrics.py" }
+      ],
       "decisions": [
         {
-          "title": "Augmentation for a small dataset",
-          "explanation": "An Albumentations pipeline with horizontal flips, brightness and contrast changes, colour jitter, Gaussian blur and shift-scale-rotate, followed by ImageNet normalization.",
-          "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/kitti_dataset.py#L17-L25" }]
+          "title": "Scoring it the standard way",
+          "explanation": "The v1 training loop averaged mIoU over batches of 12 images, which drags the mean down whenever a class is rare in a batch. Its plots showed about 0.28. I wrote evaluate.py to build one confusion matrix over the whole val split at the original resolution and average IoU over the 19 classes, and tested the metric against a small example worked out by hand. Scored this way, the same v1 checkpoint gets 0.364.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/metrics.py#L21-L57", "note": "Confusion matrix and IoU" },
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/evaluate.py#L73-L114", "note": "evaluate_split" },
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/tests/test_metrics.py", "note": "Metric tests" }
+          ]
         },
         {
-          "title": "Training and validation",
-          "explanation": "Adam at 1e-3, batch size 12, cross-entropy that ignores unlabelled pixels (label 255), and mean IoU computed on the validation split.",
-          "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/6d4f23b35fc5429553e481372f9c38b816f4f2f2/train.py" }]
+          "title": "Training on the scored classes at KITTI's image shape",
+          "explanation": "v1 predicted all 34 label IDs and squashed the roughly 1242×375 images into 256×512. v2 predicts only the 19 classes that are scored and resizes to 352×1184, which keeps the aspect ratio. To fit in 6 GB it trains on random 352×592 crops after random scaling. Thin and small classes improved the most: at the last epoch of each run, traffic signs went from 0.200 to 0.425 IoU and poles from 0.369 to 0.442. I changed the classes, resolution, crops and schedule together, so I can't say how much each one helped.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/kitti_dataset.py#L13-L42", "note": "Dataset, scaling and crops" },
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/docs/RESULTS.md#v1-against-v2", "note": "Per-class IoU, v1 and v2" }
+          ]
+        },
+        {
+          "title": "Learning-rate schedule and checkpoints",
+          "explanation": "v1 used Adam at a fixed 1e-3 and only the last checkpoint. v2 uses AdamW with 5 warm-up epochs and poly decay (power 0.9), stepped every batch, and checks val mIoU every 5 epochs. The best checkpoint is picked on the same 40 images it's scored on, so the main number I report is the last epoch's.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/train.py#L52-L66", "note": "AdamW, warm-up and poly decay" },
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/train.py#L203-L217", "note": "best.pt and last.pt" }
+          ]
+        },
+        {
+          "title": "Measuring speed before changing it",
+          "explanation": "I timed the training step with each usual speed-up added one at a time. Caching images in RAM and pinned memory changed nothing, because the step is all GPU compute. channels_last and torch.compile made it slower on this GPU. bf16 was about 2.2× faster, but I kept v2 in fp32 so it matches v1. A 600-epoch run took 4 h 33 min, 26.3 s per epoch.",
+          "evidence": [
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/bench.py", "note": "Benchmark script" },
+            { "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/docs/RESULTS.md#speed", "note": "Timing table" }
+          ]
         }
       ],
-      "limitations": [
-        "Mean IoU is computed during training, but no result is recorded in the repository yet, so there's no accuracy number here.",
-        "Validation uses part of the KITTI training images, not the official test server."
+      "evaluation": [
+        { "metric": "Mean IoU, v2 (last epoch)", "value": 0.3997, "unit": "unitless (0 to 1)", "protocol": "40 validation images held out from the 200 labelled KITTI semantics images (splits/val.txt). KITTI's test labels aren't public, so there's no test-server score. Predictions are upsampled to the original image size and all 40 images go into one 19×19 confusion matrix. IoU = TP / (TP + FP + FN) for each class, averaged over the 19 classes. Checkpoint last.pt, epoch 600 of 600.", "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/docs/RESULTS.md#v1-against-v2" }] },
+        { "metric": "Pixel accuracy, v2 (last epoch)", "value": 0.8841, "unit": "unitless (0 to 1)", "protocol": "Same 40 validation images and confusion matrix as above. Correct pixels over all labelled pixels; ignored pixels aren't counted.", "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/docs/RESULTS.md#v1-against-v2" }] },
+        { "metric": "Mean IoU, v2 (best checkpoint)", "value": 0.4051, "unit": "unitless (0 to 1)", "protocol": "Same method, checkpoint best.pt from epoch 500. It was picked on the same 40 images it's scored on, so it's a bit optimistic. After about epoch 450 val mIoU moves between 0.39 and 0.405.", "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/results/v2/best_classes.csv" }] },
+        { "metric": "Mean IoU, v1 (last epoch, scored again)", "value": 0.3637, "unit": "unitless (0 to 1)", "protocol": "The first model, epoch 500 of 500, scored with the same method on the same 40 images. It predicts 34 label IDs, which go through the same mapping to the 19 classes; a pixel predicted as an ignored ID counts as a miss.", "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/blob/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55/results/v1_rescore/summary.csv" }] }
       ],
-      "reproducibility": "Put the KITTI semantics data under data/ as the README describes, then run python train.py and python inference.py.",
-      "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/tree/6d4f23b35fc5429553e481372f9c38b816f4f2f2", "commit": "6d4f23b35fc5429553e481372f9c38b816f4f2f2" }],
+      "limitations": [
+        "Only 40 validation images, taken from the KITTI training set, and no test-server score. Neighbouring checkpoints differ by about 0.01 mIoU, so smaller differences are noise.",
+        "Trained from scratch on 160 images. People, riders and bicycles are still almost always wrong (IoU under 0.1), and bus, train and motorcycle have too few pixels in the val split to score reliably."
+      ],
+      "nextSteps": [
+        "A pretrained encoder (for example ResNet-34) in place of the from-scratch one",
+        "bf16 training, which measured about 2.2× faster on the same GPU"
+      ],
+      "reproducibility": "Put the KITTI semantics data under data/ as the README describes and install requirements.txt. EPOCHS=600 bash run_v2.sh runs the tests, scores the v1 checkpoints again, trains v2 and evaluates it. python evaluate.py outputs/v2/checkpoints/best.pt outputs/v2/checkpoints/last.pt prints 0.4051 and 0.3997.",
+      "evidence": [{ "url": "https://github.com/kshitijSharma2204/semantic-segmentation/tree/e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55", "commit": "e74bb2c82b3dc3f4bab8efb83f8904b6294f5e55" }],
       "reviewNotes": [
-        "Re-score the saved checkpoints with the standard 19-class mIoU and record the number (with split and epoch) in the repo before publishing."
+        "Evidence is pinned to e74bb2c, the head of PR #2 in the segmentation repo. GitHub keeps that commit whichever way the PR is merged."
       ]
     }
   ]
