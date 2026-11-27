@@ -56,29 +56,29 @@
     },
     "project-3": {
       "original": {
-        "path": "/assets/projects/semantic_segmentation_inference.gif",
-        "width": 2484,
-        "height": 374,
-        "bytes": 25263239,
+        "path": "/assets/projects/semantic_segmentation_v2_drive_0018.gif",
+        "width": 620,
+        "height": 187,
+        "bytes": 7312685,
         "animated": true
       },
       "poster": {
         "640": "/media/posters/project-3-640.webp",
         "1280": "/media/posters/project-3-1280.webp",
-        "width": 1280,
-        "height": 192,
-        "bytes640": 11144,
-        "bytes1280": 30912
+        "width": 620,
+        "height": 188,
+        "bytes640": 12616,
+        "bytes1280": 12616
       },
       "og": "/media/og/project-3.jpg",
       "video": {
         "mp4": "/media/video/project-3.mp4",
         "webm": "/media/video/project-3.webm",
-        "width": 960,
-        "height": 144,
-        "duration": 9,
-        "mp4Bytes": 301046,
-        "webmBytes": 289034
+        "width": 620,
+        "height": 186,
+        "duration": 27,
+        "mp4Bytes": 389537,
+        "webmBytes": 209054
       }
     },
     "project-4": {
@@ -427,6 +427,27 @@
       "height": 400,
       "bytes": 14876,
       "originalBytes": 99925
+    },
+    "/assets/projects/semantic_segmentation_v2_val_median.png": {
+      "src": "/media/gallery/semantic_segmentation_v2_val_median-1200.webp",
+      "width": 669,
+      "height": 714,
+      "bytes": 53656,
+      "originalBytes": 344915
+    },
+    "/assets/projects/semantic_segmentation_v2_test_000079.png": {
+      "src": "/media/gallery/semantic_segmentation_v2_test_000079-1200.webp",
+      "width": 1200,
+      "height": 362,
+      "bytes": 39022,
+      "originalBytes": 631731
+    },
+    "/assets/projects/semantic_segmentation_v2_training_curves.png": {
+      "src": "/media/gallery/semantic_segmentation_v2_training_curves-1200.webp",
+      "width": 990,
+      "height": 496,
+      "bytes": 26712,
+      "originalBytes": 77823
     },
     "/assets/projects/obj_detection_01.jpg": {
       "src": "/media/gallery/obj_detection_01-1200.webp",

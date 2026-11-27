@@ -53,7 +53,12 @@
     "project-3": {
       "slug": "kitti-semantic-segmentation",
       "featuredRank": 4,
-      "displayCategory": "computer-vision-perception"
+      "displayCategory": "computer-vision-perception",
+      "captions": {
+        "/assets/projects/semantic_segmentation_v2_val_median.png": "The median validation image (000059_10, mIoU 0.571): input, ground truth and the v2 prediction. Black in the ground truth is ignored.",
+        "/assets/projects/semantic_segmentation_v2_test_000079.png": "v2 prediction over KITTI test image 000079_10. Test images have no public labels, so this one isn't scored.",
+        "/assets/projects/semantic_segmentation_v2_training_curves.png": "v2 training over 600 epochs: train and val loss, and val mIoU every 5 epochs"
+      }
     },
     "project-4": {
       "slug": "one-shot-object-detection",

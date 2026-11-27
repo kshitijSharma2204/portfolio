@@ -64,10 +64,14 @@
     {
       "id": "project-3",
       "title": "KITTI Semantic Segmentation",
-      "mainDescr": "A UNet I wrote in PyTorch for pixel-wise semantic segmentation of KITTI street scenes, with scripts for training and inference.",
-      "description": "Semantic segmentation of KITTI driving scenes with a UNet written from scratch in PyTorch. I wrote the dataset class with Albumentations augmentation, a training loop that tracks validation loss and mean IoU, and an inference script that saves side-by-side comparisons, overlays on the input image and colour-coded masks.",
-      "image": "/assets/projects/semantic_segmentation_inference.gif",
-      "images": [],
+      "mainDescr": "A UNet I wrote in PyTorch and trained from scratch on 160 KITTI images. It gets 0.400 mIoU over the 19 Cityscapes classes on 40 held-out images.",
+      "description": "Semantic segmentation of KITTI street scenes with a UNet I wrote from scratch in PyTorch. The first version trained on all 34 KITTI label IDs with the images squashed to 256×512. For the second one I switched to the 19 classes that are actually scored, kept KITTI's wide image shape (352×1184) with random scaling and crops, and used AdamW with warm-up and a poly learning-rate decay. I also wrote an evaluation script that scores a checkpoint the standard way, with one confusion matrix over the whole validation set. On 40 held-out images the last v2 checkpoint gets 0.400 mIoU, up from 0.364 for v1 scored the same way. Training v2 for 600 epochs took about four and a half hours on my laptop's RTX 3060.",
+      "image": "/assets/projects/semantic_segmentation_v2_drive_0018.gif",
+      "images": [
+        "/assets/projects/semantic_segmentation_v2_val_median.png",
+        "/assets/projects/semantic_segmentation_v2_test_000079.png",
+        "/assets/projects/semantic_segmentation_v2_training_curves.png"
+      ],
       "link": "https://github.com/kshitijSharma2204/semantic-segmentation",
       "group": "Computer Vision",
       "skills": [
